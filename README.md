@@ -46,6 +46,7 @@ The shell script **build.sh** can run each step separately or all at the same ti
 ```
    The script launches the command _vagrant up_.
    As results, a VM will created into VirtualBox. You can test it. You can also made a SSH connection in 2 ways :
+
         * First,  ssh -p2222 vagrant@127.0.0.1
         * Second  ssh vagrant@<IP of your VM>
    In both cases, no passord will bas asked if ssh-agent running. Otherwise, enter _vagrant_ as passord.
