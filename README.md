@@ -59,7 +59,7 @@ The shell script **build.sh** can run each step separately or all at the same ti
    $> sh ./build.sh -e
 ```
    The script launches the command _vagrant package_.
-   As results, a VM file will created under the builds/vm folder. You can use it as a virtual appliance into VirtualBox or in the cloud.
+   As results, a VM file will created under the builds/vm folder. You can use it as a virtual appliance into VirtualBox or in an OpenStack cloud.
 
 All steps can be run at the same time:
 ```

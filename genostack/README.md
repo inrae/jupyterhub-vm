@@ -26,3 +26,33 @@ at the **API access** section. There, on the upper right corner, a drop down lis
 allows you to download the **OpenStack RC files** as well as the **clouds.yaml** file.
 
 
+## About the scripts
+
+The scripts provided here only serve to illustrate an example of VM creation on the OpenStack infrastructure of [IFB GenOuest bioinformatics](https://www.genouest.org/2017/03/02/cluster/). This of course requires access to this infrastructure, as any other infrastructure for that matter.
+
+Please refer to the following online documentation:
+
+### cloud-init
+* cloud-init Documentation
+  https://cloudinit.readthedocs.io/en/latest/index.html
+
+* Cloud config examples
+  https://cloudinit.readthedocs.io/en/latest/topics/examples.html
+
+* Deploy A CentOS Server Customized With Cloud-Init
+  https://devops.ionos.com/tutorials/deploy-a-centos-server-customized-with-cloud-init/
+
+* cloud-init example using a Generic Cloud CentOS-7 on a libvirtd qmu/kvm lab
+  https://gist.github.com/ebal/03b9f00e6412971d3fd5b0b685b1c95d
+
+
+### OpenStack Client
+
+* OpenStackClient
+  https://docs.openstack.org/python-openstackclient/latest/
+
+* How to use the OpenStackClient on Microsoft operating systems
+  https://docs.ukcloud.com/articles/openstack/ostack-how-use-cli.html
+
+* python-openstackclient 
+  https://pypi.org/project/python-openstackclient/
