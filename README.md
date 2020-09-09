@@ -6,7 +6,7 @@ The [Littlest JupyterHub](https://tljh.jupyter.org/), a recent and evolving dist
 
 ### Creation and configuration of a virtual machine
 
-Requires [VirtualBox](), [Packer](https://www.packer.io/), [Vagrant](https://www.vagrantup.com/) to be installed beforehand.
+Requires [VirtualBox](https://www.virtualbox.org/), [Packer](https://www.packer.io/), [Vagrant](https://www.vagrantup.com/) to be installed beforehand.
 
 * **VirtualBox**: this is what we call the "supplier". If the objective is to use the VM on his desktop computer, then the VM will have to run in VirtualBox. If the objective is to use the VM in the cloud (OpenStack for example), then VirtualBox is only used here as an intermediary to build the VM.
 
@@ -14,7 +14,7 @@ Requires [VirtualBox](), [Packer](https://www.packer.io/), [Vagrant](https://www
 
 * **Vagrant** : will allow us to provision our VM with [Ansible](https://www.ansible.com/).
 
-* **Ansible** which is a powerfull tool allowing to describe tasks using a langage, then turn tough tasks into repeatable playbooks. It is not necessary to install Ansible beforehand. It will be installed temporarily on the virtual machine to proceed the provisionning. It will be removed at the end.
+* **Ansible** which is a powerfull tool allowing to describe tasks using a langage, then turn tough tasks into repeatable playbooks. It is **not necessary to install Ansible** beforehand. It will be installed temporarily on the virtual machine to proceed the provisionning. It will be removed at the end.
 
 ![Overview](https://raw.githubusercontent.com/djacob65/jupyterhub-vm/master/images/overview.png)
 
