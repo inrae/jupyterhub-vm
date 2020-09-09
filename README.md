@@ -16,7 +16,7 @@ Requires [VirtualBox](), [Packer](https://www.packer.io/), [Vagrant](https://www
 
 * **Ansible** which is a powerfull tool allowing to describe tasks using a langage, then turn tough tasks into repeatable playbooks. It is not necessary to install Ansible beforehand. It will be installed temporarily on the virtual machine to proceed the provisionning. It will be removed at the end.
 
-![Overview](https://github.com/djacob65/jupyterhub-vm/blob/master/image/overview.png?raw=true)
+![Overview](https://github.com/djacob65/jupyterhub-vm/raw/master/image/overview.png
 
 
 
