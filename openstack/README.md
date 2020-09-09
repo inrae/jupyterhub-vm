@@ -32,20 +32,6 @@ The scripts provided here only serve to illustrate an example of VM creation on 
 
 Please refer to the following online documentation:
 
-### cloud-init
-* cloud-init Documentation
-  https://cloudinit.readthedocs.io/en/latest/index.html
-
-* Cloud config examples
-  https://cloudinit.readthedocs.io/en/latest/topics/examples.html
-
-* Deploy A CentOS Server Customized With Cloud-Init
-  https://devops.ionos.com/tutorials/deploy-a-centos-server-customized-with-cloud-init/
-
-* cloud-init example using a Generic Cloud CentOS-7 on a libvirtd qmu/kvm lab
-  https://gist.github.com/ebal/03b9f00e6412971d3fd5b0b685b1c95d
-
-
 ### OpenStack Client
 
 * OpenStackClient
