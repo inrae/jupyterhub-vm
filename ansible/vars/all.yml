@@ -1,0 +1,78 @@
+---
+server:
+    timezone: MET
+    locale: fr_FR.UTF-8
+vm:
+    hostname: jupyterhub
+    ip: 192.168.99.1
+    ansible_dir: /vagrant/ansible
+    data_folder: /media/sf_DATA
+repository:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: E298A3A825C0D65DFD57CBB651716619E084DAB9
+    repos:
+      - ppa:marutter/c2d4u3.5
+      - deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/
+python_pkgs:
+  - pandas
+  - numpy
+  - matplotlib
+  - scikit-learn
+r_cran_pkgs:
+  - r-cran-rjson
+  - r-cran-jsonlite
+  - r-cran-foreach
+  - r-cran-multicore
+  - r-cran-doparallel
+  - r-cran-httpuv
+  - r-cran-xtable
+  - r-cran-igraph
+  - r-cran-ggplot2
+  - r-cran-plotly
+  - r-cran-plyr
+  - r-cran-dt
+  - r-cran-xml
+  - r-cran-tidyr
+  - r-cran-tidyverse
+  - r-cran-ade4
+  - r-cran-amap
+  - r-cran-cairo
+  - r-cran-car
+  - r-cran-data.table
+  - r-cran-data.tree
+  - r-cran-dendextend
+  - r-cran-reshape
+  - r-cran-gplots
+  - r-cran-hmisc
+  - r-cran-hyperspec
+  - r-cran-ks
+  - r-cran-fdrtool
+  - r-cran-moments
+  - r-cran-fitdistrplus
+  - r-cran-pls
+  - r-cran-jade
+  - r-cran-ppcor
+  - r-cran-svglite
+  - r-cran-d3network
+  - r-cran-nortest
+  - r-cran-genenet
+  - r-cran-feather
+  - r-cran-rcppparallel
+  - r-cran-cpp11
+  - r-cran-dplyr
+  - r-cran-curl
+  - r-cran-farver
+  - r-cran-ps
+  - r-cran-processx
+  - r-cran-backports
+  - r-cran-rprojroot
+  - r-cran-ptw 
+  - r-cran-docopt 
+  - r-bioc-mixomics
+  - r-bioc-impute
+#r_bioc_pkgs:
+#  - ropls
+#r_github_pkgs:
+#r_src_pkgs
+
+

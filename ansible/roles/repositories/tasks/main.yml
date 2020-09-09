@@ -1,0 +1,11 @@
+---
+
+- name: Add an apt key by id from a keyserver
+  apt_key:
+    keyserver: "{{repository.keyserver}}"
+    id: "{{repository.id}}"
+
+- name: Add repositories
+  apt_repository:
+    repo: "{{item}}"
+  with_items: "{{repository.repos}}"

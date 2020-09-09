@@ -1,0 +1,48 @@
+---
+
+- set_fact:
+    tljh_admin: "admin"
+    tljh_url: "https://raw.githubusercontent.com/jupyterhub/the-littlest-jupyterhub/master/bootstrap/bootstrap.py"
+    tljh_limit_cpu: 2
+    tljh_limit_mem: "2G"
+
+- name: Run the Jupyerhub install script 
+  script:
+    cmd: "/usr/bin/curl {{ tljh_url }} | /usr/bin/python3 - --admin {{ tljh_admin }}; exit 0"
+
+- name: Generate the jupyterhub config file
+  script:
+    chdir: /opt/tljh/config/jupyterhub_config.d/
+    cmd: "/opt/tljh/hub/bin/jupyterhub --generate-config"
+
+- name: Set jupyterHub.bind_url
+  lineinfile: 
+    dest=/opt/tljh/config/jupyterhub_config.d/jupyterhub_config.py
+    regexp='^.*c.JupyterHub.bind_url' 
+    line="c.JupyterHub.bind_url = 'http://<<VM_NAME>>'"
+    owner=root 
+    group=root 
+    mode=0644
+
+- name: Set jupyterHub.hub_ip
+  lineinfile: 
+    dest=/opt/tljh/config/jupyterhub_config.d/jupyterhub_config.py
+    regexp='^.*c\.JupyterHub.hub_ip' 
+    line="c.JupyterHub.hub_ip = ''"
+    owner=root 
+    group=root 
+    mode=0644
+
+- name: Rename jupyterhub config file as a template
+  command: mv /opt/tljh/config/jupyterhub_config.d/jupyterhub_config.py /opt/tljh/config/jupyterhub_config.d/jupyterhub_config.tpl
+
+- name: Set the limit memory for Jupyerhub
+  command: "/opt/tljh/hub/bin/tljh-config set limits.memory {{ tljh_limit_mem }}"
+
+- name: Set the limit cpu for Jupyerhub
+  command: "/opt/tljh/hub/bin/tljh-config set limits.cpu {{ tljh_limit_cpu }}"
+
+- name: Reload Jupyerhub config 
+  command: /opt/tljh/hub/bin/tljh-config reload
+
+

@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: true
+  #gather_facts: no
+
+  vars_files:
+    - vars/all.yml
+
+  environment:
+    PYTHONHTTPSVERIFY: 0
+
+  roles:
+    - server
+    - vm
+    - repositories
+    - jupyterhub
+    - python_pkgs
+    - r_pkgs

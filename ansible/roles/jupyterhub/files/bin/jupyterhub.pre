@@ -1,0 +1,7 @@
+#!/bin/bash
+
+CONFIG_DIR=/opt/tljh/config/jupyterhub_config.d/
+
+VMNAME=$(/usr/local/bin/get-hostname)
+
+sed -e "s/<<VM_NAME>>/$VMNAME/g" $CONFIG_DIR/jupyterhub_config.tpl > $CONFIG_DIR/jupyterhub_config.py

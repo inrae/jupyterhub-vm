@@ -1,0 +1,8 @@
+---
+
+# tasks to run after the main provision
+
+ - include: install.yml
+ - include: install-r.yml
+ - include: ir-kernel.yml
+ - include: config.yml

@@ -1,0 +1,28 @@
+## About authentication to the OpenStack server 
+
+To use an OpenStack cloud you need to authenticate against the Identity
+service named keystone, which returns a **Token** and **Service Catalog**.
+The catalog contains the endpoints for all services the user/tenant has
+access to - such as Compute, Image Service, Identity, Object Storage, Block
+Storage, and Networking (code-named nova, glance, keystone, swift,
+cinder, and neutron).
+
+Using the 3 *Identity API* does not necessarily mean any other
+OpenStack API is version 3. For example, your cloud provider may implement
+Image API v1.1, Block Storage API v2, and Compute API v2.0. OS_AUTH_URL is
+only for the Identity API served through keystone.
+
+The **clouds.yaml** file can be used by OpenStack tools as a source
+of configuration on how to connect to a cloud. If this is your only cloud,
+just put this file in ~/.config/openstack/clouds.yaml and tools like
+python-openstackclient will just work with no further config. (You will need
+to add your password to the auth section)
+If you have more than one cloud account, add the cloud entry to the clouds
+section of your existing file and you can refer to them by name with
+OS_CLOUD=openstack or --os-cloud=openstack
+
+You can retrieve this script from **OpenStack Dashboard** (web interface) 
+at the **API access** section. There, on the upper right corner, a drop down list 
+allows you to download the **OpenStack RC files** as well as the **clouds.yaml** file.
+
+
