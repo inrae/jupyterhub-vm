@@ -12,7 +12,7 @@ Requires [VirtualBox](https://www.virtualbox.org/), [Packer](https://www.packer.
 
 * **Packer** : allows the creation of a virtual machine from an ISO, having a very precise control over its characteristics. Here it will allow us to build a VM compatible with the Vagrant tool.
 
-* **Vagrant** : will allow us to provision our VM with [Ansible](https://docs.ansible.com/ansible/latest/index.html).
+* **Vagrant** : allows building virtual machines from basic building blocks called boxes for Providers by provisioning / configuring them by Provisioners. We will use it to provision our VM with [Ansible](https://docs.ansible.com/ansible/latest/index.html).
 
 * **Ansible** which is a powerfull tool allowing to describe tasks using a langage, then turn tough tasks into repeatable playbooks. It is **not necessary to install Ansible** beforehand. It will be installed temporarily on the virtual machine to proceed the provisionning. It will be removed at the end of the VM creation.
 
