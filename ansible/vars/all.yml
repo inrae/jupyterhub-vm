@@ -66,13 +66,20 @@ r_cran_pkgs:
   - r-cran-processx
   - r-cran-backports
   - r-cran-rprojroot
-  - r-cran-ptw 
-  - r-cran-docopt 
   - r-bioc-mixomics
   - r-bioc-impute
+#  - r-cran-signal
+#  - r-cran-ptw
+#  - r-bioc-massspecwavelet
+#  - r-cran-speaq
+#  - r-cran-upsetr
+#  - r-cran-data.tree
+#  - r-cran-diagrammer  
 #r_bioc_pkgs:
 #  - ropls
 #r_github_pkgs:
+#  - INRA/Rodam
+#  - INRA/Rnmr1D
 #r_src_pkgs
 
 
