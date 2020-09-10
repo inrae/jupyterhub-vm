@@ -49,8 +49,8 @@ The shell script **build.sh** can run each step separately or all at the same ti
 
         * First,  ssh -p2222 vagrant@127.0.0.1
         * Second  ssh vagrant@<IP of your VM>
-   In both cases, no password will be asked if ssh-agent running. Otherwise, enter _vagrant_ as passord.
-   
+   In both cases, no password will be asked if ssh-agent running. Otherwise, enter _vagrant_ as password.
+
    The default IP and the default data path (shared data) are those defined in the build.sh script.
    * To specify another IP, use the _-i_ option. VirtualBox will create the corresponding Ethernet adapters. You need to specify _-i dhcp_ if the VM is to be run on the cloud.
    * To specify another data folder, use the _-d_ option. You need to specify _-d none_ if the VM is to be run on the cloud. In the latter case,  you can put files (data, scripts) under the _ansible/roles/jupyterhub/files/share_ folder so that they are included in the shared folder within the VM and accessible in the 'shared_data' folder in jupyter notebooks.  This folder can also be replaced by a symbolic link pointing to another folder containing the data and/or scripts to be shared.
@@ -66,6 +66,16 @@ All steps can be run at the same time:
 ```
    $> sh ./build.sh -pue -i <IP> -d <shared data folder>
 ```
+
+
+#### Using JupyterHub
+
+The first time you log in to JupyterHub via the web interface, you must enter the administrator's login and password. The administrator's login is _admin_ (configured in the file _ansible/roles/jupyterhub/tasks/install.yml_). The first time you log in to JupyterHub via the web interface, you must enter the administrator's login and password. The administrator's login is _admin_ (configured in the file _ansible/roles/jupyterhub/tasks/install.yml_). 
+
+![Login](https://raw.githubusercontent.com/djacob65/jupyterhub-vm/master/images/jupyterhub_login.png)
+
+The password is to be set by entering it when logging in for the first time. Then, it is registered as a user account of the machine (Linux account). 
+
 
 
 
