@@ -21,7 +21,7 @@ If you have more than one cloud account, add the cloud entry to the clouds
 section of your existing file and you can refer to them by name with
 OS_CLOUD=openstack or --os-cloud=openstack
 
-You can retrieve this script from **OpenStack Dashboard** (web interface) 
+You can retrieve the openstack RC scripts from **OpenStack Dashboard** (web interface) 
 at the **API access** section. There, on the upper right corner, a drop down list 
 allows you to download the **OpenStack RC files** as well as the **clouds.yaml** file.
 
