@@ -1,6 +1,16 @@
-## Littlest JupyterHub
+## Purpose
+
+Build a virtual machine from scratch
+
+    * containing The Littlest JupyerHub (TLJH)
+    * with the help of Packer, Vagrant and Ansible tools 
+    * for using with VirtualBox or OpenStack.
+
+### JupyterHub
 
 [JupyterHub](https://jupyter.org/hub) runs in the cloud or on your own hardware, and makes it possible to serve a pre-configured data science environment to any user in the world. It is customizable and scalable, and is suitable for small and large teams, academic courses, and large-scale infrastructure.
+
+### Littlest JupyterHub
 
 The [Littlest JupyterHub](https://tljh.jupyter.org/), a recent and evolving distribution designed for smaller deployments, is a lightweight method to install JupyterHub on a single virtual machine. The Littlest JupyterHub (also known as TLJH), provides a guide with information on creating a VM on several cloud providers, as well as installing and customizing JupyterHub so that users may access it at a public URL.
 
@@ -70,7 +80,7 @@ All steps can be run at the same time:
 
 #### Using JupyterHub
 
-The first time you log in to JupyterHub via the web interface, you must enter the administrator's login and password. The administrator's login is _admin_ (configured in the file _ansible/roles/jupyterhub/tasks/install.yml_). The first time you log in to JupyterHub via the web interface, you must enter the administrator's login and password. The administrator's login is _admin_ (configured in the file _ansible/roles/jupyterhub/tasks/install.yml_). 
+The first time you log in to JupyterHub via the web interface, you must enter the administrator's login and password. The administrator's login is _admin_ (configured in the file _ansible/roles/jupyterhub/tasks/install.yml_).
 
 ![Login](https://raw.githubusercontent.com/djacob65/jupyterhub-vm/master/images/jupyterhub_login.png)
 
