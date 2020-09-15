@@ -6,6 +6,10 @@ Build a virtual machine (VM) from a [server install image of ubuntu](http://cdim
 * with the help of _Packer_, _Vagrant_ and _Ansible_ tools 
 * for using with _VirtualBox_ or _OpenStack_.
 
+Can be used as a model to implement other applications.
+
+All the tools used are exclusively free and open-source.
+
 ### JupyterHub
 
 [JupyterHub](https://jupyter.org/hub) runs in the cloud or on your own hardware, and makes it possible to serve a pre-configured data science environment to any user in the world. It is customizable and scalable, and is suitable for small and large teams, academic courses, and large-scale infrastructure.
