@@ -32,7 +32,7 @@ The scripts provided here only serve to illustrate an example of VM creation on 
 
 Please refer to the following online documentation:
 
-### OpenStack Client
+#### OpenStack Client
 
 * OpenStackClient
   https://docs.openstack.org/python-openstackclient/latest/
@@ -44,7 +44,7 @@ Please refer to the following online documentation:
   https://pypi.org/project/python-openstackclient/
 
 
-### Acknowledgements
+## Acknowledgements
 
 We would like to thank the [IFB GenOuest bioinformatics](https://www.genouest.org/2017/03/02/cluster/) for providing storage and computing resources on its national life science Cloud.
 
