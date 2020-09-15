@@ -1,0 +1,1 @@
+Virtual machines built with Packer and Vagrant will be stored here.

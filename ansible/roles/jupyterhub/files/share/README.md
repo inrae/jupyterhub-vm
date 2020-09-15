@@ -1,0 +1,1 @@
+For use in a cloud (e.g. OpenStack), drop the data and/or scripts you want to share in JupyterHub here (accessible via the shared_data folder). This folder can also be replaced by a symbolic link pointing to another folder containing the data and/or scripts to be shared.

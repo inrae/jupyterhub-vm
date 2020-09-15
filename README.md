@@ -48,7 +48,7 @@ The shell script **build.sh** can run each step separately or all at the same ti
    $> sh ./build.sh -p
 ```
    The script launches the command _packer build box-config.json_.
-   As results, a vagrant box will be generate under the builds folder.
+   As results, a vagrant box will be generate under the _builds_ folder.
 
 2. Generate the VM into _VirtualBox_
 ```
