@@ -1,3 +1,3 @@
-* For use in a cloud (e.g. OpenStack), drop the data and/or scripts you want to share in JupyterHub here (accessible via the shared_data folder).
+* For use in a cloud (e.g. _OpenStack_), drop the data and/or scripts you want to share in _JupyterHub_ here (accessible via the _shared_data_ folder in _JupyterHub_ sessions).
 * This folder can also be replaced by a symbolic link pointing to another folder containing the data and/or scripts to be shared.
 * When building the final VM with Vagrant (_build.sh_ script), think to specify _-d none_ if the VM is to be run on the cloud.
