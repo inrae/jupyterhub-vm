@@ -1,10 +1,10 @@
 ## Purpose
 
-Build a virtual machine from scratch
+Build a virtual machine (VM) from an ISO file of a miminal distribution of ubuntu
 
-    * containing The Littlest JupyerHub (TLJH)
-    * with the help of Packer, Vagrant and Ansible tools 
-    * for using with VirtualBox or OpenStack.
+* containing _The Littlest JupyerHub_ (TLJH)
+* with the help of _Packer_, _Vagrant_ and _Ansible_ tools 
+* for using with _VirtualBox_ or _OpenStack_.
 
 ### JupyterHub
 
@@ -12,19 +12,19 @@ Build a virtual machine from scratch
 
 ### Littlest JupyterHub
 
-The [Littlest JupyterHub](https://tljh.jupyter.org/), a recent and evolving distribution designed for smaller deployments, is a lightweight method to install JupyterHub on a single virtual machine. The Littlest JupyterHub (also known as TLJH), provides a guide with information on creating a VM on several cloud providers, as well as installing and customizing JupyterHub so that users may access it at a public URL.
+The [Littlest JupyterHub](https://tljh.jupyter.org/), a recent and evolving distribution designed for smaller deployments, is a lightweight method to install _JupyterHub_ on a single virtual machine. The _Littlest JupyterHub_ (also known as TLJH), provides a guide with information on creating a VM on several cloud providers, as well as installing and customizing _JupyterHub_ so that users may access it at a public URL.
 
 ### Creation and configuration of a virtual machine
 
 Requires [VirtualBox](https://www.virtualbox.org/), [Packer](https://www.packer.io/), [Vagrant](https://www.vagrantup.com/) to be installed beforehand.
 
-* **VirtualBox**: this is what we call the "provider". If the objective is to use the VM on his desktop computer, then the VM will have to run in _VirtualBox_. If the objective is to use the VM in the cloud (_OpenStack_ for example), then _VirtualBox_ is only used here as an intermediary to build the VM.
+* **VirtualBox**: this is what we call the [provider](https://www.vagrantup.com/docs/providers). If the objective is to use the VM on his desktop computer, then the VM will have to run in _VirtualBox_. If the objective is to use the VM in the cloud (_OpenStack_ for example), then _VirtualBox_ is only used here as an intermediary to build the VM.
 
 * **Packer** : allows the creation of a virtual machine from an ISO, having a very precise control over its characteristics. Here it will allow us to build a VM compatible with the Vagrant tool.
 
-* **Vagrant** : allows building virtual machines from basic building blocks called [boxes](https://app.vagrantup.com/boxes/search) for _Providers_ by provisioning / configuring them by _Provisioners_. We will use it to provision our VM with [Ansible](https://docs.ansible.com/ansible/latest/index.html).
+* **Vagrant** : allows building virtual machines from basic building blocks called [boxes](https://app.vagrantup.com/boxes/search) for _Providers_ by provisioning / configuring them by _Provisioners_. We will use it to [provision](https://www.vagrantup.com/docs/provisioning) our VM with [Ansible](https://docs.ansible.com/ansible/latest/index.html).
 
-* **Ansible** which is a powerfull tool allowing to describe tasks using [Playbooks](https://docs.ansible.com/ansible/latest/user_guide/playbooks.html), then turn tough tasks into repeatable playbooks. It is **not necessary to install Ansible** beforehand. It will be installed temporarily on the virtual machine to proceed the provisionning. It will be removed at the end of the VM creation.
+* **Ansible** which is a powerfull tool allowing to describe tasks using [Playbooks](https://docs.ansible.com/ansible/latest/user_guide/playbooks.html), then turn tough tasks into repeatable playbooks. It is **not necessary to install Ansible** beforehand. It will be installed temporarily on the virtual machine to proceed the [provisionning](https://www.vagrantup.com/docs/provisioning). It will be removed at the end of the VM creation.
 
 ![Overview](https://raw.githubusercontent.com/djacob65/jupyterhub-vm/master/images/overview.png)
 
@@ -62,7 +62,7 @@ The shell script **build.sh** can run each step separately or all at the same ti
    In both cases, no password will be asked if ssh-agent running. Otherwise, enter _vagrant_ as password.
 
    The default IP and the default data path (shared data) are those defined in the _build.sh_ script.
-   * To specify another IP, use the _-i_ option. VirtualBox will create the corresponding Ethernet adapters. You need to specify _-i dhcp_ if the VM is to be run on the cloud.
+   * To specify another IP, use the _-i_ option. _VirtualBox_ will create the corresponding Ethernet adapters. You need to specify _-i dhcp_ if the VM is to be run on the cloud.
    * To specify another data folder, use the _-d_ option. You need to specify _-d none_ if the VM is to be run on the cloud. In the latter case,  you can put files (data, scripts) under the _ansible/roles/jupyterhub/files/share_ folder so that they are included in the shared folder within the VM and accessible in the 'shared_data' folder in jupyter notebooks.  This folder can also be replaced by a symbolic link pointing to another folder containing the data and/or scripts to be shared.
 
 3. Export the VM 
