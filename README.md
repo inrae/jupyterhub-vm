@@ -6,7 +6,7 @@ Build a virtual machine (VM) from a [server install image of ubuntu](http://cdim
 * with the help of _Packer_, _Vagrant_ and _Ansible_ tools 
 * for using with _VirtualBox_ or _OpenStack_.
 
-Can be used as a model to implement other applications.
+Can be used as a model/canevas to implement other applications.
 
 All the tools used are exclusively free and open-source.
 
@@ -24,9 +24,9 @@ Requires [VirtualBox](https://www.virtualbox.org/), [Packer](https://www.packer.
 
 * **VirtualBox**: this is what we call the [provider](https://www.vagrantup.com/docs/providers). If the objective is to use the VM on his desktop computer, then the VM will have to run in _VirtualBox_. If the objective is to use the VM in the cloud (_OpenStack_ for example), then _VirtualBox_ is only used here as an intermediary to build the VM.
 
-* **Packer** : allows the creation of a virtual machine from an ISO, having a very precise control over its characteristics. Here it will allow us to build a VM compatible with the Vagrant tool.
+* **Packer** : allows the creation of a virtual machine from an ISO, having a very precise control over its characteristics. Here it will allow us to build a VM compatible with the Vagrant tool, called a box.
 
-* **Vagrant** : allows building virtual machines from basic building blocks called [boxes](https://app.vagrantup.com/boxes/search) for _Providers_ by [provisioning](https://www.vagrantup.com/docs/provisioning) / configuring them by _Provisioners_. We will use it to provision our VM with [Ansible](https://docs.ansible.com/ansible/latest/index.html).
+* **Vagrant** : allows building virtual machines from basic building blocks called [boxes](https://app.vagrantup.com/boxes/search) for [Providers](https://www.vagrantup.com/docs/providers) by [provisioning](https://www.vagrantup.com/docs/provisioning) them by _Provisioners_ such as [Ansible](https://docs.ansible.com/ansible/latest/index.html).
 
 * **Ansible** which is a powerfull tool allowing to describe tasks using [Playbooks](https://docs.ansible.com/ansible/latest/user_guide/playbooks.html), then turn tough tasks into repeatable playbooks. It is **not necessary to install Ansible** beforehand. It will be installed temporarily on the virtual machine to proceed the [provisionning](https://www.vagrantup.com/docs/provisioning). It will be removed at the end of the VM creation.
 
