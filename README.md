@@ -26,7 +26,7 @@ Requires [VirtualBox](https://www.virtualbox.org/), [Packer](https://www.packer.
 
 * **Packer** : allows the creation of a virtual machine from an ISO, having a very precise control over its characteristics. Here it will allow us to build a VM compatible with the Vagrant tool.
 
-* **Vagrant** : allows building virtual machines from basic building blocks called [boxes](https://app.vagrantup.com/boxes/search) for _Providers_ by provisioning / configuring them by _Provisioners_. We will use it to [provision](https://www.vagrantup.com/docs/provisioning) our VM with [Ansible](https://docs.ansible.com/ansible/latest/index.html).
+* **Vagrant** : allows building virtual machines from basic building blocks called [boxes](https://app.vagrantup.com/boxes/search) for _Providers_ by [provisioning](https://www.vagrantup.com/docs/provisioning) / configuring them by _Provisioners_. We will use it to provision our VM with [Ansible](https://docs.ansible.com/ansible/latest/index.html).
 
 * **Ansible** which is a powerfull tool allowing to describe tasks using [Playbooks](https://docs.ansible.com/ansible/latest/user_guide/playbooks.html), then turn tough tasks into repeatable playbooks. It is **not necessary to install Ansible** beforehand. It will be installed temporarily on the virtual machine to proceed the [provisionning](https://www.vagrantup.com/docs/provisioning). It will be removed at the end of the VM creation.
 
@@ -37,7 +37,7 @@ Requires [VirtualBox](https://www.virtualbox.org/), [Packer](https://www.packer.
 
 * **http/preseed.cfg** : Debian-based VM [preconfiguration file](https://wiki.debian.org/DebianInstaller/Preseed) (ubuntu). 
 * **box-config.json** : configuration file used by Packer to define what image we want built. In particular, you can adjust the disk size (18 Gb).
-* **Vagranfile.tmpl** : template for the configuration file used by _Vagrant_ to describe the type of the machine and how to configure and provision it. This template file is used by the build.sh script to generate the real Vagrant file used by Vagrant.
+* **Vagrantfile.tmpl** : template for the configuration file used by _Vagrant_ to describe the type of the machine and how to configure and provision it. This template file is used by the _build.sh_ script (see below) to generate the real _Vagrantfile_ used by Vagrant.
 * **ansible/vars/all.yml** : Variable definition file used by ansible to configure the installation of the VM and the packages, modules, etc. In particular, you can put here all R packages and Python modules to be installed and available in Jupyter notebooks.
 
 
@@ -52,14 +52,14 @@ The shell script **build.sh** can run each step separately or all at the same ti
    $> sh ./build.sh -p
 ```
    The script launches the command _packer build box-config.json_.
-   As results, a vagrant box will be generate under the _builds_ folder.
+   As results, a vagrant box will be generated under the _builds_ folder.
 
 2. Generate the VM into _VirtualBox_
 ```
    $> sh ./build.sh -u
 ```
    The script launches the command _vagrant up_.
-   As results, a VM will created into _VirtualBox_. You can test it. You can also made a SSH connection in 2 ways :
+   As results, a VM will create into _VirtualBox_. You can test it. You can also made a SSH connection in 2 ways :
 
         * First,  ssh -p2222 vagrant@127.0.0.1
         * Second  ssh vagrant@<IP of your VM>
@@ -74,7 +74,7 @@ The shell script **build.sh** can run each step separately or all at the same ti
    $> sh ./build.sh -e
 ```
    The script launches the command _vagrant package_.
-   As results, a VM file will created under the _builds/vm_ folder. You can use it as a virtual appliance into _VirtualBox_ or in an OpenStack cloud.
+   As results, a VM file will create under the _builds/vm_ folder. You can use it as a virtual appliance into _VirtualBox_ or in an OpenStack cloud.
 
 All steps can be run at the same time:
 ```
