@@ -25,6 +25,8 @@ You can retrieve the openstack RC scripts from **OpenStack Dashboard** (web inte
 at the **API access** section. There, on the upper right corner, a drop down list 
 allows you to download the **OpenStack RC files** as well as the **clouds.yaml** file.
 
+![get_auth](https://raw.githubusercontent.com/djacob65/jupyterhub-vm/master/images/openstack_authfiles.png)
+
 
 ## About the scripts
 
