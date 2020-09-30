@@ -5,7 +5,7 @@ MYDIR=`dirname $0` && [ ! `echo "$0" | grep '^\/'` ] && MYDIR=`pwd`/$MYDIR
 VM_NAME="ubuntu1804"
 VM_BOX=ubuntu-box.tar.gz
 IP=192.168.99.1
-DATA="C:/Workdir/Projects/dataexplorer/Jupyter"
+DATA="/data"
 #IP=dhcp
 #DATA="none"
 
