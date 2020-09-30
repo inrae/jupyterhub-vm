@@ -1,6 +1,6 @@
 ## Purpose
 
-Build a virtual machine (VM) from a [server install image of ubuntu](http://cdimage.ubuntu.com/ubuntu/releases/bionic/release/) (ISO file)
+Building automation of a virtual machine (VM) from a [server install image of ubuntu](http://cdimage.ubuntu.com/ubuntu/releases/bionic/release/) (ISO file)
 
 * containing _The Littlest JupyerHub_ (TLJH)
 * with the help of _Packer_, _Vagrant_ and _Ansible_ tools 
