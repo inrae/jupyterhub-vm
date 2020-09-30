@@ -39,6 +39,9 @@ Please refer to the following online documentation:
 * OpenStackClient
   https://docs.openstack.org/python-openstackclient/latest/
 
+* OpenStack Python SDK
+  https://docs.openstack.org/mitaka/user-guide/sdk.html
+
 * How to use the OpenStackClient on Microsoft operating systems
   https://docs.ukcloud.com/articles/openstack/ostack-how-use-cli.html
 
