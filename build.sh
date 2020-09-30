@@ -77,7 +77,6 @@ if [ $PACKER -eq 1 ]; then
   cd $MYDIR
   time $PACKEREXE build box-config.json | tee logs/packer.log
   rm -rf $MY_HOME/VirtualBox\ VMs/packer-ubuntu-18.04-amd64
-  #rm -rf $MYDIR/output-virtualbox-iso
   rm -rf $MYDIR/packer_cache
   cd $PWD
 fi
@@ -151,7 +150,6 @@ if [ $EXPORT -eq 1 ]; then
   rm -rf $MYDIR/.vagrant
   rm -rf $MYDIR/files
   cd $MYDIR/builds/
-  #rm virtualbox-${VM_NAME}.box
   mkdir vm
   cd vm
   tar xvzf ../../$VM_BOX
