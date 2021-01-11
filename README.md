@@ -63,11 +63,11 @@ The shell script **build.sh** can run each step separately or all at the same ti
 
         * First,  ssh -p2222 vagrant@127.0.0.1
         * Second  ssh vagrant@<IP of your VM>
-   In both cases, no password will be asked if ssh-agent running. Otherwise, enter _vagrant_ as password.
+   In both cases, no password will be asked if [ssh-agent](https://www.ssh.com/ssh/agent) running. Otherwise, enter _vagrant_ as password.
 
    The default IP and the default data path (shared data) are those defined in the _build.sh_ script.
    * To specify another IP, use the _-i_ option. _VirtualBox_ will create the corresponding Ethernet adapters. You need to specify _-i dhcp_ if the VM is to be run on the cloud.
-   * To specify another data folder, use the _-d_ option. You need to specify _-d none_ if the VM is to be run on the cloud. In the latter case,  you can put files (data, scripts) under the _ansible/roles/jupyterhub/files/share_ folder so that they are included in the shared folder within the VM and accessible in the 'shared_data' folder in jupyter notebooks.  This folder can also be replaced by a symbolic link pointing to another folder containing the data and/or scripts to be shared.
+   * To specify another data folder, use the _-d_ option. You need to specify _-d none_ if the VM is to be run on the cloud. In the latter case,  you can put files (data, scripts) under the _ansible/roles/jupyterhub/files/share_ folder so that they are included in the shared folder within the VM and accessible in the _shared_data_ folder in jupyter notebooks.  This folder can also be replaced by a symbolic link pointing to another folder containing the data and/or scripts to be shared.
 
 3. Export the VM 
 ```
