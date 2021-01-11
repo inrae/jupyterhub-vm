@@ -9,10 +9,18 @@ Bringing machine 'default' up with 'virtualbox' provider...
 ==> default: Box file was not detected as metadata. Adding it directly...
 ==> default: Adding box 'file://builds/virtualbox-ubuntu1804.box' (v0) for provider: virtualbox
     default: Unpacking necessary files from: file://C:/VirtualMach/Vagrant/v4/builds/virtualbox-ubuntu1804.box
-[KProgress: 100% (Rate: 846M/s, Estimated time remaining: --:--:--)[K    default: 
+[KProgress: 100% (Rate: 972M/s, Estimated time remaining: --:--:--)[K    default: 
 ==> default: Successfully added box 'file://builds/virtualbox-ubuntu1804.box' (v0) for 'virtualbox'!
+==> default: You assigned a static IP ending in ".1" to this machine.
+==> default: This is very often used by the router and can cause the
+==> default: network to not work properly. If the network doesn't work
+==> default: properly, try changing this IP.
 ==> default: Importing base box 'file://builds/virtualbox-ubuntu1804.box'...
 [KProgress: 10%[KProgress: 90%[K==> default: Matching MAC address for NAT networking...
+==> default: You assigned a static IP ending in ".1" to this machine.
+==> default: This is very often used by the router and can cause the
+==> default: network to not work properly. If the network doesn't work
+==> default: properly, try changing this IP.
 ==> default: Setting the name of the VM: ubuntu1804
 ==> default: Clearing any previously set network interfaces...
 ==> default: Preparing network interfaces based on configuration...
@@ -39,7 +47,6 @@ Bringing machine 'default' up with 'virtualbox' provider...
 PLAY [all] *********************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [default]
 [DEPRECATION WARNING]: Distribution Ubuntu 18.04 on host default should use 
 /usr/bin/python3, but is using /usr/bin/python for backward compatibility with 
 prior Ansible releases. A future Ansible release will default to using the 
@@ -47,6 +54,16 @@ discovered platform python for this host. See https://docs.ansible.com/ansible/
 2.9/reference_appendices/interpreter_discovery.html for more information. This 
 feature will be removed in version 2.12. Deprecation warnings can be disabled 
 by setting deprecation_warnings=False in ansible.cfg.
+ok: [default]
+
+TASK [repositories : Add an apt key by id from a keyserver] ********************
+changed: [default]
+
+TASK [Add repositories] ********************************************************
+changed: [default] => (item=ppa:marutter/c2d4u3.5)
+changed: [default] => (item=ppa:hnakamur/libgit2)
+changed: [default] => (item=ppa:pappacena/launchpad-ppa)
+changed: [default] => (item=deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/)
 
 TASK [server : Configure the timezone] *****************************************
 changed: [default]
@@ -66,12 +83,17 @@ changed: [default]
 TASK [vm : Update /etc/hosts] **************************************************
 changed: [default]
 
-TASK [repositories : Add an apt key by id from a keyserver] ********************
+TASK [install-r : Remove libgit2 0.26] *****************************************
+ok: [default]
+
+TASK [install-r : Install libgit2 0.27] ****************************************
 changed: [default]
 
-TASK [Add repositories] ********************************************************
-changed: [default] => (item=ppa:marutter/c2d4u3.5)
-changed: [default] => (item=deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/)
+TASK [install-r : set_fact] ****************************************************
+ok: [default]
+
+TASK [install-r : Install R along with some useful packages] *******************
+changed: [default]
 
 TASK [jupyterhub : set_fact] ***************************************************
 ok: [default]
@@ -103,12 +125,6 @@ changed: [default]
 TASK [jupyterhub : set_fact] ***************************************************
 ok: [default]
 
-TASK [jupyterhub : Install R along with some useful packages] ******************
-changed: [default]
-
-TASK [jupyterhub : set_fact] ***************************************************
-ok: [default]
-
 TASK [jupyterhub : Install IR Kernel packages from source] *********************
 changed: [default]
 
@@ -125,8 +141,8 @@ TASK [jupyterhub : find files to copy] *****************************************
 ok: [default]
 
 TASK [jupyterhub : Copy the utils into /usr/local/bin] *************************
-changed: [default] => (item={u'rusr': True, u'uid': 900, u'rgrp': True, u'xoth': True, u'islnk': False, u'woth': True, u'nlink': 1, u'issock': False, u'mtime': 1599221664.8908303, u'gr_name': u'vagrant', u'path': u'/vagrant/ansible/roles/jupyterhub/files/bin/get-hostname', u'xusr': True, u'atime': 1599636553.142877, u'inode': 149, u'isgid': False, u'size': 218, u'isdir': False, u'wgrp': True, u'ctime': 1599221664.9191036, u'isblk': False, u'xgrp': True, u'isuid': False, u'dev': 48, u'roth': True, u'isreg': True, u'isfifo': False, u'mode': u'0777', u'pw_name': u'vagrant', u'gid': 900, u'ischr': False, u'wusr': True})
-changed: [default] => (item={u'rusr': True, u'uid': 900, u'rgrp': True, u'xoth': True, u'islnk': False, u'woth': True, u'nlink': 1, u'issock': False, u'mtime': 1599221454.7266233, u'gr_name': u'vagrant', u'path': u'/vagrant/ansible/roles/jupyterhub/files/bin/jupyterhub.pre', u'xusr': True, u'atime': 1599636553.1481264, u'inode': 150, u'isgid': False, u'size': 204, u'isdir': False, u'wgrp': True, u'ctime': 1599221480.1629336, u'isblk': False, u'xgrp': True, u'isuid': False, u'dev': 48, u'roth': True, u'isreg': True, u'isfifo': False, u'mode': u'0777', u'pw_name': u'vagrant', u'gid': 900, u'ischr': False, u'wusr': True})
+changed: [default] => (item={u'rusr': True, u'uid': 900, u'rgrp': True, u'xoth': True, u'islnk': False, u'woth': True, u'nlink': 1, u'issock': False, u'mtime': 1599221664.8908303, u'gr_name': u'vagrant', u'path': u'/vagrant/ansible/roles/jupyterhub/files/bin/get-hostname', u'xusr': True, u'atime': 1606487445.5419912, u'inode': 151, u'isgid': False, u'size': 218, u'isdir': False, u'wgrp': True, u'ctime': 1599221664.9191036, u'isblk': False, u'xgrp': True, u'isuid': False, u'dev': 48, u'roth': True, u'isreg': True, u'isfifo': False, u'mode': u'0777', u'pw_name': u'vagrant', u'gid': 900, u'ischr': False, u'wusr': True})
+changed: [default] => (item={u'rusr': True, u'uid': 900, u'rgrp': True, u'xoth': True, u'islnk': False, u'woth': True, u'nlink': 1, u'issock': False, u'mtime': 1599221454.7266233, u'gr_name': u'vagrant', u'path': u'/vagrant/ansible/roles/jupyterhub/files/bin/jupyterhub.pre', u'xusr': True, u'atime': 1606487445.544003, u'inode': 152, u'isgid': False, u'size': 204, u'isdir': False, u'wgrp': True, u'ctime': 1599221480.1629336, u'isblk': False, u'xgrp': True, u'isuid': False, u'dev': 48, u'roth': True, u'isreg': True, u'isfifo': False, u'mode': u'0777', u'pw_name': u'vagrant', u'gid': 900, u'ischr': False, u'wusr': True})
 
 TASK [Copy jupyterhub.service with owner and permissions] **********************
 changed: [default]
@@ -155,12 +171,6 @@ changed: [default]
 TASK [Restart jupyterhub application] ******************************************
 changed: [default]
 
-TASK [python_pkgs : Install each of python module in the list] *****************
-changed: [default] => (item=pandas)
-changed: [default] => (item=numpy)
-changed: [default] => (item=matplotlib)
-changed: [default] => (item=scikit-learn)
-
 TASK [r_pkgs : Install R packages from repositories (binary format)] ***********
 changed: [default]
 
@@ -173,11 +183,17 @@ changed: [default]
 TASK [r_pkgs : Install R packages from repositories (source format)] ***********
 skipping: [default]
 
+TASK [python_pkgs : Install each of python module in the list] *****************
+changed: [default] => (item=pandas)
+changed: [default] => (item=numpy)
+changed: [default] => (item=matplotlib)
+changed: [default] => (item=scikit-learn)
+
 PLAY RECAP *********************************************************************
-default                    : ok=37   changed=32   unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
+default                    : ok=39   changed=33   unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
 
 ==> default: Running provisioner: shell...
-    default: Running: C:/cygwin64/tmp/vagrant-shell20200909-1908-18uegdt.sh
+    default: Running: C:/cygwin64/tmp/vagrant-shell20210106-22548-1czour8.sh
     default: + trap finish ERR
     default: + apt -y remove --purge ansible
     default: WARNING: 
@@ -196,8 +212,8 @@ default                    : ok=37   changed=32   unreachable=0    failed=0    s
     default: Use 'sudo apt autoremove' to remove them.
     default: The following packages will be REMOVED:
     default:   ansible*
-    default: 0 upgraded, 0 newly installed, 1 to remove and 24 not upgraded.
-    default: After this operation, 58.0 MB disk space will be freed.
+    default: 0 upgraded, 0 newly installed, 1 to remove and 74 not upgraded.
+    default: After this operation, 58.1 MB disk space will be freed.
     default: (Reading database ... 
     default: (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%
     default: (Reading database ... 55%
@@ -209,8 +225,8 @@ default                    : ok=37   changed=32   unreachable=0    failed=0    s
     default: (Reading database ... 85%
     default: (Reading database ... 90%
     default: (Reading database ... 95%
-    default: (Reading database ... 100%(Reading database ... 114102 files and directories currently installed.)
-    default: Removing ansible (2.9.13-1ppa~bionic) ...
+    default: (Reading database ... 100%(Reading database ... 114389 files and directories currently installed.)
+    default: Removing ansible (2.9.16-1ppa~bionic) ...
     default: Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
     default: (Reading database ... 
     default: (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%
@@ -223,35 +239,34 @@ default                    : ok=37   changed=32   unreachable=0    failed=0    s
     default: (Reading database ... 85%
     default: (Reading database ... 90%
     default: (Reading database ... 95%
-    default: (Reading database ... 100%(Reading database ... 107974 files and directories currently installed.)
-    default: Purging configuration files for ansible (2.9.13-1ppa~bionic) ...
+    default: (Reading database ... 100%(Reading database ... 108261 files and directories currently installed.)
+    default: Purging configuration files for ansible (2.9.16-1ppa~bionic) ...
     default: + apt-add-repository --remove ppa:ansible/ansible
     default:  Ansible is a radically simple IT automation platform that makes your applications and systems easier to deploy. Avoid writing scripts or custom code to deploy and update your applications— automate in a language that approaches plain English, using SSH, with no agents to install on remote systems.
     default: 
     default: http://ansible.com/
     default:  More info: https://launchpad.net/~ansible/+archive/ubuntu/ansible
     default: + apt autoremove
-    default: 
-    default: WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+    default: WARNING: 
+    default: apt
+    default:  
+    default: does not have a stable CLI interface. 
+    default: Use with caution in scripts.
     default: Reading package lists...
     default: Building dependency tree...
+    default: 
     default: Reading state information...
     default: The following packages will be REMOVED:
     default:   python-asn1crypto python-cffi-backend python-crypto python-cryptography
     default:   python-enum34 python-httplib2 python-idna python-ipaddress python-jinja2
     default:   python-markupsafe python-paramiko python-pkg-resources python-pyasn1
     default:   python-setuptools python-six python-yaml sshpass
-    default: 0 upgraded, 0 newly installed, 17 to remove and 24 not upgraded.
-    default: After this operation, 8,470 kB disk space will be freed.
-    default: Do you want to continue?
-    default:  [Y/n] 
+    default: 0 upgraded, 0 newly installed, 17 to remove and 74 not upgraded.
+    default: After this operation, 8,715 kB disk space will be freed.
+    default: Do you want to continue? [Y/n] 
     default: Abort.
     default: ++ finish
     default: ++ '[' -f /tmp/EMPTY ']'
-
-real    21m23.079s
-user    0m0.030s
-sys     0m0.046s
 
 #-------------------------------------------------------------------
 $> vagrant package --output ubuntu-box.tar.gz
@@ -260,9 +275,8 @@ $> vagrant package --output ubuntu-box.tar.gz
 ==> default: Clearing any previously set forwarded ports...
 ==> default: Exporting VM...
 [K==> default: Compressing package to: C:/VirtualMach/Vagrant/v4/ubuntu-box.tar.gz
-
-real    6m15.960s
-user    0m0.000s
-sys     0m0.015s
-
+==> default: You assigned a static IP ending in ".1" to this machine.
+==> default: This is very often used by the router and can cause the
+==> default: network to not work properly. If the network doesn't work
+==> default: properly, try changing this IP.
 ==> default: Destroying VM and associated drives...

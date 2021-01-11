@@ -4,8 +4,6 @@ MYDIR=`dirname $0` && [ ! `echo "$0" | grep '^\/'` ] && MYDIR=`pwd`/$MYDIR
 # Run the OpenStack RC File (Identity API v3.0) - See README.md
 . ./openrc_v3.sh
 
-export OS_PASSWORD="XXXXXX"
-
 alias ostack="$(which openstack) --os-cloud=openstack --os-password $OS_PASSWORD"
 alias onova="$(which nova) --os-password $OS_PASSWORD"
 
@@ -19,7 +17,7 @@ ostack server list
 # List flavors on the OpenStack server
 ostack flavor list
 
-# Genostack flavors (September, 2020) - https://genostack.genouest.org/dashboard/
+# Genostack flavors (January, 2021) - https://genostack.genouest.org/dashboard/
 # +------------+-------+------+-------+-----------+
 # | Name       |   RAM | Disk | VCPUs | Is Public |
 # +------------+-------+------+-------+-----------+
@@ -35,19 +33,39 @@ ostack flavor list
 # | m2.2xlarge | 32768 |   20 |     4 | True      |
 # +------------+-------+------+-------+-----------+
 
+ostack security group list
+# Genostack security groups (January, 2021) - https://genostack.genouest.org/dashboard/
+# +--------------------------------------+---------+------------------------+
+# | ID                                   | Name    | Description            |
+# +--------------------------------------+---------+------------------------+
+# | 1fc2329c-c191-45fc-8e60-eb32fb9d1b9a | default | Default security group |
+# +--------------------------------------+---------+------------------------+
+
+ostack keypair list
+
+# Genostack key pairs (January, 2021) - https://genostack.genouest.org/dashboard/
+# +-----------+
+# | Name      |
+# +-----------+
+# | default   |
+# | genostack |
+# | vagrant   |
+# +-----------+
+
 #---------------
 
 # Create an image to the OpenStack server from a local VM file (format VDI, VMDK, QCOW2, OVA, ... )
 
 IMAGE_NAME=jupyterhub-image
+FORMAT=vmdk
 
-#ostack image delete $IMAGE_NAME
-
-ostack image create --disk-format vmdk --container-format bare --public --file $MYDIR/../builds/vm/box-disk001.vmdk $IMAGE_NAME
+ostack image create --disk-format $FORMAT --file $MYDIR/../builds/vm/box-disk001.$FORMAT $IMAGE_NAME
 
 ostack image set --property description='JupyterHub with R and Python' $IMAGE_NAME
 
 ostack image show $IMAGE_NAME
+
+#ostack image delete $IMAGE_NAME
 
 #---------------
 
@@ -56,15 +74,19 @@ ostack image show $IMAGE_NAME
 #ostack server delete jupystack
 
 IMAGE_NAME=jupyterhub-image
+FORMAT=vmdk
+
+SERVER_NAME=jupystack
+KEYPAIR=genostack
+FLAVOR_NAME=m1.xlarge
 
 IMAGEID=$(ostack image show $IMAGE_NAME | grep "| id " | cut -d'|' -f3 | sed -e "s/ //g")
-FLAVORID=$(ostack flavor list | grep "m2.2xlarge"  | cut -d'|' -f2 | sed -e "s/ //g")
+FLAVORID=$(ostack flavor list | grep "$FLAVOR_NAME"  | cut -d'|' -f2 | sed -e "s/ //g")
+
 
 onova boot --flavor $FLAVORID --image $IMAGEID --security-groups default \
-           --meta OS_PROXY_HUB=/hub,http://\$IP:80/hub,true,10 \
-           --meta OS_PROXY_USER=/user,http://\$IP:80/user,true,10 \
-           --user-data ./user-data-jupystack.txt \
-           --key-name npflow  jupystack
+           --user-data $MYDIR/user-data-jupystack.txt \
+           --key-name $KEYPAIR  $SERVER_NAME
 
-ostack server show jupystack
+ostack server show $SERVER_NAME
 

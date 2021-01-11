@@ -1,10 +1,22 @@
 ---
 
+- name: Remove libgit2 0.26
+  apt:
+    name: libgit2-26
+    state: absent
+
+- name: Install libgit2 0.27
+  apt:
+    name: libgit2-27
+    state: present
+
+
 - set_fact:
     r_install:
       - r-recommended
-      - r-base-dev
       - r-cran-rcpp
+      - r-cran-gert
+      - r-cran-usethis
       - r-cran-devtools
       - r-cran-biocmanager
       - r-cran-rcurl

@@ -15,31 +15,30 @@
 # at the "API access" section. There, on the upper right corner, a drop down list 
 # allows you to download the OpenStack RC files as well as the clouds.yaml file.
 
-export OS_AUTH_URL=https://genostack-api-keystone.genouest.org/v3
+export OS_AUTH_URL=https://genostack-api-keystone.genouest.org
+# With the addition of Keystone we have standardized on the term **project**
+# as the entity that owns the resources.
 export OS_PROJECT_ID=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 export OS_PROJECT_NAME="XXXXXX"
-
 export OS_USER_DOMAIN_NAME="Users"
 if [ -z "$OS_USER_DOMAIN_NAME" ]; then unset OS_USER_DOMAIN_NAME; fi
-
 export OS_PROJECT_DOMAIN_ID="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 if [ -z "$OS_PROJECT_DOMAIN_ID" ]; then unset OS_PROJECT_DOMAIN_ID; fi
-
 # unset v2.0 items in case set
 unset OS_TENANT_ID
 unset OS_TENANT_NAME
-unset OS_PASSWORD
-
+# In addition to the owning entity (tenant), OpenStack stores the entity
+# performing the action as the **user**.
 export OS_USERNAME="XXXXXX"
-#echo "Please enter your OpenStack Password for project $OS_PROJECT_NAME as user $OS_USERNAME: "
-#read -sr OS_PASSWORD_INPUT
-#export OS_PASSWORD=$OS_PASSWORD_INPUT
-
+# With Keystone you pass the keystone password.
+echo "Please enter your OpenStack Password for project $OS_PROJECT_NAME as user $OS_USERNAME: "
+read -sr OS_PASSWORD_INPUT
+export OS_PASSWORD=$OS_PASSWORD_INPUT
 # If your configuration has multiple regions, we set that information here.
 # OS_REGION_NAME is optional and only valid in certain environments.
-export OS_REGION_NAME="GenOuest"
+export OS_REGION_NAME="RegionOne"
 # Don't leave a blank variable, unset it if it was empty
 if [ -z "$OS_REGION_NAME" ]; then unset OS_REGION_NAME; fi
-
 export OS_INTERFACE=public
 export OS_IDENTITY_API_VERSION=3
+

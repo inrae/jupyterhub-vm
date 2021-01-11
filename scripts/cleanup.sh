@@ -12,9 +12,13 @@ apt-add-repository --remove ppa:ansible/ansible
 # Apt cleanup.
 apt autoremove
 apt update
+apt-get clean
 
 # Delete unneeded files.
 rm -f /home/vagrant/*.sh
+
+# clear the Bash History
+cat /dev/null > ~/.bash_history && history -c
 
 # Zero out the rest of the free space using dd, then delete the written file.
 dd if=/dev/zero of=/tmp/EMPTY bs=1M

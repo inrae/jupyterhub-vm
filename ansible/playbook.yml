@@ -1,6 +1,7 @@
 ---
 - hosts: all
   become: true
+  become_user: root
   #gather_facts: no
 
   vars_files:
@@ -10,9 +11,10 @@
     PYTHONHTTPSVERIFY: 0
 
   roles:
+    - repositories
     - server
     - vm
-    - repositories
+    - install-r
     - jupyterhub
-    - python_pkgs
     - r_pkgs
+    - python_pkgs
