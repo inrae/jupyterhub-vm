@@ -63,7 +63,7 @@ The shell script **build.sh** can run each step separately or all at the same ti
 
         * First,  ssh -p2222 vagrant@127.0.0.1
         * Second  ssh vagrant@<IP of your VM>
-   In both cases, no password will be asked if [ssh-agent](https://www.ssh.com/ssh/agent) running. Otherwise, enter _vagrant_ as password.
+   In both cases, enter _vagrant_ as password.
 
    The default IP and the default data path (shared data) are those defined in the _build.sh_ script.
    * To specify another IP, use the _-i_ option. _VirtualBox_ will create the corresponding Ethernet adapters. You need to specify _-i dhcp_ if the VM is to be run on the cloud.
