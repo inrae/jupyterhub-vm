@@ -5,6 +5,9 @@
     tljh_url: "https://raw.githubusercontent.com/jupyterhub/the-littlest-jupyterhub/master/bootstrap/bootstrap.py"
     tljh_limit_cpu: 2
     tljh_limit_mem: "2G"
+    tljh_timeout: 3600
+    tljh_cull_interval: 60
+    tljh_maxage: 0
 
 - name: Run the Jupyerhub install script 
   script:
@@ -42,7 +45,17 @@
 - name: Set the limit cpu for Jupyerhub
   command: "/opt/tljh/hub/bin/tljh-config set limits.cpu {{ tljh_limit_cpu }}"
 
+- name: Set the idle timeout
+  command: "/opt/tljh/hub/bin/tljh-config set services.cull.timeout {{ tljh_timeout }}"
+
+- name: Set the idle check interval
+  command: "/opt/tljh/hub/bin/tljh-config set services.cull.every {{ tljh_cull_interval }}"
+
+- name: Set the maximum age
+  command: "/opt/tljh/hub/bin/tljh-config set services.cull.max_age {{ tljh_maxage }}"
+
+- name: Disabling the idle culler
+  command: "/opt/tljh/hub/bin/tljh-config set services.cull.enabled False"
+
 - name: Reload Jupyerhub config 
   command: /opt/tljh/hub/bin/tljh-config reload
-
-

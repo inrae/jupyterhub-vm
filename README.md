@@ -30,7 +30,7 @@ Requires [VirtualBox](https://www.virtualbox.org/), [Packer](https://www.packer.
 
 * **Ansible** which is a powerfull tool allowing to describe tasks using [Playbooks](https://docs.ansible.com/ansible/latest/user_guide/playbooks.html), then turn tough tasks into repeatable playbooks. It is **not necessary to install Ansible** beforehand. It will be installed temporarily on the virtual machine to proceed the [provisionning](https://www.vagrantup.com/docs/provisioning). It will be removed at the end of the VM creation.
 
-![Overview](https://raw.githubusercontent.com/djacob65/jupyterhub-vm/master/images/overview.png)
+![Overview](https://raw.githubusercontent.com/inrae/jupyterhub-vm/master/images/overview.png)
 
 
 #### Configuration files
@@ -63,11 +63,11 @@ The shell script **build.sh** can run each step separately or all at the same ti
 
         * First,  ssh -p2222 vagrant@127.0.0.1
         * Second  ssh vagrant@<IP of your VM>
-   In both cases, enter _vagrant_ as password.
+   In both cases, no password will be asked if ssh-agent running. Otherwise, enter _vagrant_ as password.
 
    The default IP and the default data path (shared data) are those defined in the _build.sh_ script.
    * To specify another IP, use the _-i_ option. _VirtualBox_ will create the corresponding Ethernet adapters. You need to specify _-i dhcp_ if the VM is to be run on the cloud.
-   * To specify another data folder, use the _-d_ option. You need to specify _-d none_ if the VM is to be run on the cloud. In the latter case,  you can put files (data, scripts) under the _ansible/roles/jupyterhub/files/share_ folder so that they are included in the shared folder within the VM and accessible in the _shared_data_ folder in jupyter notebooks.  This folder can also be replaced by a symbolic link pointing to another folder containing the data and/or scripts to be shared.
+   * To specify another data folder, use the _-d_ option. You need to specify _-d none_ if the VM is to be run on the cloud. In the latter case,  you can put files (data, scripts) under the _ansible/roles/jupyterhub/files/share_ folder so that they are included in the shared folder within the VM and accessible in the 'shared_data' folder in jupyter notebooks.  This folder can also be replaced by a symbolic link pointing to another folder containing the data and/or scripts to be shared.
 
 3. Export the VM 
 ```
@@ -86,7 +86,7 @@ All steps can be run at the same time:
 
 The first time you log in to JupyterHub via the web interface, you must enter the administrator's login and password. The administrator's login is _admin_ (configured in the file _ansible/roles/jupyterhub/tasks/install.yml_).
 
-![Login](https://raw.githubusercontent.com/djacob65/jupyterhub-vm/master/images/jupyterhub_login.png)
+![Login](https://raw.githubusercontent.com/inrae/jupyterhub-vm/master/images/jupyterhub_login.png)
 
 The password is to be set by entering it when logging in for the first time. Then, it is registered as a user account of the machine (Linux account). Thus, you will have to enter the same password for subsequent logins. To change it, you will have to connect to the VM via a console and change it with the command _passwd_.
 

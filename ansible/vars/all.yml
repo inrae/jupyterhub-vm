@@ -11,20 +11,22 @@ repository:
     keyserver: hkp://keyserver.ubuntu.com:80
     id: E298A3A825C0D65DFD57CBB651716619E084DAB9
     repos:
-    # cf https://launchpad.net/ubuntu/+ppas?name_filter=XXX to find a PPA for the XXX package
-      - ppa:marutter/c2d4u3.5
+    # cf https://cloud.r-project.org/bin/linux/ubuntu/fullREADME.html
+    #    https://launchpad.net/ubuntu/+ppas?name_filter=XXX to find a PPA for the XXX package
+      - ppa:c2d4u.team/c2d4u4.0+
       - ppa:hnakamur/libgit2
-      - deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/
+      - deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/
 python_pkgs:
   - pandas
   - numpy
   - matplotlib
   - scikit-learn
 r_cran_pkgs:
+# https://launchpad.net/~c2d4u.team/+archive/ubuntu/c2d4u4.0+/+packages?field.name_filter=XXX
+#                                   &field.status_filter=published&field.series_filter=bionic
   - r-cran-rjson
   - r-cran-jsonlite
   - r-cran-foreach
-  - r-cran-multicore
   - r-cran-doparallel
   - r-cran-httpuv
   - r-cran-xtable
@@ -40,13 +42,11 @@ r_cran_pkgs:
   - r-cran-amap
   - r-cran-cairo
   - r-cran-car
-  - r-cran-data.table
-  - r-cran-dendextend
   - r-cran-reshape
   - r-cran-gplots
+  - r-cran-data.table
+  - r-cran-dendextend
   - r-cran-hmisc
-  - r-cran-hyperspec
-  - r-cran-jade
   - r-cran-ks
   - r-cran-fdrtool
   - r-cran-moments
@@ -68,7 +68,9 @@ r_cran_pkgs:
   - r-cran-backports
   - r-cran-rprojroot
   - r-cran-signal
-  - r-cran-ptw 
+  - r-cran-ptw
+  - r-cran-minqa
+  - r-cran-ncdf4
   - r-bioc-mixomics
   - r-bioc-impute
   - r-bioc-massspecwavelet
@@ -76,10 +78,11 @@ r_cran_pkgs:
   - r-cran-upsetr
   - r-cran-data.tree
   - r-cran-diagrammer
-r_bioc_pkgs:
-  - ropls
+#r_bioc_pkgs:
+#  - ropls
 r_github_pkgs:
   - INRA/Rodam
   - INRA/Rnmr1D
-#r_src_pkgs
-
+r_src_pkgs:
+  - hyperSpec
+  - muma

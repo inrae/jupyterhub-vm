@@ -11,8 +11,8 @@ BOX_VERSION = "1.0.1"
 
 APP_NAME="ubuntu"
 VM_NAME="ubuntu1804"
-MY_IP="<<MY_IP>>"
-MY_DATA="<<MY_DATA>>"
+MY_IP="dhcp"
+MY_DATA="none"
 
 ## Vagrant version
 Vagrant.require_version ">= 2.0.0"

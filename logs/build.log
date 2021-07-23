@@ -1,10 +1,16 @@
-
-#-------------------------------------------------------------------
-$> vagrant up
-
 Bringing machine 'default' up with 'virtualbox' provider...
+==> default: Box 'djacob65/small-ubuntu1804' could not be found. Attempting to find and install...
+    default: Box Provider: virtualbox
+    default: Box Version: 1.0.1
+==> default: Loading metadata for box 'djacob65/small-ubuntu1804'
+    default: URL: https://vagrantcloud.com/djacob65/small-ubuntu1804
+==> default: Adding box 'djacob65/small-ubuntu1804' (v1.0.1) for provider: virtualbox
+    default: Downloading: https://vagrantcloud.com/djacob65/boxes/small-ubuntu1804/versions/1.0.1/providers/virtualbox.box
+[KDownload redirected to host: vagrantcloud-files-production.s3-accelerate.amazonaws.com
+[KProgress: 5% (Rate: 8296k/s, Estimated time remaining: 0:03:28)[KProgress: 9% (Rate: 8780k/s, Estimated time remaining: 0:02:46)[KProgress: 10% (Rate: 8547k/s, Estimated time remaining: 0:02:38)[KProgress: 13% (Rate: 7782k/s, Estimated time remaining: 0:02:26)[KProgress: 17% (Rate: 7689k/s, Estimated time remaining: 0:02:16)[KProgress: 19% (Rate: 7641k/s, Estimated time remaining: 0:02:09)[KProgress: 21% (Rate: 8114k/s, Estimated time remaining: 0:02:06)[KProgress: 24% (Rate: 7274k/s, Estimated time remaining: 0:02:00)[KProgress: 26% (Rate: 8619k/s, Estimated time remaining: 0:01:53)[KProgress: 28% (Rate: 9139k/s, Estimated time remaining: 0:01:50)[KProgress: 31% (Rate: 7779k/s, Estimated time remaining: 0:01:44)[KProgress: 35% (Rate: 8834k/s, Estimated time remaining: 0:01:37)[KProgress: 38% (Rate: 8278k/s, Estimated time remaining: 0:01:32)[KProgress: 44% (Rate: 7187k/s, Estimated time remaining: 0:01:24)[KProgress: 46% (Rate: 6988k/s, Estimated time remaining: 0:01:21)[KProgress: 48% (Rate: 6889k/s, Estimated time remaining: 0:01:18)[KProgress: 50% (Rate: 7134k/s, Estimated time remaining: 0:01:15)[KProgress: 52% (Rate: 7967k/s, Estimated time remaining: 0:01:12)[KProgress: 53% (Rate: 7458k/s, Estimated time remaining: 0:01:11)[KProgress: 55% (Rate: 7719k/s, Estimated time remaining: 0:01:07)[KProgress: 57% (Rate: 6856k/s, Estimated time remaining: 0:01:04)[KProgress: 61% (Rate: 8524k/s, Estimated time remaining: 0:00:58)[KProgress: 62% (Rate: 9712k/s, Estimated time remaining: 0:00:56)[KProgress: 63% (Rate: 8214k/s, Estimated time remaining: 0:00:54)[KProgress: 64% (Rate: 6357k/s, Estimated time remaining: 0:00:53)[KProgress: 65% (Rate: 6557k/s, Estimated time remaining: 0:00:52)[KProgress: 67% (Rate: 7276k/s, Estimated time remaining: 0:00:49)[KProgress: 69% (Rate: 8440k/s, Estimated time remaining: 0:00:45)[KProgress: 71% (Rate: 7811k/s, Estimated time remaining: 0:00:44)[KProgress: 72% (Rate: 6216k/s, Estimated time remaining: 0:00:41)[KProgress: 74% (Rate: 6580k/s, Estimated time remaining: 0:00:39)[KProgress: 78% (Rate: 7868k/s, Estimated time remaining: 0:00:32)[KProgress: 82% (Rate: 8603k/s, Estimated time remaining: 0:00:26)[KProgress: 85% (Rate: 8958k/s, Estimated time remaining: 0:00:22)[KProgress: 88% (Rate: 6924k/s, Estimated time remaining: 0:00:17)[KProgress: 90% (Rate: 7131k/s, Estimated time remaining: 0:00:14)[KProgress: 93% (Rate: 6727k/s, Estimated time remaining: 0:00:10)[KProgress: 98% (Rate: 8766k/s, Estimated time remaining: 0:00:03)[KProgress: 100% (Rate: 8023k/s, Estimated time remaining: --:--:--)[K    default: 
+==> default: Successfully added box 'djacob65/small-ubuntu1804' (v1.0.1) for 'virtualbox'!
 ==> default: Importing base box 'djacob65/small-ubuntu1804'...
-[KProgress: 10%[KProgress: 40%[KProgress: 50%[KProgress: 90%[K==> default: Matching MAC address for NAT networking...
+[KProgress: 10%[KProgress: 40%[KProgress: 90%[K==> default: Matching MAC address for NAT networking...
 ==> default: Checking if box 'djacob65/small-ubuntu1804' version '1.0.1' is up to date...
 ==> default: Setting the name of the VM: ubuntu1804
 ==> default: Clearing any previously set network interfaces...
@@ -158,8 +164,8 @@ TASK [jupyterhub : find files to copy] *****************************************
 ok: [default]
 
 TASK [jupyterhub : Copy the utils into /usr/local/bin] *************************
-changed: [default] => (item={u'islnk': False, u'uid': 900, u'rgrp': True, u'xoth': True, u'rusr': True, u'woth': True, u'nlink': 1, u'issock': False, u'mtime': 1599221664.8908303, u'gr_name': u'vagrant', u'path': u'/vagrant/ansible/roles/jupyterhub/files/bin/get-hostname', u'xusr': True, u'atime': 1625058758.0648043, u'inode': 152, u'isgid': False, u'size': 218, u'isdir': False, u'ctime': 1599221664.9191036, u'roth': True, u'isblk': False, u'xgrp': True, u'isuid': False, u'dev': 48, u'wgrp': True, u'isreg': True, u'isfifo': False, u'mode': u'0777', u'pw_name': u'vagrant', u'gid': 900, u'ischr': False, u'wusr': True})
-changed: [default] => (item={u'islnk': False, u'uid': 900, u'rgrp': True, u'xoth': True, u'rusr': True, u'woth': True, u'nlink': 1, u'issock': False, u'mtime': 1599221454.7266233, u'gr_name': u'vagrant', u'path': u'/vagrant/ansible/roles/jupyterhub/files/bin/jupyterhub.pre', u'xusr': True, u'atime': 1625058758.3517463, u'inode': 153, u'isgid': False, u'size': 204, u'isdir': False, u'ctime': 1599221480.1629336, u'roth': True, u'isblk': False, u'xgrp': True, u'isuid': False, u'dev': 48, u'wgrp': True, u'isreg': True, u'isfifo': False, u'mode': u'0777', u'pw_name': u'vagrant', u'gid': 900, u'ischr': False, u'wusr': True})
+changed: [default] => (item={u'islnk': False, u'uid': 900, u'rgrp': True, u'xoth': True, u'rusr': True, u'woth': True, u'nlink': 1, u'issock': False, u'mtime': 1599221664.8908303, u'gr_name': u'vagrant', u'path': u'/vagrant/ansible/roles/jupyterhub/files/bin/get-hostname', u'xusr': True, u'atime': 1620723717.6483676, u'inode': 154, u'isgid': False, u'size': 218, u'isdir': False, u'ctime': 1599221664.9191036, u'roth': True, u'isblk': False, u'xgrp': True, u'isuid': False, u'dev': 48, u'wgrp': True, u'isreg': True, u'isfifo': False, u'mode': u'0777', u'pw_name': u'vagrant', u'gid': 900, u'ischr': False, u'wusr': True})
+changed: [default] => (item={u'islnk': False, u'uid': 900, u'rgrp': True, u'xoth': True, u'rusr': True, u'woth': True, u'nlink': 1, u'issock': False, u'mtime': 1599221454.7266233, u'gr_name': u'vagrant', u'path': u'/vagrant/ansible/roles/jupyterhub/files/bin/jupyterhub.pre', u'xusr': True, u'atime': 1620723717.9577901, u'inode': 155, u'isgid': False, u'size': 204, u'isdir': False, u'ctime': 1599221480.1629336, u'roth': True, u'isblk': False, u'xgrp': True, u'isuid': False, u'dev': 48, u'wgrp': True, u'isreg': True, u'isfifo': False, u'mode': u'0777', u'pw_name': u'vagrant', u'gid': 900, u'ischr': False, u'wusr': True})
 
 TASK [Copy jupyterhub.service with owner and permissions] **********************
 changed: [default]
@@ -192,7 +198,7 @@ TASK [r_pkgs : Install R packages from repositories (binary format)] ***********
 changed: [default]
 
 TASK [r_pkgs : Install R packages from BioConductor (source format)] ***********
-skipping: [default]
+changed: [default]
 
 TASK [r_pkgs : Install R packages from Github (source format)] *****************
 changed: [default]
@@ -207,10 +213,10 @@ changed: [default] => (item=matplotlib)
 changed: [default] => (item=scikit-learn)
 
 PLAY RECAP *********************************************************************
-default                    : ok=50   changed=44   unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
+default                    : ok=51   changed=45   unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
 
 ==> default: Running provisioner: shell...
-    default: Running: C:/cygwin64/tmp/vagrant-shell20210630-13616-o8jkf5.sh
+    default: Running: C:/cygwin64/tmp/vagrant-shell20210513-2960-couecn.sh
     default: + trap finish ERR
     default: + apt -y remove --purge ansible
     default: WARNING: 
@@ -229,11 +235,11 @@ default                    : ok=50   changed=44   unreachable=0    failed=0    s
     default: Use 'sudo apt autoremove' to remove them.
     default: The following packages will be REMOVED:
     default:   ansible*
-    default: 0 upgraded, 0 newly installed, 1 to remove and 141 not upgraded.
+    default: 0 upgraded, 0 newly installed, 1 to remove and 135 not upgraded.
     default: After this operation, 58.1 MB disk space will be freed.
     default: (Reading database ... 
-    default: (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%
-    default: (Reading database ... 45%(Reading database ... 50%
+    default: (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%
+    default: (Reading database ... 50%
     default: (Reading database ... 55%
     default: (Reading database ... 60%
     default: (Reading database ... 65%
@@ -243,12 +249,12 @@ default                    : ok=50   changed=44   unreachable=0    failed=0    s
     default: (Reading database ... 85%
     default: (Reading database ... 90%
     default: (Reading database ... 95%
-    default: (Reading database ... 100%(Reading database ... 137848 files and directories currently installed.)
-    default: Removing ansible (2.9.23-1ppa~bionic) ...
+    default: (Reading database ... 100%(Reading database ... 137777 files and directories currently installed.)
+    default: Removing ansible (2.9.21-1ppa~bionic) ...
     default: Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
     default: (Reading database ... 
-    default: (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%
-    default: (Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%
+    default: (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%
+    default: (Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%
     default: (Reading database ... 55%
     default: (Reading database ... 60%
     default: (Reading database ... 65%
@@ -258,38 +264,40 @@ default                    : ok=50   changed=44   unreachable=0    failed=0    s
     default: (Reading database ... 85%
     default: (Reading database ... 90%
     default: (Reading database ... 95%
-    default: (Reading database ... 100%(Reading database ... 131720 files and directories currently installed.)
-    default: Purging configuration files for ansible (2.9.23-1ppa~bionic) ...
+    default: (Reading database ... 100%(Reading database ... 131649 files and directories currently installed.)
+    default: Purging configuration files for ansible (2.9.21-1ppa~bionic) ...
     default: + apt-add-repository --remove ppa:ansible/ansible
     default:  Ansible is a radically simple IT automation platform that makes your applications and systems easier to deploy. Avoid writing scripts or custom code to deploy and update your applications— automate in a language that approaches plain English, using SSH, with no agents to install on remote systems.
     default: 
     default: http://ansible.com/
     default:  More info: https://launchpad.net/~ansible/+archive/ubuntu/ansible
     default: + apt autoremove
-    default: 
-    default: WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+    default: WARNING: 
+    default: apt
+    default:  
+    default: does not have a stable CLI interface. 
+    default: Use with caution in scripts.
     default: Reading package lists...
     default: Building dependency tree...
-    default: 
     default: Reading state information...
     default: The following packages will be REMOVED:
     default:   python-asn1crypto python-cffi-backend python-crypto python-cryptography
     default:   python-enum34 python-httplib2 python-idna python-ipaddress python-jinja2
     default:   python-markupsafe python-paramiko python-pkg-resources python-pyasn1
     default:   python-setuptools python-six python-yaml sshpass
-    default: 0 upgraded, 0 newly installed, 17 to remove and 141 not upgraded.
+    default: 0 upgraded, 0 newly installed, 17 to remove and 135 not upgraded.
     default: After this operation, 8,715 kB disk space will be freed.
     default: Do you want to continue?
     default:  [Y/n] 
     default: Abort.
     default: ++ finish
     default: ++ '[' -f /tmp/EMPTY ']'
-
-#-------------------------------------------------------------------
-$> vagrant package --output ubuntu-box.tar.gz
-
 ==> default: Attempting graceful shutdown of VM...
 ==> default: Clearing any previously set forwarded ports...
 ==> default: Exporting VM...
 [K==> default: Compressing package to: C:/VirtualMach/Vagrant/jupyterhub/ubuntu-box.tar.gz
 ==> default: Destroying VM and associated drives...
+./box-disk001.vmdk
+./box.ovf
+./metadata.json
+./Vagrantfile

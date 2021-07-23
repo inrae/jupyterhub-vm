@@ -4,22 +4,23 @@ MYDIR=`dirname $0` && [ ! `echo "$0" | grep '^\/'` ] && MYDIR=`pwd`/$MYDIR
 # VM parameters
 VM_NAME="ubuntu1804"
 VM_BOX=ubuntu-box.tar.gz
-IP=192.168.99.1
-DATA="/data"
-#IP=dhcp
-#DATA="none"
+#IP=192.168.99.1
+#DATA="C:/Workdir/Projects/dataexplorer/Jupyter"
+IP=dhcp
+DATA="none"
 
 # Windows / Cygwin ?
 RET=$(uname -a | grep -E "^CYGWIN" 1>/dev/null 2>/dev/null; echo $?)
 if [ $RET -eq 0 ]; then
   USER=$(basename $USERPROFILE)
   MY_HOME=/cygdrive/c/Users/$USER
+  PACKEREXE=/cygdrive/c/_Tools/packer/packer.exe
+  VAGRANTEXE=/cygdrive/c/_Tools/Vagrant/bin/vagrant.exe
 else
   MY_HOME=~
+  PACKEREXE=$(which packer)
+  VAGRANTEXE=$(which vagrant)
 fi
-
-PACKEREXE=$(which packer)
-VAGRANTEXE=$(which vagrant)
 
 LOG=$MYDIR/logs/vagrant.log
 RESET=0
@@ -77,6 +78,7 @@ if [ $PACKER -eq 1 ]; then
   cd $MYDIR
   time $PACKEREXE build box-config.json | tee logs/packer.log
   rm -rf $MY_HOME/VirtualBox\ VMs/packer-ubuntu-18.04-amd64
+  #rm -rf $MYDIR/output-virtualbox-iso
   rm -rf $MYDIR/packer_cache
   cd $PWD
 fi
@@ -88,7 +90,7 @@ fi
 if [ $UP -eq 1 ]; then
   # Remove some ip from known_hosts
   KNOWN_HOSTS=~/.ssh/known_hosts
-
+  
   remove_ip () {
      theIP=$1
      grep -v -E "($theIP |\[$theIP\])" $KNOWN_HOSTS > /tmp/known_hosts
@@ -97,6 +99,13 @@ if [ $UP -eq 1 ]; then
   }
   remove_ip $IP
   remove_ip 127.0.0.1
+
+  # SSH-KEYS
+  mkdir -p $MYDIR/files
+  cp $MY_HOME/.vagrant.d/insecure_private_key $MYDIR/files/id_rsa
+  chmod 700 $MYDIR/files/id_rsa
+  ssh-keygen.exe -y -f $MYDIR/files/id_rsa > $MYDIR/files/id_rsa.pub
+  ssh-add.exe $MYDIR/files/id_rsa
 
   # Remove previous local boxes
   [ -d $MY_HOME/.vagrant.d/boxes/file-* ] && rm -rf $MY_HOME/.vagrant.d/boxes/file-*
@@ -107,7 +116,7 @@ if [ $UP -eq 1 ]; then
   echo "#-------------------------------------------------------------------" >> $LOG
   echo "$> vagrant up" >> $LOG
   echo "" >> $LOG
-
+  
   # Vagrantfile
   sed -e "s!<<VM_NAME>>!${VM_NAME}!g" \
       -e "s!<<MY_IP>>!${IP}!g" \
@@ -143,6 +152,7 @@ if [ $EXPORT -eq 1 ]; then
   rm -rf $MYDIR/.vagrant
   rm -rf $MYDIR/files
   cd $MYDIR/builds/
+  #rm virtualbox-${VM_NAME}.box
   mkdir vm
   cd vm
   tar xvzf ../../$VM_BOX
