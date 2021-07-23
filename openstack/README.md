@@ -1,3 +1,4 @@
+
 ## About authentication to the OpenStack server 
 
 To use an OpenStack cloud you need to authenticate against the Identity
@@ -23,14 +24,18 @@ OS_CLOUD=openstack or --os-cloud=openstack
 
 You can retrieve the openstack RC scripts from **OpenStack Dashboard** (web interface) 
 at the **API access** section. There, on the upper right corner, a drop down list 
-allows you to download the **OpenStack RC files** as well as the **clouds.yaml** file.
+allows you to download the **OpenStack RC file** as well as the **clouds.yaml** file.
 
-![get_auth](https://raw.githubusercontent.com/djacob65/jupyterhub-vm/master/images/openstack_authfiles.png)
+![get_auth](https://raw.githubusercontent.com/inrae/jupyterhub-vm/master/images/openstack_authfiles.png)
 
 
 ## About the scripts
 
 The scripts provided here only serve to illustrate an example of VM creation on the OpenStack infrastructure of [IFB GenOuest bioinformatics](https://www.genouest.org/2017/03/02/cluster/). This of course requires access to this infrastructure, as any other infrastructure for that matter.
+
+
+For more details on the procedure, see https://inrae.github.io/jupyterhub-vm/cloud/
+
 
 Please refer to the following online documentation:
 

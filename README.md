@@ -6,17 +6,8 @@ Building automation of a virtual machine (VM) from a [server install image of ub
 * with the help of _Packer_, _Vagrant_ and _Ansible_ tools 
 * for using with _VirtualBox_ or _OpenStack_.
 
-Can be used as a model/canevas to implement other applications.
 
-All the tools used are exclusively free and open-source.
-
-### JupyterHub
-
-[JupyterHub](https://jupyter.org/hub) runs in the cloud or on your own hardware, and makes it possible to serve a pre-configured data science environment to any user in the world. It is customizable and scalable, and is suitable for small and large teams, academic courses, and large-scale infrastructure.
-
-### Littlest JupyterHub
-
-The [Littlest JupyterHub](https://tljh.jupyter.org/), a recent and evolving distribution designed for smaller deployments, is a lightweight method to install _JupyterHub_ on a single virtual machine. The _Littlest JupyterHub_ (also known as TLJH), provides a guide with information on creating a VM on several cloud providers, as well as installing and customizing _JupyterHub_ so that users may access it at a public URL.
+For more details on the procedure, see https://inrae.github.io/jupyterhub-vm/
 
 ### Creation and configuration of a virtual machine
 
