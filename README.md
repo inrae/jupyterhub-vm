@@ -7,7 +7,7 @@ Building automation of a virtual machine (VM) from a [server install image of ub
 * for using with _VirtualBox_ or _OpenStack_.
 
 
-For more details on the procedure, see https://inrae.github.io/jupyterhub-vm/
+For more details on the whole process, see https://inrae.github.io/jupyterhub-vm/
 
 ### Creation and configuration of a virtual machine
 

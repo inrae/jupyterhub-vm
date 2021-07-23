@@ -34,7 +34,7 @@ allows you to download the **OpenStack RC file** as well as the **clouds.yaml** 
 The scripts provided here only serve to illustrate an example of VM creation on the OpenStack infrastructure of [IFB GenOuest bioinformatics](https://www.genouest.org/2017/03/02/cluster/). This of course requires access to this infrastructure, as any other infrastructure for that matter.
 
 
-For more details on the procedure, see https://inrae.github.io/jupyterhub-vm/cloud/
+For more details on the whole process, see https://inrae.github.io/jupyterhub-vm/cloud/
 
 
 Please refer to the following online documentation:
