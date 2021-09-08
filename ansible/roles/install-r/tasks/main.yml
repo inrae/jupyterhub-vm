@@ -1,0 +1,32 @@
+---
+- name: Remove libgit2 0.26
+  apt:
+    name: libgit2-26
+    state: absent
+
+- name: Install libgit2 0.27
+  apt:
+    name: libgit2-27
+    state: present
+
+
+- set_fact:
+    r_install:
+      - r-recommended
+      - r-cran-rcpp
+      - r-cran-gert
+      - r-cran-usethis
+      - r-cran-devtools
+      - r-cran-biocmanager
+      - r-cran-rcurl
+      - r-cran-base64enc
+      - r-cran-mime
+      - r-cran-inline
+      - r-cran-docopt
+      - r-cran-littler
+
+- name: Install R along with some useful packages
+  apt:
+    name: "{{ r_install }}"
+    state: latest
+  when: r_install is defined

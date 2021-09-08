@@ -1,0 +1,18 @@
+---
+
+- name: Update Pip
+  command: /opt/tljh/user/bin/python3 -m pip install --upgrade pip
+
+- name: Install nbconvert
+  command: /opt/tljh/user/bin/python3 -m pip install nbconvert
+
+- name: Install Tex and Pandoc
+  command: apt-get -y  install pandoc texlive-xetex texlive-fonts-recommended texlive-latex-recommended texlive-generic-extra
+  args:
+    warn: false
+
+- name: Install jupyter_contrib_nbextensions 1/2
+  command: /opt/tljh/user/bin/python3 -m pip install jupyter_contrib_nbextensions
+
+- name: Install jupyter_contrib_nbextensions 2/2
+  command: /opt/tljh/user/bin/jupyter contrib nbextension install --sys-prefix
