@@ -1,12 +1,16 @@
-
-#-------------------------------------------------------------------
-$> vagrant up
-
 Bringing machine 'default' up with 'virtualbox' provider...
-==> default: Importing base box 'djacob65/small-ubuntu1804'...
-[KProgress: 10%[KProgress: 40%[KProgress: 50%[KProgress: 90%[K==> default: Matching MAC address for NAT networking...
-==> default: Checking if box 'djacob65/small-ubuntu1804' version '1.0.1' is up to date...
-==> default: Setting the name of the VM: ubuntu1804
+==> default: You assigned a static IP ending in ".1" or ":1" to this machine.
+==> default: This is very often used by the router and can cause the
+==> default: network to not work properly. If the network doesn't work
+==> default: properly, try changing this IP.
+==> default: Importing base box 'djreg/small-ubuntu2204'...
+[KProgress: 10%[KProgress: 20%[KProgress: 30%[KProgress: 40%[KProgress: 50%[KProgress: 60%[K==> default: Matching MAC address for NAT networking...
+==> default: You assigned a static IP ending in ".1" or ":1" to this machine.
+==> default: This is very often used by the router and can cause the
+==> default: network to not work properly. If the network doesn't work
+==> default: properly, try changing this IP.
+==> default: Checking if box 'djreg/small-ubuntu2204' version '1.1' is up to date...
+==> default: Setting the name of the VM: ubuntu2204
 ==> default: Clearing any previously set network interfaces...
 ==> default: Preparing network interfaces based on configuration...
     default: Adapter 1: nat
@@ -24,7 +28,7 @@ Bringing machine 'default' up with 'virtualbox' provider...
 ==> default: Setting hostname...
 ==> default: Configuring and enabling network interfaces...
 ==> default: Mounting shared folders...
-    default: /vagrant => C:/VirtualMach/Vagrant/jupyterhub
+    default: C:/VirtualMach/Vagrant/ubuntu2204 => /vagrant
 ==> default: Running provisioner: ansible_local...
     default: Installing Ansible...
     default: Running ansible-playbook...
@@ -33,30 +37,11 @@ PLAY [all] *********************************************************************
 
 TASK [Gathering Facts] *********************************************************
 ok: [default]
-[DEPRECATION WARNING]: Distribution Ubuntu 18.04 on host default should use 
-/usr/bin/python3, but is using /usr/bin/python for backward compatibility with 
-prior Ansible releases. A future Ansible release will default to using the 
-discovered platform python for this host. See https://docs.ansible.com/ansible/
-2.9/reference_appendices/interpreter_discovery.html for more information. This 
-feature will be removed in version 2.12. Deprecation warnings can be disabled 
-by setting deprecation_warnings=False in ansible.cfg.
-
-TASK [repositories : Add an apt key by id from a keyserver] ********************
-changed: [default]
-
-TASK [Add repositories] ********************************************************
-changed: [default] => (item=ppa:c2d4u.team/c2d4u4.0+)
-changed: [default] => (item=ppa:hnakamur/libgit2)
-changed: [default] => (item=deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/)
-
-TASK [server : Configure the timezone] *****************************************
-changed: [default]
-
-TASK [server : More Configure the timezone] ************************************
-changed: [default]
-
-TASK [server : Set default system language pack] *******************************
-changed: [default]
+[WARNING]: Platform linux on host default is using the discovered Python
+interpreter at /usr/bin/python3.10, but future installation of another Python
+interpreter could change the meaning of that path. See
+https://docs.ansible.com/ansible-
+core/2.17/reference_appendices/interpreter_discovery.html for more information.
 
 TASK [vm : Set the hostname in /etc/hostname] **********************************
 changed: [default]
@@ -67,10 +52,34 @@ changed: [default]
 TASK [vm : Update /etc/hosts] **************************************************
 changed: [default]
 
-TASK [install-r : Remove libgit2 0.26] *****************************************
+TASK [vm : Configure static IP with Netplan] ***********************************
+changed: [default]
+
+TASK [server : Configure the timezone] *****************************************
+changed: [default]
+
+TASK [server : Set default system language pack] *******************************
+changed: [default]
+
+TASK [repositories : Download CRAN ASCII key] **********************************
+changed: [default]
+
+TASK [repositories : Verify CRAN ASCII key] ************************************
 ok: [default]
 
-TASK [install-r : Install libgit2 0.27] ****************************************
+TASK [repositories : Fail if invalid keyring] **********************************
+skipping: [default]
+
+TASK [repositories : Convert CRAN key to keyring format] ***********************
+changed: [default]
+
+TASK [repositories : Add CRAN repository] **************************************
+changed: [default]
+
+TASK [install-r : Update apt cache] ********************************************
+changed: [default]
+
+TASK [install-r : Install latest libgit2] **************************************
 changed: [default]
 
 TASK [install-r : set_fact] ****************************************************
@@ -79,22 +88,16 @@ ok: [default]
 TASK [install-r : Install R along with some useful packages] *******************
 changed: [default]
 
+TASK [jupyterhub : include_tasks] **********************************************
+included: /vagrant/ansible/roles/jupyterhub/tasks/install.yml for default
+
 TASK [jupyterhub : set_fact] ***************************************************
 ok: [default]
 
+TASK [jupyterhub : Install python3-dev package] ********************************
+changed: [default]
+
 TASK [jupyterhub : Run the Jupyerhub install script] ***************************
-changed: [default]
-
-TASK [Generate the jupyterhub config file] *************************************
-changed: [default]
-
-TASK [jupyterhub : Set jupyterHub.bind_url] ************************************
-changed: [default]
-
-TASK [jupyterhub : Set jupyterHub.hub_ip] **************************************
-changed: [default]
-
-TASK [Rename jupyterhub config file as a template] *****************************
 changed: [default]
 
 TASK [jupyterhub : Set the limit memory for Jupyerhub] *************************
@@ -121,23 +124,14 @@ changed: [default]
 TASK [jupyterhub : Update Pip] *************************************************
 changed: [default]
 
-TASK [jupyterhub : Install nbconvert] ******************************************
+TASK [jupyterhub : Enable universe repository] *********************************
 changed: [default]
 
 TASK [jupyterhub : Install Tex and Pandoc] *************************************
 changed: [default]
 
-TASK [jupyterhub : Install jupyter_contrib_nbextensions 1/2] *******************
-changed: [default]
-
-TASK [jupyterhub : Install jupyter_contrib_nbextensions 2/2] *******************
-changed: [default]
-
-TASK [jupyterhub : Install nbextensions_configurator] **************************
-changed: [default]
-
-TASK [jupyterhub : Enable nbextensions_configurator] ***************************
-changed: [default]
+TASK [jupyterhub : include_tasks] **********************************************
+included: /vagrant/ansible/roles/jupyterhub/tasks/ir-kernel.yml for default
 
 TASK [jupyterhub : set_fact] ***************************************************
 ok: [default]
@@ -154,15 +148,37 @@ changed: [default]
 TASK [jupyterhub : Link IR kernel to Jupyterhub] *******************************
 changed: [default]
 
+TASK [jupyterhub : include_tasks] **********************************************
+included: /vagrant/ansible/roles/jupyterhub/tasks/config.yml for default
+
 TASK [jupyterhub : find files to copy] *****************************************
 ok: [default]
 
 TASK [jupyterhub : Copy the utils into /usr/local/bin] *************************
-changed: [default] => (item={u'islnk': False, u'uid': 900, u'rgrp': True, u'xoth': True, u'rusr': True, u'woth': True, u'nlink': 1, u'issock': False, u'mtime': 1599221664.8908303, u'gr_name': u'vagrant', u'path': u'/vagrant/ansible/roles/jupyterhub/files/bin/get-hostname', u'xusr': True, u'atime': 1625058758.0648043, u'inode': 152, u'isgid': False, u'size': 218, u'isdir': False, u'ctime': 1599221664.9191036, u'roth': True, u'isblk': False, u'xgrp': True, u'isuid': False, u'dev': 48, u'wgrp': True, u'isreg': True, u'isfifo': False, u'mode': u'0777', u'pw_name': u'vagrant', u'gid': 900, u'ischr': False, u'wusr': True})
-changed: [default] => (item={u'islnk': False, u'uid': 900, u'rgrp': True, u'xoth': True, u'rusr': True, u'woth': True, u'nlink': 1, u'issock': False, u'mtime': 1599221454.7266233, u'gr_name': u'vagrant', u'path': u'/vagrant/ansible/roles/jupyterhub/files/bin/jupyterhub.pre', u'xusr': True, u'atime': 1625058758.3517463, u'inode': 153, u'isgid': False, u'size': 204, u'isdir': False, u'ctime': 1599221480.1629336, u'roth': True, u'isblk': False, u'xgrp': True, u'isuid': False, u'dev': 48, u'wgrp': True, u'isreg': True, u'isfifo': False, u'mode': u'0777', u'pw_name': u'vagrant', u'gid': 900, u'ischr': False, u'wusr': True})
+changed: [default] => (item={'path': '/vagrant/ansible/roles/jupyterhub/files/bin/get-hostname', 'mode': '0777', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 156, 'inode': 146, 'dev': 47, 'nlink': 1, 'atime': 1771686286.5990825, 'mtime': 1771686286.5990825, 'ctime': 1771686286.5990825, 'gr_name': 'vagrant', 'pw_name': 'vagrant', 'wusr': True, 'rusr': True, 'xusr': True, 'wgrp': True, 'rgrp': True, 'xgrp': True, 'woth': True, 'roth': True, 'xoth': True, 'isuid': False, 'isgid': False})
+changed: [default] => (item={'path': '/vagrant/ansible/roles/jupyterhub/files/bin/get-ip-address', 'mode': '0777', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 218, 'inode': 147, 'dev': 47, 'nlink': 1, 'atime': 1771686237.7763577, 'mtime': 1771686237.7763577, 'ctime': 1771686237.7763577, 'gr_name': 'vagrant', 'pw_name': 'vagrant', 'wusr': True, 'rusr': True, 'xusr': True, 'wgrp': True, 'rgrp': True, 'xgrp': True, 'woth': True, 'roth': True, 'xoth': True, 'isuid': False, 'isgid': False})
+changed: [default] => (item={'path': '/vagrant/ansible/roles/jupyterhub/files/bin/jupyterhub.pre', 'mode': '0777', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 211, 'inode': 148, 'dev': 47, 'nlink': 1, 'atime': 1771606391.8416831, 'mtime': 1771606391.8416831, 'ctime': 1771606391.8416831, 'gr_name': 'vagrant', 'pw_name': 'vagrant', 'wusr': True, 'rusr': True, 'xusr': True, 'wgrp': True, 'rgrp': True, 'xgrp': True, 'woth': True, 'roth': True, 'xoth': True, 'isuid': False, 'isgid': False})
 
-TASK [Copy jupyterhub.service with owner and permissions] **********************
+TASK [jupyterhub : Generate the jupyterhub config file] ************************
 changed: [default]
+
+TASK [jupyterhub : Set jupyterHub.bind_url] ************************************
+changed: [default]
+
+TASK [jupyterhub : Set jupyterHub.hub_ip] **************************************
+changed: [default]
+
+TASK [jupyterhub : Rename jupyterhub config file as a template] ****************
+changed: [default]
+
+TASK [jupyterhub : Copy jupyterhub.service with owner and permissions] *********
+changed: [default]
+
+TASK [jupyterhub : Restart jupyterhub application] *****************************
+changed: [default]
+
+TASK [jupyterhub : include_tasks] **********************************************
+included: /vagrant/ansible/roles/jupyterhub/tasks/disk-share.yml for default
 
 TASK [jupyterhub : Check if /media/sf_DATA are already mounted] ****************
 changed: [default]
@@ -176,120 +192,127 @@ skipping: [default]
 TASK [jupyterhub : Add vboxsf to /etc/modules] *********************************
 skipping: [default]
 
-TASK [jupyterhub : Create /media/sf_DATA if it does not exist] *****************
-changed: [default]
-
-TASK [jupyterhub : Copy shared data under /media/sf_DATA] **********************
-changed: [default]
-
-TASK [jupyterhub : Create shared_data symbolic link] ***************************
-changed: [default]
-
-TASK [Restart jupyterhub application] ******************************************
-changed: [default]
-
-TASK [r_pkgs : Install R packages from repositories (binary format)] ***********
-changed: [default]
-
-TASK [r_pkgs : Install R packages from BioConductor (source format)] ***********
-skipping: [default]
-
-TASK [r_pkgs : Install R packages from Github (source format)] *****************
-changed: [default]
-
-TASK [r_pkgs : Install R packages from repositories (source format)] ***********
-changed: [default]
-
 TASK [python_pkgs : Install each of python module in the list] *****************
 changed: [default] => (item=pandas)
 changed: [default] => (item=numpy)
 changed: [default] => (item=matplotlib)
 changed: [default] => (item=scikit-learn)
 
+TASK [r_pkgs : find files to copy] *********************************************
+ok: [default]
+
+TASK [r_pkgs : Copy the utils into /usr/local/bin] *****************************
+changed: [default] => (item={'path': '/vagrant/ansible/roles/r_pkgs/files/install_R_pkgs', 'mode': '0777', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 1000, 'gid': 1000, 'size': 1807, 'inode': 153, 'dev': 47, 'nlink': 1, 'atime': 1771688719.771631, 'mtime': 1771688719.771631, 'ctime': 1771688719.771631, 'gr_name': 'vagrant', 'pw_name': 'vagrant', 'wusr': True, 'rusr': True, 'xusr': True, 'wgrp': True, 'rgrp': True, 'xgrp': True, 'woth': True, 'roth': True, 'xoth': True, 'isuid': False, 'isgid': False})
+
+RUNNING HANDLER [Apply netplan] ************************************************
+changed: [default]
+
 PLAY RECAP *********************************************************************
-default                    : ok=50   changed=44   unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
+default                    : ok=50   changed=39   unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
 
 ==> default: Running provisioner: shell...
-    default: Running: C:/cygwin64/tmp/vagrant-shell20210630-13616-o8jkf5.sh
-    default: + trap finish ERR
+    default: Running: C:/Cygwin64/tmp/vagrant-shell20260223-25384-1a5axz.sh
+    default: + '[' -f /vagrant/scripts/ssh_keys ']'
+    default: + cat /vagrant/scripts/ssh_keys
     default: + apt -y remove --purge ansible
-    default: WARNING: 
-    default: apt
-    default:  
-    default: does not have a stable CLI interface. 
-    default: Use with caution in scripts.
+    default: 
+    default: WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+    default: 
     default: Reading package lists...
     default: Building dependency tree...
     default: Reading state information...
     default: The following packages were automatically installed and are no longer required:
-    default:   python-asn1crypto python-cffi-backend python-crypto python-cryptography
-    default:   python-enum34 python-httplib2 python-idna python-ipaddress python-jinja2
-    default:   python-markupsafe python-paramiko python-pkg-resources python-pyasn1
-    default:   python-setuptools python-six python-yaml sshpass
+    default:   ansible-core python3-jmespath python3-kerberos python3-nacl
+    default:   python3-ntlm-auth python3-packaging python3-paramiko
+    default:   python3-requests-kerberos python3-requests-ntlm python3-resolvelib
+    default:   python3-winrm python3-xmltodict sshpass
     default: Use 'sudo apt autoremove' to remove them.
     default: The following packages will be REMOVED:
     default:   ansible*
-    default: 0 upgraded, 0 newly installed, 1 to remove and 141 not upgraded.
-    default: After this operation, 58.1 MB disk space will be freed.
-    default: (Reading database ... 
-    default: (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%
-    default: (Reading database ... 45%(Reading database ... 50%
-    default: (Reading database ... 55%
-    default: (Reading database ... 60%
-    default: (Reading database ... 65%
-    default: (Reading database ... 70%
-    default: (Reading database ... 75%
-    default: (Reading database ... 80%
-    default: (Reading database ... 85%
-    default: (Reading database ... 90%
-    default: (Reading database ... 95%
-    default: (Reading database ... 100%(Reading database ... 137848 files and directories currently installed.)
-    default: Removing ansible (2.9.23-1ppa~bionic) ...
-    default: Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
-    default: (Reading database ... 
-    default: (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%
-    default: (Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%
-    default: (Reading database ... 55%
-    default: (Reading database ... 60%
-    default: (Reading database ... 65%
-    default: (Reading database ... 70%
-    default: (Reading database ... 75%
-    default: (Reading database ... 80%
-    default: (Reading database ... 85%
-    default: (Reading database ... 90%
-    default: (Reading database ... 95%
-    default: (Reading database ... 100%(Reading database ... 131720 files and directories currently installed.)
-    default: Purging configuration files for ansible (2.9.23-1ppa~bionic) ...
-    default: + apt-add-repository --remove ppa:ansible/ansible
-    default:  Ansible is a radically simple IT automation platform that makes your applications and systems easier to deploy. Avoid writing scripts or custom code to deploy and update your applications— automate in a language that approaches plain English, using SSH, with no agents to install on remote systems.
-    default: 
-    default: http://ansible.com/
-    default:  More info: https://launchpad.net/~ansible/+archive/ubuntu/ansible
-    default: + apt autoremove
+    default: 0 upgraded, 0 newly installed, 1 to remove and 60 not upgraded.
+    default: After this operation, 205 MB disk space will be freed.
+    default: (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 210728 files and directories currently installed.)
+    default: Removing ansible (10.7.0-1ppa~jammy) ...
+    default: + apt clean
     default: 
     default: WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+    default: 
+    default: + apt autoremove -y
+    default: 
+    default: WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+    default: 
     default: Reading package lists...
     default: Building dependency tree...
-    default: 
     default: Reading state information...
     default: The following packages will be REMOVED:
-    default:   python-asn1crypto python-cffi-backend python-crypto python-cryptography
-    default:   python-enum34 python-httplib2 python-idna python-ipaddress python-jinja2
-    default:   python-markupsafe python-paramiko python-pkg-resources python-pyasn1
-    default:   python-setuptools python-six python-yaml sshpass
-    default: 0 upgraded, 0 newly installed, 17 to remove and 141 not upgraded.
-    default: After this operation, 8,715 kB disk space will be freed.
-    default: Do you want to continue?
-    default:  [Y/n] 
-    default: Abort.
-    default: ++ finish
-    default: ++ '[' -f /tmp/EMPTY ']'
-
-#-------------------------------------------------------------------
-$> vagrant package --output ubuntu-box.tar.gz
-
+    default:   ansible-core python3-jmespath python3-kerberos python3-nacl
+    default:   python3-ntlm-auth python3-packaging python3-paramiko
+    default:   python3-requests-kerberos python3-requests-ntlm python3-resolvelib
+    default:   python3-winrm python3-xmltodict sshpass
+    default: 0 upgraded, 0 newly installed, 13 to remove and 60 not upgraded.
+    default: After this operation, 8,229 kB disk space will be freed.
+    default: (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 186291 files and directories currently installed.)
+    default: Removing ansible-core (2.17.14-1ppa~jammy) ...
+    default: Removing python3-jmespath (0.10.0-1) ...
+    default: Removing python3-requests-kerberos (0.12.0-2) ...
+    default: Removing python3-kerberos (1.1.14-3.1build5) ...
+    default: Removing python3-paramiko (2.9.3-0ubuntu1.3) ...
+    default: Removing python3-nacl (1.5.0-2) ...
+    default: Removing python3-winrm (0.3.0-2) ...
+    default: Removing python3-requests-ntlm (1.1.0-1.1) ...
+    default: Removing python3-ntlm-auth (1.4.0-1) ...
+    default: Removing python3-packaging (21.3-1) ...
+    default: Removing python3-resolvelib (0.8.1-1) ...
+    default: Removing python3-xmltodict (0.12.0-2) ...
+    default: Removing sshpass (1.09-1) ...
+    default: Processing triggers for man-db (2.10.2-1) ...
+    default: + journalctl --vacuum-time=1s
+    default: Vacuuming done, freed 0B of archived journals from /var/log/journal.
+    default: Vacuuming done, freed 0B of archived journals from /run/log/journal.
+    default: Vacuuming done, freed 0B of archived journals from /var/log/journal/362543f576bb44ab8d09216ae28765c4.
+    default: + rm -rf /tmp/downloaded_packages /tmp/snap-private-tmp /tmp/systemd-private-923c94d28a414d58970ff898b6f0faeb-jupyterhub.service-2Spr8e /tmp/systemd-private-923c94d28a414d58970ff898b6f0faeb-ModemManager.service-J49Vrw /tmp/systemd-private-923c94d28a414d58970ff898b6f0faeb-systemd-logind.service-zU0kpE /tmp/systemd-private-923c94d28a414d58970ff898b6f0faeb-systemd-resolved.service-9Q05S0 /tmp/systemd-private-923c94d28a414d58970ff898b6f0faeb-systemd-timedated.service-wQ8efX /tmp/systemd-private-923c94d28a414d58970ff898b6f0faeb-traefik.service-IeAwrT /tmp/tmp.uPW5VT1gyw /tmp/vagrant-ansible /tmp/vagrant-shell
+    default: + rm -f '/tmp/*'
+    default: + rm -rf /root/.cache/pip/http /root/.cache/pip/http-v2 /root/.cache/pip/selfcheck /root/.cache/pip/wheels
+    default: + rm -rf /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_jammy_InRelease /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_jammy_universe_binary-amd64_Packages /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_jammy_universe_cnf_Commands-amd64 /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_jammy_universe_i18n_Translation-en /var/lib/apt/lists/auxfiles /var/lib/apt/lists/cloud.r-project.org_bin_linux_ubuntu_jammy-cran40_InRelease /var/lib/apt/lists/cloud.r-project.org_bin_linux_ubuntu_jammy-cran40_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_InRelease /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_main_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_main_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_main_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_multiverse_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_restricted_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_universe_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_universe_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_universe_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_InRelease /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_main_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_main_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_main_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_multiverse_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_multiverse_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_multiverse_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_restricted_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_restricted_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_restricted_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_universe_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_universe_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_universe_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_InRelease /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_main_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_main_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_main_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_multiverse_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_multiverse_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_multiverse_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_restricted_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_restricted_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_restricted_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_universe_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_universe_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_universe_i18n_Translation-en /var/lib/apt/lists/lock /var/lib/apt/lists/partial /var/lib/apt/lists/ppa.launchpadcontent.net_ansible_ansible_ubuntu_dists_jammy_InRelease /var/lib/apt/lists/ppa.launchpadcontent.net_ansible_ansible_ubuntu_dists_jammy_main_binary-amd64_Packages /var/lib/apt/lists/ppa.launchpadcontent.net_ansible_ansible_ubuntu_dists_jammy_main_i18n_Translation-en /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_InRelease /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_main_binary-amd64_Packages /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_main_cnf_Commands-amd64 /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_main_i18n_Translation-en /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_multiverse_binary-amd64_Packages /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_multiverse_cnf_Commands-amd64 /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_multiverse_i18n_Translation-en /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_restricted_binary-amd64_Packages /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_restricted_cnf_Commands-amd64 /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_restricted_i18n_Translation-en /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_universe_binary-amd64_Packages /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_universe_cnf_Commands-amd64 /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_universe_i18n_Translation-en
+    default: + rm -f '/var/lib/apt/lists/*'
+    default: + rm -f '/var/log/*.gz'
+    default: + awk '/^ii/{ print $2}'
+    default: + xargs -r apt-get -y purge
+    default: + dpkg -l 'linux-image-*'
+    default: ++ uname -r
+    default: ++ cut -d- -f1,2
+    default: + grep -v 5.15.0-170
+    default: Reading package lists...
+    default: Building dependency tree...
+    default: Reading state information...
+    default: The following packages were automatically installed and are no longer required:
+    default:   amd64-microcode libdbus-glib-1-2 libevdev2 libimobiledevice6 libplist3
+    default:   libupower-glib3 libusbmuxd6 thermald upower usbmuxd
+    default: Use 'sudo apt autoremove' to remove them.
+    default: The following packages will be REMOVED:
+    default:   linux-generic* linux-image-generic*
+    default: 0 upgraded, 0 newly installed, 2 to remove and 0 not upgraded.
+    default: After this operation, 43.0 kB disk space will be freed.
+    default: (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 185193 files and directories currently installed.)
+    default: Removing linux-generic (5.15.0.170.159) ...
+    default: Removing linux-image-generic (5.15.0.170.159) ...
+    default: + rm -f '/home/vagrant/*.sh'
+    default: + cat /dev/null
+    default: + history -c
+    default: ++ df --output=avail -k /
+    default: ++ tail -1
+    default: + fallocate -l 8165420K /EMPTY
+    default: + rm -f /EMPTY
+    default: + dd if=/dev/zero of=/EMPTY bs=1M
+    default: dd: error writing '/EMPTY': No space left on device
+    default: 8907+0 records in
+    default: 8906+0 records out
+    default: 9339297792 bytes (9.3 GB, 8.7 GiB) copied, 11.8945 s, 785 MB/s
+    default: + true
+    default: + rm -f /EMPTY
+    default: + sync
+    default: + exit 0
 ==> default: Attempting graceful shutdown of VM...
 ==> default: Clearing any previously set forwarded ports...
 ==> default: Exporting VM...
-[K==> default: Compressing package to: C:/VirtualMach/Vagrant/jupyterhub/ubuntu-box.tar.gz
-==> default: Destroying VM and associated drives...
+[K==> default: Compressing package to: C:/VirtualMach/Vagrant/ubuntu2204/builds/ubuntu2204-box.tar.gz

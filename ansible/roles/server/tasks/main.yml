@@ -1,10 +1,7 @@
 ---
-
 - name: Configure the timezone
-  template: src=timezone.tpl dest=/etc/timezone
-
-- name: More Configure the timezone
-  file: src=/usr/share/zoneinfo/{{server.timezone}} dest=/etc/localtime state=link force=yes backup=yes
+  ansible.builtin.timezone:
+    name: "{{ server.timezone }}"
 
 - name: Set default system language pack
   shell: localectl set-locale LANG={{server.locale}}

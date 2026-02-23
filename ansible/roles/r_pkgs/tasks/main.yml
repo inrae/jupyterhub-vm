@@ -1,20 +1,17 @@
 ---
 
-- name: Install R packages from repositories (binary format)
-  apt:
-    name: "{{r_cran_pkgs}}"
-    state: latest
-  when: r_cran_pkgs is defined
-  
-- name: Install R packages from BioConductor (source format)
-  command: "/usr/lib/R/site-library/littler/examples/installBioc.r {{ r_bioc_pkgs | join(' ') }}"
-  when: r_bioc_pkgs is defined
+# Just copy the R package installation script. This will need to be run on the VM once deployed, and after adapting the package lists according to their sources - See install_R_pkgs script
 
-- name: Install R packages from Github (source format)
-  command: "/usr/lib/R/site-library/littler/examples/installGithub.r {{ r_github_pkgs | join(' ') }}"
-  when: r_github_pkgs is defined
+- name: find files to copy
+  find:
+    paths: "{{vm.ansible_dir}}/roles/r_pkgs/files/"
+    patterns: "*"
+  register: files_to_copy
 
-- name: Install R packages from repositories (source format)
-  command: "/usr/lib/R/site-library/littler/examples/install.r {{ r_src_pkgs | join(' ') }}"
-  when: r_src_pkgs is defined
+- name: Copy the utils into /usr/local/bin
+  copy:
+    src: "{{ item.path }}"
+    dest: /usr/local/bin/
+    mode: 0775
+  with_items: "{{ files_to_copy.files }}"
 

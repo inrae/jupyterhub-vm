@@ -1,14 +1,12 @@
 ---
-- name: Remove libgit2 0.26
-  apt:
-    name: libgit2-26
-    state: absent
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: yes
 
-- name: Install libgit2 0.27
-  apt:
-    name: libgit2-27
-    state: present
-
+- name: Install latest libgit2
+  ansible.builtin.apt:
+    name: libgit2-dev
+    state: latest
 
 - set_fact:
     r_install:

@@ -1,0 +1,12 @@
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    {{ netplan.interface1 }}:
+      dhcp4: yes
+    {{ netplan.interface2 }}:
+      dhcp4: no
+      addresses:
+        - {{ netplan.address }}/{{ netplan.cidr }}
+      nameservers:
+        addresses: {{ netplan.dns }}

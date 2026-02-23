@@ -1,88 +1,29 @@
 ---
+
 server:
     timezone: MET
     locale: fr_FR.UTF-8
+
 vm:
     hostname: jupyterhub
-    ip: 192.168.99.1
     ansible_dir: /vagrant/ansible
     data_folder: /media/sf_DATA
-repository:
-    keyserver: hkp://keyserver.ubuntu.com:80
-    id: E298A3A825C0D65DFD57CBB651716619E084DAB9
-    repos:
-    # cf https://cloud.r-project.org/bin/linux/ubuntu/fullREADME.html
-    #    https://launchpad.net/ubuntu/+ppas?name_filter=XXX to find a PPA for the XXX package
-      - ppa:c2d4u.team/c2d4u4.0+
-      - ppa:hnakamur/libgit2
-      - deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/
+
+netplan:
+  interface1: enp0s3
+  interface2: enp0s8
+  address: 192.168.99.1
+  cidr: 24
+  dns:
+    - 8.8.8.8
+    - 1.1.1.1
+
+repos:
+  crankey: https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc
+  keyfile: /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
+
 python_pkgs:
   - pandas
   - numpy
   - matplotlib
   - scikit-learn
-r_cran_pkgs:
-# https://launchpad.net/~c2d4u.team/+archive/ubuntu/c2d4u4.0+/+packages?field.name_filter=XXX
-#                                   &field.status_filter=published&field.series_filter=bionic
-  - r-cran-rjson
-  - r-cran-jsonlite
-  - r-cran-foreach
-  - r-cran-doparallel
-  - r-cran-httpuv
-  - r-cran-xtable
-  - r-cran-igraph
-  - r-cran-ggplot2
-  - r-cran-plotly
-  - r-cran-plyr
-  - r-cran-dt
-  - r-cran-xml
-  - r-cran-tidyr
-  - r-cran-tidyverse
-  - r-cran-ade4
-  - r-cran-amap
-  - r-cran-cairo
-  - r-cran-car
-  - r-cran-reshape
-  - r-cran-gplots
-  - r-cran-data.table
-  - r-cran-dendextend
-  - r-cran-hmisc
-  - r-cran-ks
-  - r-cran-fdrtool
-  - r-cran-moments
-  - r-cran-fitdistrplus
-  - r-cran-pls
-  - r-cran-ppcor
-  - r-cran-svglite
-  - r-cran-d3network
-  - r-cran-nortest
-  - r-cran-genenet
-  - r-cran-feather
-  - r-cran-rcppparallel
-  - r-cran-cpp11
-  - r-cran-dplyr
-  - r-cran-curl
-  - r-cran-farver
-  - r-cran-ps
-  - r-cran-processx
-  - r-cran-backports
-  - r-cran-rprojroot
-  - r-cran-signal
-  - r-cran-ptw
-  - r-cran-minqa
-  - r-cran-ncdf4
-  - r-bioc-mixomics
-  - r-bioc-impute
-  - r-bioc-massspecwavelet
-  - r-cran-speaq
-  - r-cran-upsetr
-  - r-cran-data.tree
-  - r-cran-diagrammer
-#r_bioc_pkgs:
-#  - ropls
-r_github_pkgs:
-  - INRA/Rodam
-  - INRA/Rnmr1D
-r_src_pkgs:
-  - hyperSpec
-  - muma

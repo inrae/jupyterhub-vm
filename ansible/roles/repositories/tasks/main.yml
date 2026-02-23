@@ -1,11 +1,32 @@
 ---
 
-- name: Add an apt key by id from a keyserver
-  apt_key:
-    keyserver: "{{repository.keyserver}}"
-    id: "{{repository.id}}"
+# See https://www.digitalocean.com/community/tutorials/how-to-install-r-on-ubuntu-22-04
 
-- name: Add repositories
-  apt_repository:
-    repo: "{{item}}"
-  with_items: "{{repository.repos}}"
+- name: Download CRAN ASCII key
+  ansible.builtin.get_url:
+    url: "{{ repos.crankey }}"
+    dest: "{{ repos.keyfile }}"
+    mode: '0644'
+
+- name: Verify CRAN ASCII key
+  ansible.builtin.command:
+    cmd: "gpg --show-keys {{ repos.keyfile }}"
+  register: cran_key_info
+  changed_when: false
+
+- name: Fail if invalid keyring
+  ansible.builtin.fail:
+    msg: "CRAN ASCII key failed"
+  when: "'Invalid keyring' in cran_key_info.stdout"
+
+- name: Convert CRAN key to keyring format
+  ansible.builtin.command:
+    cmd: "gpg --dearmor -o /usr/share/keyrings/r-project.gpg {{ repos.keyfile }}"
+  args:
+    creates: "/usr/share/keyrings/r-project.gpg"
+
+- name: Add CRAN repository
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/r-project.gpg] https://cloud.r-project.org/bin/linux/ubuntu {{ ansible_distribution_release }}-cran40/"
+    filename: r-project
+    state: present

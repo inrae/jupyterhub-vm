@@ -11,10 +11,14 @@
     PYTHONHTTPSVERIFY: 0
 
   roles:
-    - repositories
-    - server
     - vm
+    - server
+    - repositories
     - install-r
     - jupyterhub
-    - r_pkgs
     - python_pkgs
+    - r_pkgs
+
+  handlers:
+    - name: Apply netplan
+      ansible.builtin.command: netplan apply

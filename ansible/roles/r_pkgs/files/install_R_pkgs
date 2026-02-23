@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# BioConductor version - See https://www.bioconductor.org/install/
+BIOC_VER=3.22
+
+# ----
+# Lists of packages depending on their repository - to adapt according to your needs
+# ----
+
+# R packages from cloud.r-project.org repository (binary format)
+R_PKGS_BIN="rjson doparallel plotly tidyverse ade4 amap cairo car reshape dendextend fdrtool fitdistrplus d3network nortest glmnet rcppparallel ncdf4 upsetr"
+
+# R packages from BioConductor (source format)
+R_PKGS_BIOC="ropls mixOmics MassSpecWavelet pcaMethods xcms"
+
+# R packages from r-cran repositories (source format)
+R_PKGS_SRC="signal ptw speaq ppcor hyperSpec moments data.tree feather"
+
+# R packages from Github (source format)
+R_PKGS_GIT="inrae/Rodam inra/Rnmr1D djacob65/RnmrQuant1D"
+
+
+# ----
+# Do not edit from here
+# ----
+
+# Installing R packages from ubuntu repositories (binary format)
+R_PKGS_CRAN=$(for p in $R_PKGS_BIN; do echo -n "r-cran-$p "; done)
+apt-get -q install -y $R_PKGS_CRAN
+
+# Upgrade Bioconductor if needed (>300 pkgs ~30min)
+/usr/bin/R -q -e "
+    options(Ncpus=parallel::detectCores());
+    BiocManager::install(version='$BIOC_VER', ask=FALSE, update=TRUE)
+"
+
+# Removal of R packages if newer version exists in /usr/local
+# first round
+for p in $(ls /usr/lib/R/site-library/); do
+  r=r-cran-$(echo "$p" | tr '[:upper:]' '[:lower:]')
+  [ -d "/usr/local/lib/R/site-library/$p" ] && echo "$p ok" && apt-get -q remove -y $r
+done
+# second round
+apt-get -qq remove -y r-cran-spatial
+
+# Installing R packages from BioConductor
+/usr/lib/R/site-library/littler/examples/installBioc.r  $R_PKGS_BIOC
+
+# Installing R packages from r-cran repositories
+/usr/lib/R/site-library/littler/examples/install.r $R_PKGS_SRC
+
+# Installing R packages from Github
+/usr/lib/R/site-library/littler/examples/installGithub.r $R_PKGS_GIT
+
+exit 0

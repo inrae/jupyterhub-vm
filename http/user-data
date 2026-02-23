@@ -1,0 +1,32 @@
+#cloud-config
+autoinstall:
+  version: 1
+  identity:
+    hostname: ubuntu2204
+    password: $6$4n/lKAwsgNv7gyK3$uEW.2.w14oNOW4.s4IJlwCEYH6OyCOuYyl8EeeraCNspkyChaPGYvV52ql6dP6EiMlIfEpszenKnB9CNA5uRE0
+    username: vagrant
+  ssh:
+    allow-pw: true
+    install-server: true
+  locale: en_US.UTF-8
+  timezone: Europe/Paris
+  keyboard:
+    layout: fr
+  storage:
+    layout:
+      name: lvm
+      sizing-policy: all
+  packages:
+    - curl
+    - wget
+    - sudo
+    - tar
+    - build-essential
+    - net-tools
+    - openssh-server
+    - cryptsetup
+    - linux-source
+    - dkms
+    - nfs-common
+  late-commands:
+    - echo 'vagrant ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/vagrant

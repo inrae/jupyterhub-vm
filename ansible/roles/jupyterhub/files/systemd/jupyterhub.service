@@ -1,5 +1,3 @@
-# Template file for JupyterHub systemd service
-# Uses simple string.format() for 'templating'
 [Unit]
 # Traefik must have successfully started *before* we launch JupyterHub
 Requires=traefik.service
@@ -9,7 +7,6 @@ After=traefik.service
 User=root
 Restart=always
 WorkingDirectory=/opt/tljh/state
-# Protect bits that are normally shared across the system
 PrivateTmp=yes
 PrivateDevices=yes
 ProtectKernelTunables=yes
@@ -17,9 +14,7 @@ ProtectKernelModules=yes
 Environment=TLJH_INSTALL_PREFIX=/opt/tljh
 # Run jupyterhub.pre so that the bind_url will be pointed to the right url
 ExecStartPre=/usr/local/bin/jupyterhub.pre
-# Run upgrade-db before starting, in case Hub version has changed
-# This is a no-op when no db exists or no upgrades are needed
-ExecStart=/opt/tljh/hub/bin/python3 -m jupyterhub.app -f /opt/tljh/hub/lib/python3.6/site-packages/tljh/jupyterhub_config.py --upgrade-db
+ExecStart=/opt/tljh/hub/bin/python3 -m jupyterhub.app -f /opt/tljh/hub/lib/python3.10/site-packages/tljh/jupyterhub_config.py --upgrade-db
 
 [Install]
 # Start service when system boots

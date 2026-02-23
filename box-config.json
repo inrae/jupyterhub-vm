@@ -1,69 +1,54 @@
 {
   "variables": {
-    "version": ""
+    "version": "",
+    "is_headless": "true",
+    "user_name" : "vagrant",
+    "user_pass" : "vagrant"
   },
   "provisioners": [
     {
       "type": "shell",
-      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "execute_command": "echo '{{ user `user_name` }}' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "script": "scripts/setup.sh"
     }
   ],
   "builders": [
     {
       "type": "virtualbox-iso",
-      "boot_command": [
-        "<esc><wait>",
-        "<esc><wait>",
-        "<enter><wait>",
-        "/install/vmlinuz<wait>",
-        " auto<wait>",
-        " console-setup/ask_detect=false<wait>",
-        " console-setup/layoutcode=us<wait>",
-        " console-setup/modelcode=pc105<wait>",
-        " debconf/frontend=noninteractive<wait>",
-        " debian-installer=en_US<wait>",
-        " fb=false<wait>",
-        " initrd=/install/initrd.gz<wait>",
-        " kbd-chooser/method=us<wait>",
-        " keyboard-configuration/layout=USA<wait>",
-        " keyboard-configuration/variant=USA<wait>",
-        " locale=en_US<wait>",
-        " netcfg/get_domain=vm<wait>",
-        " netcfg/get_hostname=vagrant<wait>",
-        " grub-installer/bootdev=/dev/sda<wait>",
-        " noapic<wait>",
-        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<wait>",
-        " -- <wait>",
-        "<enter><wait>"
-      ],
-      "boot_wait": "10s",
-      "disk_size": 18432,
-      "guest_os_type": "Ubuntu_64",
-      "headless": true,
-      "http_directory": "http",
       "iso_urls": [
-        "../iso/ubuntu-18.04.5-server-amd64.iso",
-        "http://cdimage.ubuntu.com/ubuntu/releases/bionic/release/ubuntu-18.04.5-server-amd64.iso"
+        "../../iso/ubuntu-22.04.5-live-server-amd64.iso",
+        "https://releases.ubuntu.com/22.04/ubuntu-22.04.5-live-server-amd64.iso"
       ],
-      "iso_checksum": "sha256:8c5fc24894394035402f66f3824beb7234b757dd2b5531379cb310cedfdf0996",
-      "ssh_username": "vagrant",
-      "ssh_password": "vagrant",
-      "ssh_port": 22,
-      "ssh_wait_timeout": "1800s",
-      "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
-      "vm_name": "packer-ubuntu-18.04-amd64",
+      "iso_checksum": "sha256:9bc6028870aef3f74f4e16b900008179e78b130e6b0b9a140635434a46aa98b0",
+      "headless": "{{ user `is_headless` }}",
+      "boot_wait": "5s",
+      "http_directory": "http",
+      "disk_size": 20480,
+      "guest_os_type": "Ubuntu_64",
+      "vm_name": "packer-ubuntu-22.04-amd64",
       "vboxmanage": [
         [ "modifyvm", "{{.Name}}", "--memory", "2048" ],
         [ "modifyvm", "{{.Name}}", "--cpus", "2" ]
-      ]
+      ],
+      "guest_additions_path": "VBoxGuestAdditions.iso",
+      "boot_command" : [
+        "c<wait>linux /casper/vmlinuz --- autoinstall 'ds=nocloud;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/'<enter><wait>",
+        "initrd /casper/initrd<enter><wait><wait>",
+        "boot<enter><wait>"
+      ],
+      "ssh_username": "{{ user `user_name` }}",
+      "ssh_password": "{{ user `user_pass` }}",
+      "ssh_port": 22,
+      "ssh_timeout": "20m",
+      "ssh_handshake_attempts": 420,
+      "shutdown_command": "echo '{{ user `user_name` }}'| sudo -S shutdown -P now"
     }
   ],
   "post-processors": [
     [
       {
         "type": "vagrant",
-        "output": "builds/{{.Provider}}-ubuntu1804.box"
+        "output": "builds/{{.Provider}}-ubuntu2204.box"
       }
     ]
   ]

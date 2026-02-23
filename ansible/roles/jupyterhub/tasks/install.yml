@@ -2,42 +2,22 @@
 
 - set_fact:
     tljh_admin: "admin"
-    tljh_url: "https://raw.githubusercontent.com/jupyterhub/the-littlest-jupyterhub/master/bootstrap/bootstrap.py"
+    tljh_url: "https://tljh.jupyter.org/bootstrap.py"
     tljh_limit_cpu: 2
     tljh_limit_mem: "2G"
     tljh_timeout: 3600
     tljh_cull_interval: 60
     tljh_maxage: 0
 
+- name: Install python3-dev package
+  ansible.builtin.apt:
+    name: python3-dev
+    state: present
+    update_cache: yes
+
 - name: Run the Jupyerhub install script 
   script:
-    cmd: "/usr/bin/curl {{ tljh_url }} | /usr/bin/python3 - --admin {{ tljh_admin }}; exit 0"
-
-- name: Generate the jupyterhub config file
-  script:
-    chdir: /opt/tljh/config/jupyterhub_config.d/
-    cmd: "/opt/tljh/hub/bin/jupyterhub --generate-config"
-
-- name: Set jupyterHub.bind_url
-  lineinfile: 
-    dest=/opt/tljh/config/jupyterhub_config.d/jupyterhub_config.py
-    regexp='^.*c.JupyterHub.bind_url' 
-    line="c.JupyterHub.bind_url = 'http://<<VM_NAME>>'"
-    owner=root 
-    group=root 
-    mode=0644
-
-- name: Set jupyterHub.hub_ip
-  lineinfile: 
-    dest=/opt/tljh/config/jupyterhub_config.d/jupyterhub_config.py
-    regexp='^.*c\.JupyterHub.hub_ip' 
-    line="c.JupyterHub.hub_ip = ''"
-    owner=root 
-    group=root 
-    mode=0644
-
-- name: Rename jupyterhub config file as a template
-  command: mv /opt/tljh/config/jupyterhub_config.d/jupyterhub_config.py /opt/tljh/config/jupyterhub_config.d/jupyterhub_config.tpl
+    cmd: "/usr/bin/curl -L {{ tljh_url }} | /usr/bin/python3 - --admin {{ tljh_admin }}; exit 0"
 
 - name: Set the limit memory for Jupyerhub
   command: "/opt/tljh/hub/bin/tljh-config set limits.memory {{ tljh_limit_mem }}"
@@ -59,3 +39,22 @@
 
 - name: Reload Jupyerhub config 
   command: /opt/tljh/hub/bin/tljh-config reload
+
+- name: Update Pip
+  command: /opt/tljh/user/bin/python3 -m pip install --upgrade pip
+
+- name: Enable universe repository
+  ansible.builtin.apt_repository:
+    repo: "deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} universe"
+    state: present
+
+- name: Install Tex and Pandoc
+  ansible.builtin.apt:
+    name:
+      - texlive-xetex
+      - texlive-fonts-recommended
+      - texlive-latex-recommended
+      - texlive-latex-extra
+      - pandoc
+    state: present
+    update_cache: yes

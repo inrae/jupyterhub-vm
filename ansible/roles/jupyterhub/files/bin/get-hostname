@@ -1,5 +1,7 @@
 #!/bin/bash
 
-INTERFACE=$(netstat -r | grep -v docker | tail -1 | sed -e "s/ \+/;/g" | cut -d';' -f8)
-IP=$(ip -4 a | grep -A2 -E " ${INTERFACE}:" | grep 'inet' | sed -e "s/^.*inet \([^/]\+\).*$/\1/" | tail -1)
-echo $IP
+IPADDR=$(/usr/local/bin/get-ip-address)
+IPSTR=$(echo $IPADDR | sed -e "s/\./-/g")
+#echo "app-${IPSTR}.vm.openstack.genouest.org"
+echo $IPADDR
+

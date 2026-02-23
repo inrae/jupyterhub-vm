@@ -4,14 +4,12 @@
 
 ## Variables
 
-#BOX_NAME = "file://builds/virtualbox-ubuntu1804.box"
-
-BOX_NAME = "djacob65/small-ubuntu1804"
-BOX_VERSION = "1.0.1"
+BOX_NAME = "djreg/small-ubuntu2204"
+BOX_VERSION = "1.1"
 
 APP_NAME="ubuntu"
-VM_NAME="ubuntu1804"
-MY_IP="dhcp"
+VM_NAME="ubuntu2204"
+MY_IP="192.168.99.1"
 MY_DATA="none"
 
 ## Vagrant version
@@ -28,11 +26,7 @@ Vagrant.configure("2") do |config|
   config.vm.box_version = BOX_VERSION
   config.vm.hostname = APP_NAME
 
-  if MY_IP.eql?("dhcp")
-    config.vm.network "private_network", type: "dhcp"
-  else
-    config.vm.network "private_network", ip: MY_IP
-  end
+  config.vm.network "private_network", ip: MY_IP
 
   config.vm.provider "virtualbox"  do |vb|
     vb.name = VM_NAME
@@ -49,11 +43,11 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision "ansible_local" do |ansible|
-      ansible.playbook = "ansible/playbook.yml"
-      ansible.install = true
-      ansible.limit = 'all'
+    ansible.playbook = "ansible/playbook.yml"
+    ansible.install = true
+    ansible.limit = 'all'
   end
 
-  config.vm.provision "shell", path: "scripts/cleanup.sh"
+  config.vm.provision "shell", path: "scripts/finish.sh"
 
 end

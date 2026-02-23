@@ -1,8 +1,9 @@
 ## Purpose
 
-Building automation of a virtual machine (VM) from a [server install image of ubuntu](http://cdimage.ubuntu.com/ubuntu/releases/bionic/release/) (ISO file)
+Building automation of a virtual machine (VM) from a server install image of ubuntu (ISO file)
 
-* containing _The Littlest JupyerHub_ (TLJH)
+* based on [ubuntu 22.04 LTS](https://releases.ubuntu.com/jammy/)
+* containing R software version 4.5 with useful packages and _The Littlest JupyerHub_ ([TLJH](https://tljh.jupyter.org/en/latest/))
 * with the help of _Packer_, _Vagrant_ and _Ansible_ tools 
 * for using with _VirtualBox_ or _OpenStack_.
 
@@ -21,69 +22,162 @@ Requires [VirtualBox](https://www.virtualbox.org/), [Packer](https://www.packer.
 
 * **Ansible** which is a powerfull tool allowing to describe tasks using [Playbooks](https://docs.ansible.com/ansible/latest/user_guide/playbooks.html), then turn tough tasks into repeatable playbooks. It is **not necessary to install Ansible** beforehand. It will be installed temporarily on the virtual machine to proceed the [provisionning](https://www.vagrantup.com/docs/provisioning). It will be removed at the end of the VM creation.
 
-![Overview](https://raw.githubusercontent.com/inrae/jupyterhub-vm/master/images/overview.png)
+![Overview](images/overview.png)
 
+### 1 - Get the ISO file
 
-#### Configuration files
+* Download Ubuntu 22.04 iso file - See https://cdimage.ubuntu.com/ubuntu/releases/22.04/release/
 
-* **http/preseed.cfg** : Debian-based VM [preconfiguration file](https://wiki.debian.org/DebianInstaller/Preseed) (ubuntu). 
-* **box-config.json** : configuration file used by Packer to define what image we want built. In particular, you can adjust the disk size (18 Gb).
-* **Vagrantfile.tmpl** : template for the configuration file used by _Vagrant_ to describe the type of the machine and how to configure and provision it. This template file is used by the _build.sh_ script (see below) to generate the real _Vagrantfile_ used by Vagrant.
-* **ansible/vars/all.yml** : Variable definition file used by ansible to configure the installation of the VM and the packages, modules, etc. In particular, you can put here all R packages and Python modules to be installed and available in Jupyter notebooks.
+* Example :
 
-
-#### Steps to follow
-
-The shell script **build.sh** can run each step separately or all at the same time. 
-
-**Note**: You must edit this file before launching to ensure that the paths to the packer and vagrant binary programs match your configuration. In the case of an installation under _Windows 10 / Cygwin 64 bits_ for example, it would be a good idea to specify the correct paths directly in the script. You can change the default IP and the default data path (shared data).
-
-1. Generate the vagrant box based on Packer.
 ```
-   $> sh ./build.sh -p
-```
-   The script launches the command _packer build box-config.json_.
-   As results, a vagrant box will be generated under the _builds_ folder.
-
-2. Generate the VM into _VirtualBox_
-```
-   $> sh ./build.sh -u
-```
-   The script launches the command _vagrant up_.
-   As results, a VM will create into _VirtualBox_. You can test it. You can also made a SSH connection in 2 ways :
-
-        * First,  ssh -p2222 vagrant@127.0.0.1
-        * Second  ssh vagrant@<IP of your VM>
-   In both cases, no password will be asked if ssh-agent running. Otherwise, enter _vagrant_ as password.
-
-   The default IP and the default data path (shared data) are those defined in the _build.sh_ script.
-   * To specify another IP, use the _-i_ option. _VirtualBox_ will create the corresponding Ethernet adapters. You need to specify _-i dhcp_ if the VM is to be run on the cloud.
-   * To specify another data folder, use the _-d_ option. You need to specify _-d none_ if the VM is to be run on the cloud. In the latter case,  you can put files (data, scripts) under the _ansible/roles/jupyterhub/files/share_ folder so that they are included in the shared folder within the VM and accessible in the 'shared_data' folder in jupyter notebooks.  This folder can also be replaced by a symbolic link pointing to another folder containing the data and/or scripts to be shared.
-
-3. Export the VM 
-```
-   $> sh ./build.sh -e
-```
-   The script launches the command _vagrant package_.
-   As results, a VM file will create under the _builds/vm_ folder. You can use it as a virtual appliance into _VirtualBox_ or in an OpenStack cloud.
-
-All steps can be run at the same time:
-```
-   $> sh ./build.sh -pue -i <IP> -d <shared data folder>
+ISO : https://releases.ubuntu.com/22.04/ubuntu-22.04.5-live-server-amd64.iso
+CHECKSUM : sha256:9bc6028870aef3f74f4e16b900008179e78b130e6b0b9a140635434a46aa98b0
 ```
 
+### 2 - Create the Base Box
 
-#### Using JupyterHub
+* Base Box with Packer, see : https://dev.to/miry/getting-started-with-packer-in-2024-56d5
 
-The first time you log in to JupyterHub via the web interface, you must enter the administrator's login and password. The administrator's login is _admin_ (configured in the file _ansible/roles/jupyterhub/tasks/install.yml_).
+    * [box-config.json](box-config.json) : VM Settings
+    * [http/user-data](http/user-data) : Cloud-Init Configuration
 
-![Login](https://raw.githubusercontent.com/inrae/jupyterhub-vm/master/images/jupyterhub_login.png)
+```
+cd  ./ubuntu2204
+time packer build box-config.json | tee ./logs/packer.log
+```
 
-The password is to be set by entering it when logging in for the first time. Then, it is registered as a user account of the machine (Linux account). Thus, you will have to enter the same password for subsequent logins. To change it, you will have to connect to the VM via a console and change it with the command _passwd_.
-
-
-
-
-
+* You can now delete the ISO file as it will no longer be needed in the following steps.
 
 
+### 3 - Store Base Box in Vagrant Cloud
+
+* In order to be able to use this base box in several projects, the best option is to store it in the Vagrant cloud. To do this, use the web interface. Before uploading your base box you must complete the following tasks (if not yet done) : 1) create an account, 2) create a projet, 3) create a registry within the projet. Then 4) create a _base box_. See https://developer.hashicorp.com/vagrant/vagrant-cloud/boxes/create.
+
+* Here we have created the base boxe referenced as [djreg/small-ubuntu2204](https://portal.cloud.hashicorp.com/vagrant/discover/djreg/small-ubuntu2204/versions/1.1)
+
+
+### 4 - Create Final VM
+
+* Based on :
+   * [Base Box](https://portal.cloud.hashicorp.com/vagrant/discover/djreg/small-ubuntu2204/versions/1.1) : the base box stored in the Vagrant Cloud (see previous step)
+   * [Vagrantfile](Vagrantfile) : describes the type of the machine and how to configure and provision it. 
+   * [ansible](ansible/playbook.yml) : configures the installation of the VM and the packages, modules, etc.
+
+* You must first install the plugin corresponding to the provider (_VirtualBox_) if not yet done
+
+* You have also to create a new [_VirtualBox Host-Only Ethernet Adapter_](images/vbox_network.png)
+
+```
+vagrant plugin install virtualbox
+```
+
+* Then, you can now build the final VM
+
+```
+time vagrant up | tee logs/vagrant.log
+```
+
+* At this stage, you can use the final VM given that it is running on the provider (_VirtualBox_). So you can connect on it using ssh command (login=_vagrant_, password=_vagrant_):
+
+```
+ssh -p 2222 vagrant@127.0.0.1
+```
+
+* **Note 1** : If you wish, you can add one or more SSH keys to the _scripts/ssh_keys_ file, which will then be associated with the root account. This will allow you to log in directly as root. Very practical in development mode but to be avoided in production mode, given that the _vagrant_ account already has full rights with the sudo mechanism.
+
+* **Note 2** : A shell script (_/usr/local/bin/install_R_pkgs_) has been created to install a set of R packages from various sources (CRAN, bioconductor, github, ...). This script can be edited either before building the VM or afterward within the VM itself. However, in both cases, it must be executed from within the VM. This allows for a more generic and smaller VM, and enables the creation of multiple instances from the same image for different uses, i.e., for different application domains.
+
+
+### 5 - Export Final VM
+
+* Export the final VM as a TAR archive (_tar.gz_ format). It will included the VMDK VM file (_ubuntu2204-disk001.vmdk_)
+
+```
+time vagrant package --output ./builds/ubuntu2204-box.tar.gz | tee -a ./logs/vagrant.log
+
+```
+
+### 6 - Upload Final VM on an OpenStack cloud
+
+* First you must extract the VMDK VM file (_ubuntu2204-disk001.vmdk_) from the TAR archive. Put it under the same directory (i.e. _./builds_)
+
+* Upload the final VM on a OpenStack cloud, based on :
+    * [OpenStackClient](https://docs.openstack.org/python-openstackclient/latest/) (OSC) which must be installed - See [more details](openstack/README.md)
+    * [clouds.yaml](openstack/clouds.yaml) : definition file of the openstack cloud (e.g. [GenOuest](https://www.genouest.org/2017/03/02/cluster/))
+    * [openstack/push_cloud.sh](openstack/README.md) : shell script that does the job
+
+* Note : Depending on your network connection, this may take a long time (>30min).
+
+```
+time sh ./openstack/push_cloud.sh -c genostack
+```
+
+* You will be asked for a password
+
+```
+Please enter your OpenStack password, then [shift][Enter] :
+```
+
+* **Note** : Once the VM image has been placed in the cloud space and an instance created, you will need to edit the _/usr/local/bin/get-hostname_ file to indicate either the full name of the instance or the IP address depending on what is needed to access it on the Internet. By default, the IP address is provided. However, this may not work if the VM is behind a proxy.
+
+
+
+### 7 - Do the housework on your local disk
+
+* Stop the VM if not yet done
+
+```
+vagrant halt -f default
+```
+
+* Remove the final VM from the provider (_VirtualBox_)
+
+```
+vagrant destroy -f default
+```
+
+* Remove the current virtual environment
+
+```
+rm -rf ./.vagrant
+```
+
+* Delete the files corresponding to the base box and the final virtual machine (under ./builds)
+
+```
+rm -f ./builds/*
+```
+
+* Optionally remove the base box from the local vagrant registry 
+
+```
+rm -rf $HOME/.vagrant.d/boxes/djreg-*
+```
+
+<br>
+
+
+### Funded by:
+
+* INRAE UR BIA-BIBS, Biopolymères Interactions Assemblages
+* INRAE, UR BIA, plate-forme BIBS
+
+<br>
+
+### License
+
+Copyright (C) 2026  Daniel Jacob - INRAE
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.

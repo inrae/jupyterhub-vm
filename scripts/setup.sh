@@ -7,19 +7,22 @@ sh /media/cdrom/VBoxLinuxAdditions.run
 umount /media/cdrom
 rm -f /home/vagrant/VBoxGuestAdditions.iso
 
+# Create a symbolic link
+VBoxDir=$(ls /opt | grep VBoxGuestAdditions)
+ln -s /opt/$VBoxDir /opt/VBoxGuestAdditions
+
 # Install some packages
 apt-get update && apt-get install -y \
-   whois curl rsync cloud-init apt net-tools
-
+   whois cloud-init apt
 
 # ssh key
-mkdir /home/vagrant/.ssh
+#mkdir /home/vagrant/.ssh
 chmod 0700 /home/vagrant/.ssh
 wget -O/home/vagrant/.ssh/authorized_keys https://github.com/mitchellh/vagrant/raw/master/keys/vagrant.pub
 chown -R vagrant:vagrant /home/vagrant/.ssh
 chmod 0600 /home/vagrant/.ssh/authorized_keys
 
-mkdir /root/.ssh
+#mkdir /root/.ssh
 chmod 0700 /root/.ssh
 cp /home/vagrant/.ssh/authorized_keys /root/.ssh/
 chmod 0600 /root/.ssh/authorized_keys

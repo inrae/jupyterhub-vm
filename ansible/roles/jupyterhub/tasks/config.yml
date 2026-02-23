@@ -13,6 +13,32 @@
     mode: 0775
   with_items: "{{ files_to_copy.files }}"
 
+- name: Generate the jupyterhub config file
+  script:
+    chdir: /opt/tljh/config/jupyterhub_config.d/
+    cmd: "/opt/tljh/hub/bin/jupyterhub --generate-config"
+
+- name: Set jupyterHub.bind_url
+  lineinfile: 
+    dest=/opt/tljh/config/jupyterhub_config.d/jupyterhub_config.py
+    regexp='^.*c.JupyterHub.bind_url' 
+    line="c.JupyterHub.bind_url = 'http://<<VM_NAME>>'"
+    owner=root 
+    group=root 
+    mode=0644
+
+- name: Set jupyterHub.hub_ip
+  lineinfile: 
+    dest=/opt/tljh/config/jupyterhub_config.d/jupyterhub_config.py
+    regexp='^.*c\.JupyterHub.hub_ip' 
+    line="c.JupyterHub.hub_ip = ''"
+    owner=root 
+    group=root 
+    mode=0644
+
+- name: Rename jupyterhub config file as a template
+  command: mv /opt/tljh/config/jupyterhub_config.d/jupyterhub_config.py /opt/tljh/config/jupyterhub_config.d/jupyterhub_config.tpl
+
 - name: Copy jupyterhub.service with owner and permissions
   copy:
     src: "{{vm.ansible_dir}}/roles/jupyterhub/files/systemd/jupyterhub.service"
@@ -20,50 +46,6 @@
     owner: root
     group: root
     mode: 0644
-
-- name: Check if {{vm.data_folder}} are already mounted
-  shell: df | grep "{{vm.data_folder}}" | wc -l
-  register: mount_checked
-
-- name: Copy vboxadd-service.service with owner and permissions
-  copy:
-    src: "{{vm.ansible_dir}}/roles/jupyterhub/files/systemd/vboxadd-service.service"
-    dest: /etc/systemd/system/multi-user.target.wants/vboxadd-service.service
-    owner: root
-    group: root
-    mode: 0644
-  when: mount_checked.stdout == "1"
-
-- name: Add the shared folder to /etc/fstab
-  shell: |
-     echo "DATA   {{vm.data_folder}}   vboxsf   auto,rw,comment=systemd.automount   0 0" >> /etc/fstab
-  when: mount_checked.stdout == "1"
-
-- name: Add vboxsf to /etc/modules
-  shell: |
-     echo "vboxsf" >> /etc/modules
-  when: mount_checked.stdout == "1"
-
-- name: Create {{vm.data_folder}} if it does not exist
-  file:
-    path: "{{vm.data_folder}}"
-    state: directory
-    mode: 0777
-  when: mount_checked.stdout == "0"
-
-- name: Copy shared data under {{vm.data_folder}}
-  synchronize:
-    src: files/share/
-    dest: "{{vm.data_folder}}"
-    dirs: yes
-    recursive: yes
-  when: mount_checked.stdout == "0"
-
-- name: Create shared_data symbolic link
-  file:
-    src: "{{vm.data_folder}}"
-    dest: "/etc/skel/shared_data"
-    state: link
 
 - name: Restart jupyterhub application
   systemd:
