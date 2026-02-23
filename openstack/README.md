@@ -1,5 +1,5 @@
 
-## About authentication to the OpenStack server 
+### About authentication to the OpenStack server 
 
 To use an OpenStack cloud you need to authenticate against the Identity
 service named keystone, which returns a **Token** and **Service Catalog**.
@@ -27,7 +27,7 @@ You need to retrieve the **_clouds.yaml_** file from the **OpenStack dashboard**
 ![get_auth](../images/openstack_authfiles.png)
 
 
-## About the scripts
+### About the scripts
 
 The scripts provided here only serve to illustrate an example of VM creation on the OpenStack infrastructure of [IFB GenOuest bioinformatics](https://www.genouest.org/2017/03/02/cluster/). This of course requires access to this infrastructure, as any other infrastructure for that matter.
 
@@ -99,7 +99,7 @@ https://destine-data-lake-docs.data.destination-earth.eu/en/latest/openstackcli/
 
 <br>
 
-## Acknowledgements
+### Acknowledgements
 
 We would like to thank the [IFB GenOuest bioinformatics](https://www.genouest.org/2017/03/02/cluster/) for providing storage and computing resources on its national life science Cloud.
 
