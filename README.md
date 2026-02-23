@@ -22,9 +22,13 @@ Requires [VirtualBox](https://www.virtualbox.org/), [Packer](https://www.packer.
 
 * **Ansible** which is a powerfull tool allowing to describe tasks using [Playbooks](https://docs.ansible.com/ansible/latest/user_guide/playbooks.html), then turn tough tasks into repeatable playbooks. It is **not necessary to install Ansible** beforehand. It will be installed temporarily on the virtual machine to proceed the [provisionning](https://www.vagrantup.com/docs/provisioning). It will be removed at the end of the VM creation.
 
-The entire process is summarized below in diagram form: Input, an ISO file corresponding to the chosen operating system, downloaded from the Internet; Output, an instance of the operational virtual machine on the [Genouest OpenStack cloud](https://www.genouest.org/2017/03/02/cluster/); in the upper part, all the configuration files used for the automatic generation of the virtual machine.
+The entire process is summarized below in diagram form: 
 
 ![Overview](images/overview.png)
+* **Input**:  an ISO file corresponding to the chosen operating system, downloaded from the Internet
+* **Output**:  an instance of the operational virtual machine on the [Genouest OpenStack cloud](https://www.genouest.org/2017/03/02/cluster/); in the upper part, all the configuration files used for the automatic generation of the virtual machine.
+
+<br>
 
 ### 1 - Get the ISO file
 
