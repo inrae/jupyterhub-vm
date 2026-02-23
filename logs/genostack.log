@@ -2,6 +2,61 @@
 # CLOUD genostack
 #-------------------------------------------------------------------
 #
+# VMFILE = ./builds/ubuntu2204-disk001.vmdk
+# FORMAT = vmdk
+#
+# Create the image jupyterhub-img_2026
+#
++------------------+--------------------------------------------------------+
+| Field            | Value                                                  |
++------------------+--------------------------------------------------------+
+| container_format | bare                                                   |
+| created_at       | 2026-02-23T14:24:14Z                                   |
+| disk_format      | vmdk                                                   |
+| file             | /v2/images/c5dcb9a9-a88c-4116-99a7-ebe84e4a0dee/file   |
+| id               | c5dcb9a9-a88c-4116-99a7-ebe84e4a0dee                   |
+| min_disk         | 0                                                      |
+| min_ram          | 0                                                      |
+| name             | jupyterhub-img_2026                                    |
+| owner            | xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                       |
+| protected        | False                                                  |
+| schema           | /v2/schemas/image                                      |
+| status           | queued                                                 |
+| tags             |                                                        |
+| updated_at       | 2026-02-23T14:24:14Z                                   |
+| visibility       | shared                                                 |
++------------------+--------------------------------------------------------+
++------------------+---------------------------------------------------------------------------+
+| Field            | Value                                                                     |
++------------------+---------------------------------------------------------------------------+
+| checksum         | fd4d211e08748ca5a3407d515ce7e38e                                          |
+| container_format | bare                                                                      |
+| created_at       | 2026-02-23T14:24:14Z                                                      |
+| disk_format      | vmdk                                                                      |
+| file             | /v2/images/c5dcb9a9-a88c-4116-99a7-ebe84e4a0dee/file                      |
+| id               | c5dcb9a9-a88c-4116-99a7-ebe84e4a0dee                                      |
+| min_disk         | 0                                                                         |
+| min_ram          | 0                                                                         |
+| name             | jupyterhub-img_2026_bis                                                   |
+| owner            | xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                          |
+| properties       | description='JupyterHub for R Applications', os_hash_algo='sha512',       |
+|                  | os_hidden='False', owner_specified.openstack.md5='',                      |
+|                  | owner_specified.openstack.object='images/jupyterhub-img_2026',            |
+|                  | owner_specified.openstack.sha256='', stores='file'                        |
+| protected        | False                                                                     |
+| schema           | /v2/schemas/image                                                         |
+| size             | 3275601920                                                                |
+| status           | active                                                                    |
+| tags             |                                                                           |
+| updated_at       | 2026-02-23T14:31:58Z                                                      |
+| visibility       | shared                                                                    |
++------------------+---------------------------------------------------------------------------+
+OK
+
+#
+# CLOUD genostack
+#-------------------------------------------------------------------
+#
 # IMAGE = jupyterhub-img_2026
 # SERVER_NAME = jupystack_2026
 # FLAVOR = m1.xlarge
@@ -9,43 +64,85 @@
 #
 # Create the instance jupystack_2026
 +--------------------------------------+------------------------------------------------------------------+
-| Property                             | Value                                                            |
+| Field                                | Value                                                            |
 +--------------------------------------+------------------------------------------------------------------+
 | OS-DCF:diskConfig                    | MANUAL                                                           |
 | OS-EXT-AZ:availability_zone          |                                                                  |
-| OS-EXT-STS:power_state               | 0                                                                |
+| OS-EXT-STS:power_state               | NOSTATE                                                          |
 | OS-EXT-STS:task_state                | scheduling                                                       |
 | OS-EXT-STS:vm_state                  | building                                                         |
-| OS-SRV-USG:launched_at               | -                                                                |
-| OS-SRV-USG:terminated_at             | -                                                                |
+| OS-SRV-USG:launched_at               | None                                                             |
+| OS-SRV-USG:terminated_at             | None                                                             |
 | accessIPv4                           |                                                                  |
 | accessIPv6                           |                                                                  |
-| adminPass                            | s8w2CyoRY6Xw                                                     |
+| addresses                            |                                                                  |
+| adminPass                            | xxxxxxxxxxxx                                                     |
 | config_drive                         |                                                                  |
-| created                              | 2026-02-23T07:13:47Z                                             |
-| description                          | -                                                                |
-| flavor:disk                          | 20                                                               |
-| flavor:ephemeral                     | 0                                                                |
-| flavor:extra_specs                   | {}                                                               |
-| flavor:original_name                 | m1.xlarge                                                        |
-| flavor:ram                           | 16384                                                            |
-| flavor:swap                          | 0                                                                |
-| flavor:vcpus                         | 8                                                                |
+| created                              | 2026-02-23T14:32:51Z                                             |
+| flavor                               | m1.xlarge (c781b97e-f891-4ddf-9a6b-0e5ae4ef3eb1)                 |
 | hostId                               |                                                                  |
-| id                                   | 1ead45db-8623-481a-bd81-a229a52aad8d                             |
-| image                                | jupyterhub-img_2026 (820062d6-d7de-467d-b9e7-979e2901687d)       |
+| id                                   | 3899b342-80f5-470e-b869-08e05e26c8bd                             |
+| image                                | jupyterhub-img_2026 (c5dcb9a9-a88c-4116-99a7-ebe84e4a0dee)       |
 | key_name                             | genostack                                                        |
-| locked                               | False                                                            |
-| locked_reason                        | -                                                                |
-| metadata                             | {}                                                               |
 | name                                 | jupystack_2026                                                   |
 | os-extended-volumes:volumes_attached | []                                                               |
 | progress                             | 0                                                                |
-| security_groups                      | default                                                          |
-| server_groups                        | []                                                               |
+| project_id                           | xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                 |
+| properties                           |                                                                  |
+| security_groups                      | name='default'                                                   |
 | status                               | BUILD                                                            |
-| tags                                 | []                                                               |
-| trusted_image_certificates           | -                                                                |
-| updated                              | 2026-02-23T07:13:47Z                                             |
+| updated                              | 2026-02-23T14:32:51Z                                             |
 | user_id                              | dc8e832181f47fb1208871074b20d25c2d1fa327400d93dc57287a90860df6a7 |
 +--------------------------------------+------------------------------------------------------------------+
++-------------------------------------+---------------------------------------------------------------------------+
+| Field                               | Value                                                                     |
++-------------------------------------+---------------------------------------------------------------------------+
+| OS-DCF:diskConfig                   | MANUAL                                                                    |
+| OS-EXT-AZ:availability_zone         | nova                                                                      |
+| OS-EXT-SRV-ATTR:host                | None                                                                      |
+| OS-EXT-SRV-ATTR:hostname            | None                                                                      |
+| OS-EXT-SRV-ATTR:hypervisor_hostname | None                                                                      |
+| OS-EXT-SRV-ATTR:instance_name       | None                                                                      |
+| OS-EXT-SRV-ATTR:kernel_id           | None                                                                      |
+| OS-EXT-SRV-ATTR:launch_index        | None                                                                      |
+| OS-EXT-SRV-ATTR:ramdisk_id          | None                                                                      |
+| OS-EXT-SRV-ATTR:reservation_id      | None                                                                      |
+| OS-EXT-SRV-ATTR:root_device_name    | None                                                                      |
+| OS-EXT-SRV-ATTR:user_data           | None                                                                      |
+| OS-EXT-STS:power_state              | NOSTATE                                                                   |
+| OS-EXT-STS:task_state               | spawning                                                                  |
+| OS-EXT-STS:vm_state                 | building                                                                  |
+| OS-SRV-USG:launched_at              | None                                                                      |
+| OS-SRV-USG:terminated_at            | None                                                                      |
+| accessIPv4                          |                                                                           |
+| accessIPv6                          |                                                                           |
+| addresses                           |                                                                           |
+| config_drive                        |                                                                           |
+| created                             | 2026-02-23T14:32:51Z                                                      |
+| description                         | jupystack_2026_bis                                                        |
+| flavor                              | description=, disk='20', ephemeral='0', , id='m1.xlarge', is_disabled=,   |
+|                                     | is_public='True', location=, name='m1.xlarge', original_name='m1.xlarge', |
+|                                     | ram='16384', rxtx_factor=, swap='0', vcpus='8'                            |
+| host                                | None                                                                      |
+| hostId                              | 35e4f4e71be22b9169001d01236d2d9e3582c4a336790c0341781f65                  |
+| host_status                         | None                                                                      |
+| id                                  | 3899b342-80f5-470e-b869-08e05e26c8bd                                      |
+| image                               | jupyterhub-img_2026 (c5dcb9a9-a88c-4116-99a7-ebe84e4a0dee)                |
+| key_name                            | genostack                                                                 |
+| locked                              | False                                                                     |
+| locked_reason                       | None                                                                      |
+| name                                | jupystack_2026_bis                                                        |
+| personality                         | None                                                                      |
+| pinned_availability_zone            | None                                                                      |
+| progress                            | 0                                                                         |
+| project_id                          | xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                          |
+| properties                          |                                                                           |
+| security_groups                     | name='default'                                                            |
+| server_groups                       | []                                                                        |
+| status                              | BUILD                                                                     |
+| tags                                |                                                                           |
+| trusted_image_certificates          | None                                                                      |
+| updated                             | 2026-02-23T14:32:52Z                                                      |
+| user_id                             | dc8e832181f47fb1208871074b20d25c2d1fa327400d93dc57287a90860df6a7          |
+| volumes_attached                    |                                                                           |
++-------------------------------------+---------------------------------------------------------------------------+

@@ -31,18 +31,19 @@ You need to retrieve the **_clouds.yaml_** file from the **OpenStack dashboard**
 
 The scripts provided here only serve to illustrate an example of VM creation on the OpenStack infrastructure of [IFB GenOuest bioinformatics](https://www.genouest.org/2017/03/02/cluster/). This of course requires access to this infrastructure, as any other infrastructure for that matter.
 
+The tested versions are python-openstackclient==6.6.0 and python-novaclient==18.11.0 under Windows 11 25H2 - 64-bit,  x64 processor, with Anaconda3 integrating Python 3.10.
+
 <br>
 
 * **push_cloud.sh** : This script allows you to upload a virtual disk to an OpenStack-type cloud service.
 
 ```
 $ sh ./openstack/push_cloud.sh -h
-usage: sh ./push_cloud.sh [-c <cloudname>] [-p <password>] [-d <VM HD path>] [-i <VM IMAGE NAME>] [ -l <LOG filename>] [-t]
+usage: sh ./push_cloud.sh [-c <cloudname>] [-p <password>] [-d <VM HD path>] [-i <VM IMAGE NAME>] [-t]
      -c <cloudname>     : the entry in the clouds.yaml file (genostack by default)
      -p <password>      ! password to have access on the cloud
      -d <VM HD path>    : the full path of the VM disk (./builds/ubuntu2204-disk001.vmdk by default)
      -i <VM IMAGE NAME> : the image name of the VM once pushed on the cloud (jupyterhub-img_2026 by default)
-     -l <LOG filename>  : the full path of the log file (./logs/<cloudname>.log by default)
      -t                 : flag indicating that it is just for testing cloud connection
 ```
 <br>
@@ -51,14 +52,13 @@ usage: sh ./push_cloud.sh [-c <cloudname>] [-p <password>] [-d <VM HD path>] [-i
 
 ```
 $ sh ./openstack/instance_to_cloud.sh -h
-usage: sh ./instance_to_cloud.sh [-c <cloudname>] [-p <password>] [-i <VM IMAGE NAME>] [-s <instance name>] [-k <keypair>] [-f <flavor>] [ -l <LOG filename>] [-t]
+usage: sh ./instance_to_cloud.sh [-c <cloudname>] [-p <password>] [-i <VM IMAGE NAME>] [-s <instance name>] [-k <keypair>] [-f <flavor>] [-t]
      -c <cloudname>     : the entry in the clouds.yaml file (genostack by default)
      -p <password>      ! password to have access on the cloud
      -k <keypair>       : genostack by default
      -f <flavor>        : m1.xlarge by default
      -i <VM IMAGE NAME> : the image name of the VM once pushed on the cloud (jupyterhub-img_2026 by default)
      -s <instance name> : the instance name of the VM (jupystack_2026 by default)
-     -l <LOG filename>  : the full path of the log file (./logs/<cloudname>.log by default)
      -t                 : flag indicating that it is just for testing cloud connection
 ```
 

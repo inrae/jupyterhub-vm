@@ -9,7 +9,6 @@ SERVER_NAME=jupystack_2026
 KEYPAIR=genostack
 FLAVOR_NAME=m1.xlarge
 
-LOG=$MYDIR/../logs/${CLOUD}.log
 OS_SCRIPTS=`dirname $(which openstack)`
 OS_USERNAME=djacob
 OS_PASSWORD=
@@ -18,14 +17,13 @@ TEST=0
 PWD=$(pwd)
 
 usage() {
-    echo "usage: sh $0 [-c <cloudname>] [-p <password>] [-i <VM IMAGE NAME>] [-s <instance name>] [-k <keypair>] [-f <flavor>] [ -l <LOG filename>] [-t]
+    echo "usage: sh $0 [-c <cloudname>] [-p <password>] [-i <VM IMAGE NAME>] [-s <instance name>] [-k <keypair>] [-f <flavor>] [-t]
      -c <cloudname>     : the entry in the clouds.yaml file (genostack by default)
      -p <password>      ! password to have access on the cloud
      -i <VM IMAGE NAME> : the image name of the VM once pushed on the cloud (jupyterhub-img_2026 by default)
      -s <instance name> : the instance name of the VM (jupystack_2026 by default)
      -k <keypair>       : genostack by default
      -f <flavor>        : m1.xlarge by default
-     -l <LOG filename>  : the full path of the log file (./logs/<cloudname>.log by default)
      -t                 : flag indicating that it is just for testing cloud connection
 "
     exit 1;
@@ -70,7 +68,6 @@ if [ -z $OS_PASSWORD ]; then
 fi
 
 alias ostack="$OS_SCRIPTS/openstack --os-cloud=$CLOUD --os-password $OS_PASSWORD"
-alias onova="$(which nova) --os-password $OS_PASSWORD"
 
 echo
 
@@ -97,15 +94,15 @@ fi
 grep_key() { grep -A7 "${CLOUD}:" $CLOUDFILE | grep " $1:" | sed -e "s/^ \+//" | cut -d' ' -f2; }
  
 # Log file
-echo "#" | tee $LOG
-echo "# CLOUD $CLOUD" | tee -a $LOG
+echo "#"
+echo "# CLOUD $CLOUD"
 echo "#-------------------------------------------------------------------" | tee -a $LOG
-echo "#" | tee -a $LOG
-echo "# IMAGE = $IMAGE_NAME" | tee -a $LOG
-echo "# SERVER_NAME = $SERVER_NAME" | tee -a $LOG
-echo "# FLAVOR = $FLAVOR_NAME" | tee -a $LOG
-echo "# KEYPAIR = $KEYPAIR" | tee -a $LOG
-echo "#" | tee -a $LOG
+echo "#"
+echo "# IMAGE = $IMAGE_NAME"
+echo "# SERVER_NAME = $SERVER_NAME"
+echo "# FLAVOR = $FLAVOR_NAME"
+echo "# KEYPAIR = $KEYPAIR"
+echo "#"
 
 IMAGEID=$(ostack image show $IMAGE_NAME | grep "| id " | cut -d'|' -f3 | sed -e "s/ //g")
 FLAVORID=$(ostack flavor list | grep "$FLAVOR_NAME"  | cut -d'|' -f2 | sed -e "s/ //g")
@@ -121,12 +118,12 @@ FLAVORID=$(ostack flavor list | grep "$FLAVOR_NAME"  | cut -d'|' -f2 | sed -e "s
   export OS_INTERFACE=public
   export OS_IDENTITY_API_VERSION=3
 
-  echo "# Create the instance $SERVER_NAME" | tee -a $LOG
-  onova boot --flavor $FLAVORID --image $IMAGEID --security-groups default \
+  echo "# Create the instance $SERVER_NAME"
+  ostack server create --flavor $FLAVORID --image $IMAGEID  \
            --user-data user-data-jupystack.txt \
-           --key-name $KEYPAIR  $SERVER_NAME | tee -a $LOG
-  [ $? -ne 0 ] && echo "ERROR: The instance creation failed." | tee -a $LOG && exit 1
+           --key-name $KEYPAIR  $SERVER_NAME --config-drive true
+  [ $? -ne 0 ] && echo "ERROR: The instance creation failed." && exit 1
 
-  ostack server show $SERVER_NAME | tee -a $LOG
+  ostack server show $SERVER_NAME
 )
 

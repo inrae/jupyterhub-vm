@@ -36,12 +36,12 @@ Bringing machine 'default' up with 'virtualbox' provider...
 PLAY [all] *********************************************************************
 
 TASK [Gathering Facts] *********************************************************
-ok: [default]
 [WARNING]: Platform linux on host default is using the discovered Python
 interpreter at /usr/bin/python3.10, but future installation of another Python
 interpreter could change the meaning of that path. See
 https://docs.ansible.com/ansible-
 core/2.17/reference_appendices/interpreter_discovery.html for more information.
+ok: [default]
 
 TASK [vm : Set the hostname in /etc/hostname] **********************************
 changed: [default]
@@ -211,7 +211,7 @@ PLAY RECAP *********************************************************************
 default                    : ok=50   changed=39   unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
 
 ==> default: Running provisioner: shell...
-    default: Running: C:/Cygwin64/tmp/vagrant-shell20260223-25384-1a5axz.sh
+    default: Running: C:/Cygwin64/tmp/vagrant-shell20260223-27348-klt8a0.sh
     default: + '[' -f /vagrant/scripts/ssh_keys ']'
     default: + cat /vagrant/scripts/ssh_keys
     default: + apt -y remove --purge ansible
@@ -233,14 +233,8 @@ default                    : ok=50   changed=39   unreachable=0    failed=0    s
     default: After this operation, 205 MB disk space will be freed.
     default: (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 210728 files and directories currently installed.)
     default: Removing ansible (10.7.0-1ppa~jammy) ...
-    default: + apt clean
-    default: 
-    default: WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-    default: 
-    default: + apt autoremove -y
-    default: 
-    default: WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
-    default: 
+    default: + apt-get clean
+    default: + apt-get autoremove -y
     default: Reading package lists...
     default: Building dependency tree...
     default: Reading state information...
@@ -266,19 +260,29 @@ default                    : ok=50   changed=39   unreachable=0    failed=0    s
     default: Removing python3-xmltodict (0.12.0-2) ...
     default: Removing sshpass (1.09-1) ...
     default: Processing triggers for man-db (2.10.2-1) ...
+    default: + rm -rf /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_jammy_InRelease /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_jammy_universe_binary-amd64_Packages /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_jammy_universe_cnf_Commands-amd64 /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_jammy_universe_i18n_Translation-en /var/lib/apt/lists/auxfiles /var/lib/apt/lists/cloud.r-project.org_bin_linux_ubuntu_jammy-cran40_InRelease /var/lib/apt/lists/cloud.r-project.org_bin_linux_ubuntu_jammy-cran40_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_InRelease /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_main_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_main_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_main_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_multiverse_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_restricted_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_universe_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_universe_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_universe_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_InRelease /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_main_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_main_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_main_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_multiverse_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_multiverse_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_multiverse_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_restricted_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_restricted_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_restricted_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_universe_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_universe_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_universe_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_InRelease /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_main_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_main_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_main_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_multiverse_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_multiverse_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_multiverse_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_restricted_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_restricted_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_restricted_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_universe_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_universe_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_universe_i18n_Translation-en /var/lib/apt/lists/lock /var/lib/apt/lists/partial /var/lib/apt/lists/ppa.launchpadcontent.net_ansible_ansible_ubuntu_dists_jammy_InRelease /var/lib/apt/lists/ppa.launchpadcontent.net_ansible_ansible_ubuntu_dists_jammy_main_binary-amd64_Packages /var/lib/apt/lists/ppa.launchpadcontent.net_ansible_ansible_ubuntu_dists_jammy_main_i18n_Translation-en /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_InRelease /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_main_binary-amd64_Packages /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_main_cnf_Commands-amd64 /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_main_i18n_Translation-en /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_multiverse_binary-amd64_Packages /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_multiverse_cnf_Commands-amd64 /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_multiverse_i18n_Translation-en /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_restricted_binary-amd64_Packages /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_restricted_cnf_Commands-amd64 /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_restricted_i18n_Translation-en /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_universe_binary-amd64_Packages /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_universe_cnf_Commands-amd64 /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_universe_i18n_Translation-en
+    default: + find /var/log -type f -exec truncate -s 0 '{}' ';'
+    default: + cloud-init clean --logs
+    default: + rm -rf /var/lib/cloud/seed
+    default: + truncate -s 0 /etc/machine-id
+    default: + rm -f /var/lib/dbus/machine-id
+    default: + ln -s /etc/machine-id /var/lib/dbus/machine-id
+    default: + rm -f /root/.bash_history
+    default: + rm -f '/home/*/.bash_history'
+    default: + rm -f /etc/ssh/ssh_host_ecdsa_key /etc/ssh/ssh_host_ecdsa_key.pub /etc/ssh/ssh_host_ed25519_key /etc/ssh/ssh_host_ed25519_key.pub /etc/ssh/ssh_host_rsa_key /etc/ssh/ssh_host_rsa_key.pub
+    default: + rm -rf /tmp/downloaded_packages /tmp/snap-private-tmp /tmp/systemd-private-81ddcaf71820401a8c9807989985930c-jupyterhub.service-P6TYUF /tmp/systemd-private-81ddcaf71820401a8c9807989985930c-ModemManager.service-n7dN3G /tmp/systemd-private-81ddcaf71820401a8c9807989985930c-systemd-logind.service-RU8ogv /tmp/systemd-private-81ddcaf71820401a8c9807989985930c-systemd-resolved.service-XUlK3a /tmp/systemd-private-81ddcaf71820401a8c9807989985930c-systemd-timedated.service-kDr7xc /tmp/systemd-private-81ddcaf71820401a8c9807989985930c-traefik.service-7EjOOT /tmp/tmp.KJOPaCnlOo /tmp/vagrant-ansible /tmp/vagrant-shell
+    default: + rm -rf /var/tmp/systemd-private-81ddcaf71820401a8c9807989985930c-jupyterhub.service-buJqHP /var/tmp/systemd-private-81ddcaf71820401a8c9807989985930c-ModemManager.service-jRmOue /var/tmp/systemd-private-81ddcaf71820401a8c9807989985930c-systemd-logind.service-GV7ZSN /var/tmp/systemd-private-81ddcaf71820401a8c9807989985930c-systemd-resolved.service-hX8qDU /var/tmp/systemd-private-81ddcaf71820401a8c9807989985930c-systemd-timedated.service-3cXmAD /var/tmp/systemd-private-81ddcaf71820401a8c9807989985930c-traefik.service-mqYILv
     default: + journalctl --vacuum-time=1s
+    default: No journal files were found.
     default: Vacuuming done, freed 0B of archived journals from /var/log/journal.
     default: Vacuuming done, freed 0B of archived journals from /run/log/journal.
-    default: Vacuuming done, freed 0B of archived journals from /var/log/journal/362543f576bb44ab8d09216ae28765c4.
-    default: + rm -rf /tmp/downloaded_packages /tmp/snap-private-tmp /tmp/systemd-private-923c94d28a414d58970ff898b6f0faeb-jupyterhub.service-2Spr8e /tmp/systemd-private-923c94d28a414d58970ff898b6f0faeb-ModemManager.service-J49Vrw /tmp/systemd-private-923c94d28a414d58970ff898b6f0faeb-systemd-logind.service-zU0kpE /tmp/systemd-private-923c94d28a414d58970ff898b6f0faeb-systemd-resolved.service-9Q05S0 /tmp/systemd-private-923c94d28a414d58970ff898b6f0faeb-systemd-timedated.service-wQ8efX /tmp/systemd-private-923c94d28a414d58970ff898b6f0faeb-traefik.service-IeAwrT /tmp/tmp.uPW5VT1gyw /tmp/vagrant-ansible /tmp/vagrant-shell
-    default: + rm -f '/tmp/*'
     default: + rm -rf /root/.cache/pip/http /root/.cache/pip/http-v2 /root/.cache/pip/selfcheck /root/.cache/pip/wheels
-    default: + rm -rf /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_jammy_InRelease /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_jammy_universe_binary-amd64_Packages /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_jammy_universe_cnf_Commands-amd64 /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_jammy_universe_i18n_Translation-en /var/lib/apt/lists/auxfiles /var/lib/apt/lists/cloud.r-project.org_bin_linux_ubuntu_jammy-cran40_InRelease /var/lib/apt/lists/cloud.r-project.org_bin_linux_ubuntu_jammy-cran40_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_InRelease /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_main_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_main_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_main_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_multiverse_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_restricted_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_universe_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_universe_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-backports_universe_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_InRelease /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_main_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_main_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_main_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_multiverse_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_multiverse_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_multiverse_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_restricted_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_restricted_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_restricted_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_universe_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_universe_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy_universe_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_InRelease /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_main_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_main_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_main_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_multiverse_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_multiverse_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_multiverse_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_restricted_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_restricted_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_restricted_i18n_Translation-en /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_universe_binary-amd64_Packages /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_universe_cnf_Commands-amd64 /var/lib/apt/lists/fr.archive.ubuntu.com_ubuntu_dists_jammy-updates_universe_i18n_Translation-en /var/lib/apt/lists/lock /var/lib/apt/lists/partial /var/lib/apt/lists/ppa.launchpadcontent.net_ansible_ansible_ubuntu_dists_jammy_InRelease /var/lib/apt/lists/ppa.launchpadcontent.net_ansible_ansible_ubuntu_dists_jammy_main_binary-amd64_Packages /var/lib/apt/lists/ppa.launchpadcontent.net_ansible_ansible_ubuntu_dists_jammy_main_i18n_Translation-en /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_InRelease /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_main_binary-amd64_Packages /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_main_cnf_Commands-amd64 /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_main_i18n_Translation-en /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_multiverse_binary-amd64_Packages /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_multiverse_cnf_Commands-amd64 /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_multiverse_i18n_Translation-en /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_restricted_binary-amd64_Packages /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_restricted_cnf_Commands-amd64 /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_restricted_i18n_Translation-en /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_universe_binary-amd64_Packages /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_universe_cnf_Commands-amd64 /var/lib/apt/lists/security.ubuntu.com_ubuntu_dists_jammy-security_universe_i18n_Translation-en
+    default: + rm -rf '/var/lib/apt/lists/*'
     default: + rm -f '/var/lib/apt/lists/*'
     default: + rm -f '/var/log/*.gz'
+    default: + dpkg -l 'linux-image-*'
     default: + awk '/^ii/{ print $2}'
     default: + xargs -r apt-get -y purge
-    default: + dpkg -l 'linux-image-*'
     default: ++ uname -r
     default: ++ cut -d- -f1,2
     default: + grep -v 5.15.0-170
@@ -299,20 +303,34 @@ default                    : ok=50   changed=39   unreachable=0    failed=0    s
     default: + rm -f '/home/vagrant/*.sh'
     default: + cat /dev/null
     default: + history -c
-    default: ++ df --output=avail -k /
     default: ++ tail -1
-    default: + fallocate -l 8165420K /EMPTY
-    default: + rm -f /EMPTY
-    default: + dd if=/dev/zero of=/EMPTY bs=1M
-    default: dd: error writing '/EMPTY': No space left on device
-    default: 8907+0 records in
-    default: 8906+0 records out
-    default: 9339297792 bytes (9.3 GB, 8.7 GiB) copied, 11.8945 s, 785 MB/s
-    default: + true
+    default: ++ df --output=avail -k /
+    default: + fallocate -l 8185540K /EMPTY
     default: + rm -f /EMPTY
     default: + sync
     default: + exit 0
+
+real    5m51.591s
+user    0m0.467s
+sys     0m1.718s
+
 ==> default: Attempting graceful shutdown of VM...
+    default: Guest communication could not be established! This is usually because
+    default: SSH is not running, the authentication information was changed,
+    default: or some other networking issue. Vagrant will force halt, if
+    default: capable.
+==> default: Forcing shutdown of VM...
 ==> default: Clearing any previously set forwarded ports...
 ==> default: Exporting VM...
 [K==> default: Compressing package to: C:/VirtualMach/Vagrant/ubuntu2204/builds/ubuntu2204-box.tar.gz
+
+real    7m39.957s
+user    0m0.078s
+sys     0m0.233s
+
+    default: Are you sure you want to destroy the 'default' VM? [y/N] Y
+==> default: You assigned a static IP ending in ".1" or ":1" to this machine.
+==> default: This is very often used by the router and can cause the
+==> default: network to not work properly. If the network doesn't work
+==> default: properly, try changing this IP.
+==> default: Destroying VM and associated drives...

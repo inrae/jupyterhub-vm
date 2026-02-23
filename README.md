@@ -28,6 +28,8 @@ The entire process is summarized below in diagram form:
 * **Input**:  an ISO file corresponding to the chosen operating system, downloaded from the Internet
 * **Output**:  an instance of the operational virtual machine on the [Genouest OpenStack cloud](https://www.genouest.org/2017/03/02/cluster/); in the upper part, all the configuration files used for the automatic generation of the virtual machine.
 
+The tested versions are Packer v1.15.0 && Vagrant 2.4.9
+
 <br>
 
 ### 1 - Get the ISO file
@@ -42,6 +44,8 @@ CHECKSUM : sha256:9bc6028870aef3f74f4e16b900008179e78b130e6b0b9a140635434a46aa98
 ```
 
 ### 2 - Create the Base Box
+
+* The tested version is _Packer v1.15.0_
 
 * Base Box with Packer, see : https://dev.to/miry/getting-started-with-packer-in-2024-56d5
 
@@ -64,6 +68,8 @@ time packer build box-config.json | tee ./logs/packer.log
 
 
 ### 4 - Create Final VM
+
+* The tested version is _Vagrant 2.4.9_
 
 * Based on :
    * [Base Box](https://portal.cloud.hashicorp.com/vagrant/discover/djreg/small-ubuntu2204/versions/1.1) : the base box stored in the Vagrant Cloud (see previous step)
@@ -116,7 +122,7 @@ time vagrant package --output ./builds/ubuntu2204-box.tar.gz | tee -a ./logs/vag
 * Note : Depending on your network connection, this may take a long time (>30min).
 
 ```
-time sh ./openstack/push_cloud.sh -c genostack
+time sh ./openstack/push_cloud.sh -c genostack | tee ./logs/genostack.log
 ```
 
 * You will be asked for a password

@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 cat <<EOF > /usr/local/bin/get-hostname
 #!/bin/bash
