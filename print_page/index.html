@@ -1,0 +1,1246 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Building automation of a virtual machine (VM) from a server install image of ubuntu (ISO file)">
+      
+      
+        <meta name="author" content="Daniel Jacob">
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+    
+    
+      
+        <title>Maggot Documentation - Using JupyterHub within a VM and on the Cloud</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/print-site.css">
+    
+      <link rel="stylesheet" href="../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../css/extra.css">
+    
+      <link rel="stylesheet" href="../css/pdfextra.css">
+    
+      <link rel="stylesheet" href="../css/lightbox.css">
+    
+    <script>__md_scope=new URL("/",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+        <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            remove_material_navigation();remove_mkdocs_theme_navigation();generate_toc();
+        })
+        </script>
+        </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#index" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Using JupyterHub within a VM and on the Cloud" class="md-header__button md-logo" aria-label="Using JupyterHub within a VM and on the Cloud" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Using JupyterHub within a VM and on the Cloud
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Maggot Documentation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Using JupyterHub within a VM and on the Cloud" class="md-nav__button md-logo" aria-label="Using JupyterHub within a VM and on the Cloud" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Using JupyterHub within a VM and on the Cloud
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basebox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building the Base VM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../finalvm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building the Final VM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../os-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using the Final VM on an Openstack cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../google-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using the Final VM on Google Cloud Platform
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div id="print-site-page" class="">
+        <section id="print-site-cover-page">
+            
+<div>
+
+    
+        <h1>Using JupyterHub within a VM and on the Cloud</h1>
+    
+
+</div>
+
+
+<table>
+
+    
+    <tr>
+        <td>Description</td>
+        <td>Building automation of a virtual machine (VM) from a server install image of ubuntu (ISO file)</td>
+    </tr>
+    
+
+    
+    <tr>
+        <td>Author(s)</td>
+        <td>Daniel Jacob</td>
+    </tr>
+    
+
+    
+
+    
+    <tr>
+        <td>Copyright</td>
+        <td>Daniel Jacob, INRAE, 2021</td>
+    </tr>
+    
+
+</table>
+
+
+
+
+
+        </section>
+        
+        <section class="print-page">
+            <div id="print-page-toc" data-toc-depth="3">
+                <nav role='navigation' class='print-page-toc-nav'>
+                <h1 class='print-page-toc-title'>Table of Contents</h1>
+                </nav>
+            </div>
+        </section>
+        <section class="print-page" id="index" heading-number="1"><h1 id="index-home">Home<a class="headerlink" href="#index-home" title="Permanent link">&para;</a></h1>
+<style>.md-typeset h1 {display: none;} .md-nav__item {font-size: medium}</style>
+
+<h2 id="index-generation-of-a-virtual-machine-vm-from-an-ubuntu-server-installation-image-iso-file">Generation of a virtual machine (VM) from an ubuntu server installation image (ISO file)<a class="headerlink" href="#index-generation-of-a-virtual-machine-vm-from-an-ubuntu-server-installation-image-iso-file" title="Permanent link">&para;</a></h2>
+<ul>
+<li>containing <a href="https://tljh.jupyter.org/" target="_blank">The Littlest JupyerHub</a> (TLJH)</li>
+<li>with the help of <a href="https://www.packer.io" target="_blank">Packer</a>, <a href="https://www.vagrantup.com" target="_blank">Vagrant</a> and <a href="https://docs.ansible.com/" target="_blank">Ansible</a> tools</li>
+<li>for using with <a href="https://www.virtualbox.org" target="_blank">VirtualBox</a> or <a href="https://www.openstack.org/" target="_blank">OpenStack</a>.</li>
+</ul>
+<p>All the tools used are exclusively free and open-source.</p>
+<p>The <a href="https://tljh.jupyter.org/" target="_blank">Littlest JupyterHub</a>, a recent and evolving distribution designed for smaller deployments, is a lightweight method to install JupyterHub on a single virtual machine. The Littlest JupyterHub (also known as TLJH), provides a guide with information on creating a VM on several cloud providers, as well as installing and customizing JupyterHub so that users may access it at a public URL.</p>
+<h3 id="index-overview">Overview<a class="headerlink" href="#index-overview" title="Permanent link">&para;</a></h3>
+<p>This work was carried on a desktop computer running Windows10 / Cygwin. But any machine (laptop, desktop, server, ...) under MacOS or UNIX-like can be perfectly suitable. Please note that this requires technical skills in installing applications and assumes that you are comfortable editing configuration files. </p>
+<p><strong>Note</strong>: All the scripts and other configuration files mentioned in this description can be found in free access under the <a href="https://github.com/inrae/jupyterhub-vm" target="_blank">GiHub INRAE repository</a>.</p>
+<p>To build our final VM, i.e. the VM that will be instantiated for use locally (<a href="https://medium.com/teamresellerclub/type-1-and-type-2-hypervisors-what-makes-them-different-6a1755d6ae2c" target="_blank">type 2 virtualization</a>) or on a remote server (Datacenter or Cloud), we will proceed in two main steps for the creation. The first step will consist in the building of a base VM (Base box). The second step will consist, from the base VM, in installing and configuring all the system and application tools (packages) necessary to make JupyterHub work correctly from a web browser. A third step will describe how to instantiate the final VM on the Genouest cloud. The figure below gives an overview: </p>
+<p><br></p>
+<center>
+<a href="../images/overview.png" data-lightbox="overview"><img src="../images/overview.png" width="600px"></a>
+</center>
+<p><br><br></p>
+<p><strong>The three main stages</strong></p>
+<ol>
+<li><a href="#basebox">Building the base VM (Base box) for Vagrant</a></li>
+<li><a href="#finalvm">Building the final VM</a></li>
+<li><a href="#os-cloud">Using the final VM on an Openstack cloud</a></li>
+</ol>
+<p><strong>Pipeline</strong></p>
+<ul>
+<li>In green, the pipeline path for the creation, storage and instantiation of the virtual machine.</li>
+<li>As input to the pipeline, an ISO file corresponding to the chosen operating system and downloaded from the Internet. </li>
+<li>At the output, an instance of the virtual machine operational on Genouest's Openstack cloud.</li>
+</ul>
+<p><strong>The different layers</strong></p>
+<ul>
+<li>The <em>configuration</em> layer corresponds to all the files and scripts deposited in the github.</li>
+<li>The <em>creation</em> layer corresponds to all the tools installed and used on the user's local machine (except for Ansible which is installed on the virtual machine but which could very well be installed on the local machine).</li>
+<li>The <em>storage</em> layer corresponds to the storage sites of the VMs (base and final).</li>
+<li>The <em>instantiation</em> layer corresponds to the instantiated virtual machine.</li>
+</ul>
+<p><br><br><br></p></section><section class="print-page" id="basebox" heading-number="2"><h1 id="basebox-base-box">Base Box<a class="headerlink" href="#basebox-base-box" title="Permanent link">&para;</a></h1>
+<style>.md-typeset h1 {display: none;} .md-nav__item {font-size: medium}</style>
+
+<h4 id="basebox-building-the-base-vm-base-box-for-vagrant">Building the base VM (Base box) for Vagrant<a class="headerlink" href="#basebox-building-the-base-vm-base-box-for-vagrant" title="Permanent link">&para;</a></h4>
+<p>It is assumed that you have installed the <a href="https://www.packer.io/downloads" target="_blank">Packer</a> and <a href="https://www.vagrantup.com/downloads" target="_blank">Vagrant tools</a>, as well as the <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">Oracle VirtualBox</a> virtualisation software.</p>
+<p>The operations for creating a base box are documented online; you have to follow the <a href="https://developer.hashicorp.com/vagrant/docs/boxes/base" target="_blank">basic guide</a> and apply the provider-specific rules, namely for <a href="https://developer.hashicorp.com/vagrant/docs/providers/virtualbox/boxes" target="_blank">VirtualBox</a> . The procedure is somewhat tedious and, above all, an error can happen quickly. This is why we will use the Packer tool, which allows to fully automate the creation of a Vagrant base box by following the process illustrated by the figure below:</p>
+<p><br></p>
+<center>
+<a href="../images/image1.png" data-lightbox="image1"><img src="../images/image1.png" width="600px"></a>
+</center>
+<p><br><br></p>
+<p><strong>Note</strong>: All the scripts and other configuration files mentioned in this description can be found in free access under the <a href="https://github.com/inrae/jupyterhub-vm" target="_blank">GiHub INRAE repository</a>.</p>
+<p>We are using <a href="http://cdimage.ubuntu.com/ubuntu/releases/20.04/release/" target="_blank">Ubuntu version 20.04</a> as a basis.</p>
+<p>A Packer configuration is defined with a JSON file (box-config.json) with several sections: </p>
+<ul>
+<li><a href="https://developer.hashicorp.com/packer/docs/builders" target="_blank">builders</a>: is used to define the elements for creating the virtual machine from an ISO image.</li>
+<li><a href="https://developer.hashicorp.com/packer/docs/provisioners" target="_blank">provisioners</a>: is used to define the software configuration from Shell scripts to provision the virtual machine.</li>
+<li><a href="https://developer.hashicorp.com/packer/docs/post-processors" target="_blank">post-processors</a>: runs once the virtual machine is created and provisioned. This allows among other things to define the output format of the VM.</li>
+</ul>
+<p><strong>"builders" section</strong></p>
+<ul>
+<li>To build this section, it is often simpler to start from already functional examples and to modify the few elements specific to its configuration. A query in a search engine (e.g. Google) with the keywords "github packer ubuntu 20.04 virtualbox" will give you enough examples. So we started with <a href="https://github.com/geerlingguy/packer-boxes/tree/master/ubuntu2004" target="_blank">an example appropriate to our needs</a>, which we then adapted.</li>
+<li>The VirtualBox box is made from an Ubuntu ISO specified by its URL (iso_urls) in order to create the VM in VirtualBox ("type": "virtualbox-iso") .</li>
+<li>A "preseed" file (http/preseed.cfg) allows to configure the installation (see more info on <a href="https://wiki.debian.org/DebianInstaller/Preseed" target="_blank">preseeding</a> ). We have adapted the example by adding instructions concerning the root account and the network configuration.</li>
+<li>We limited the maximum disk size to 18GB ("disk_size": 18432) so that the final VM can be accepted by the <a href="https://www.genouest.org/tag/cloud/" target="_blank">Genouest cloud</a>.</li>
+</ul>
+<p><strong>"provisioners" section</strong></p>
+<p>This section allows to run Shell scripts after the virtual machine has booted properly and then its operating system installed. So it is in this step that we can configure the VM to be compatible with Vagrant and VirtualBox. A Shell script (scripts/setup.sh) is then executed in order to:</p>
+<ul>
+<li>install the drivers for VirtualBox</li>
+<li>configure SSH accesses in compliance with Vagrant boxes. </li>
+</ul>
+<p><strong>"post-processors" section</strong></p>
+<ul>
+<li>Once the base virtual machine is fully installed and configured, it is simply exported to Vagrant format. </li>
+</ul>
+<h4 id="basebox-creating-the-base-vm">Creating the base VM<a class="headerlink" href="#basebox-creating-the-base-vm" title="Permanent link">&para;</a></h4>
+<p>Before building, you must install these external plugins to ensure builds keep working </p>
+<div class="highlight"><pre><span></span><code>$&gt; packer plugins install github.com/hashicorp/virtualbox
+$&gt; packer plugins install github.com/hashicorp/vagrant
+</code></pre></div>
+<p>Once the configuration has been established, simply run Packer as follows:</p>
+<div class="highlight"><pre><span></span><code>$&gt; packer build box-config.json
+</code></pre></div>
+<p>All the messages produced can be consulted on the <a href="https://github.com/inrae/jupyterhub-vm/blob/master/logs/packer.log" target="_blank">github repository</a>. The base VM after execution can be found under the builds directory.</p>
+<p><br><br></p>
+<h4 id="basebox-registering-a-box-on-vagrant-cloud">Registering a box on Vagrant Cloud<a class="headerlink" href="#basebox-registering-a-box-on-vagrant-cloud" title="Permanent link">&para;</a></h4>
+<p>Vagrant Cloud provides an API that allows users to register their virtual machines (boxes) with Vagrant Cloud so that they can be reused by themselves or by other users.  The use of the <a href="https://www.vagrantup.com/docs/cli/cloud" target="_blank">API is described online</a>. </p>
+<p>The registration of a virtual machine can only be done with the Vagrant format, i.e. a "box". A "box" is in fact a zipped archive file (TAR + GZIP) with the extension '.box'.
+Registering a "box" consists of 5 steps:</p>
+<ol>
+<li>Creating an entry for the "box": at least the name of the box (boxname) must be specified. Its description is optional.</li>
+<li>Creating a version: there may be several versions of the same entry; the version must be specified.</li>
+<li>Creation of a provider: similarly, for an entry (boxname) and a version, there may be several associated providers; the provider must be specified.</li>
+<li>Upload the box file.</li>
+<li>Validate the box. (entry + version + provider)</li>
+</ol>
+<p>All of these steps can be done either via the Vagrant Cloud web interface, or through multiple API calls. In order to facilitate the automation of registrations, the Vagrant tool provides a 'cloud' functionality that allows you to register your box on Vagrant Cloud. This requires an account (called an 'organisation') to be created on Vagrant Cloud. </p>
+<p>Example of invocation : </p>
+<p><div class="highlight"><pre><span></span><code>$&gt; vagrant cloud auth login
+</code></pre></div>
+<div class="highlight"><pre><span></span><code> ...
+Vagrant Cloud username: GAEV
+Vagrant Cloud password: XXXXXXX
+</code></pre></div></p>
+<p><div class="highlight"><pre><span></span><code>$&gt; vagrant cloud publish GAEV/centos7-dd8Gb 1.0.0 virtualbox virtualbox-centos7_8Gb.box 
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>You are about to create a box on Vagrant Cloud with the following options:
+GAEV/centos7-dd8Gb (1.0.0) for virtualbox
+Automatic Release:     true
+Do you wish to continue? [y/N] y
+Creating a box entry...
+Creating a version entry...
+Creating a provider entry...
+Uploading provider with file /Vagrant/boxes/virtualbox-centos7_8Gb.box
+Releasing box...
+Complete!
+tag:                  GAEV/centos7-dd8Gb
+username:             GAEV
+name:                 centos7-dd8Gb
+private:              false
+downloads:            0
+created_at:           2020-07-25T17:53:04.340Z
+updated_at:           2020-07-25T18:01:10.665Z
+current_version:      1.0.0
+providers:            virtualbox
+</code></pre></div></p>
+<p>The registered box can be viewed on <a href="https://portal.cloud.hashicorp.com/vagrant/discover/GAEV/ubuntu1804-dd18Gb" target="_blank">Vagrant Cloud</a>.</p>
+<p><br><br><br></p></section><section class="print-page" id="finalvm" heading-number="3"><h1 id="finalvm-final-vm">Final VM<a class="headerlink" href="#finalvm-final-vm" title="Permanent link">&para;</a></h1>
+<style>.md-typeset h1 {display: none;} .md-nav__item {font-size: medium}</style>
+
+<h4 id="finalvm-starting-from-an-existing-base-vm-base-box">Starting from an existing base VM (Base box)<a class="headerlink" href="#finalvm-starting-from-an-existing-base-vm-base-box" title="Permanent link">&para;</a></h4>
+<p>Creating a base VM can be complex for a non-expert. This is why it is easier to start from a base VM when it is available. This is also why the base VM should be as generic as possible so that it can be easily used for many applications.</p>
+<p>The base VM generated and used in this use-case was deposited on <a href="https://app.vagrantup.com/GAEV/boxes/ubuntu1804-dd18Gb" target="_blank">Vagrant Cloud</a>, using its API (see <a href="#basebox-registering-a-box-on-vagrant-cloud">Registering a box on Vagrant Cloud</a>).</p>
+<h4 id="finalvm-building-the-final-vm">Building the final VM<a class="headerlink" href="#finalvm-building-the-final-vm" title="Permanent link">&para;</a></h4>
+<p>We will use the base VM to provision it, i.e. install and configure all the system and application tools (packages) necessary to make the JupyterHub application work properly. To do this, we will use the Ansible tool as illustrated in the figure below:</p>
+<p><br></p>
+<center>
+<a href="../images/image2.png" data-lightbox="image2"><img src="../images/image2.png" width="600px"></a>
+</center>
+<p><br><br></p>
+<p><strong>Note</strong>: All the scripts and other configuration files mentioned in this description can be found in free access under the <a href="https://github.com/inrae/jupyterhub-vm" target="_blank">GiHub INRAE repository</a>.</p>
+<p>The first step is to create a <a href="https://www.vagrantup.com/docs/vagrantfile" target="_blank">Vagrantfile</a> and customise it to suit your needs. This file follows the syntax of the <a href="https://www.ruby-lang.org/fr/about/" target="_blank">Ruby language</a>. A light version is given below:</p>
+<div class="highlight"><pre><span></span><code>  Vagrant.configure(&quot;2&quot;) do |config|
+
+    config.vm.box = file://builds/virtualbox-ubuntu1804.box
+    config.vm.hostname = jupyterhub
+
+    config.vm.network &quot;private_network&quot;, type: &quot;dhcp&quot;
+
+    config.ssh.insert_key = false
+
+    config.vm.synced_folder &quot;.&quot;, &quot;/vagrant&quot;, type: &quot;virtualbox&quot;
+
+    config.vm.provision &quot;ansible_local&quot; do |ansible|
+        ansible.playbook = &quot;ansible/playbook.yml&quot;
+        ansible.install = true
+        ansible.limit = &#39;all&#39;
+    end
+
+    config.vm.provision &quot;shell&quot;, path: &quot;scripts/cleanup.sh&quot;
+
+  end
+</code></pre></div>
+<ul>
+<li><em>config.vm.box</em><ul>
+<li>sets the base box as input</li>
+</ul>
+</li>
+<li><em>config.vm.hostname</em><ul>
+<li>defines the hostname of the machine</li>
+</ul>
+</li>
+<li><em>config.vm.network</em><ul>
+<li>defines the network configuration in DHCP mode</li>
+</ul>
+</li>
+<li><em>config.ssh.insert_key</em><ul>
+<li>defines the SSH key. By default, it will be the one defined in the base box.</li>
+</ul>
+</li>
+<li><em>config.vm.synced_folder</em><ul>
+<li>defines a local directory as shared with the VM. At least, the "." directory must be defined in order to configure the VM. These shared directories will only be active during the creation and then test stage before export.</li>
+</ul>
+</li>
+<li><em>config.vm.provision</em><ul>
+<li>defines the process by which the VM will be provisioned. Here, two processes are invoked. i) 'ansible_local': indicates that the ansible tool will first be installed on the VM and then use the playbook defined in ansible/playbook; ii) 'shell': indicates that a shell script defined by its relative path will be used.</li>
+</ul>
+</li>
+</ul>
+<h4 id="finalvm-provisioning-using-the-ansible-tool">Provisioning using the Ansible tool<a class="headerlink" href="#finalvm-provisioning-using-the-ansible-tool" title="Permanent link">&para;</a></h4>
+<p>The choice was made not to install Ansible on the host machine used to create the VM, but rather it will be installed on the VM itself, this is to simplify the process.</p>
+<p>The provisioning is defined from a <a href="https://en.wikipedia.org/wiki/YAML" target="_blank">YAML</a> file called <a href="https://docs.ansible.com/ansible/2.4/playbooks_intro.html" target="_blank">playbook.yml</a></p>
+<div class="highlight"><pre><span></span><code>  ---
+- hosts: all
+  become: true
+  become_user: root
+  #gather_facts: no
+
+  vars_files:
+    - vars/all.yml
+
+  environment:
+    PYTHONHTTPSVERIFY: 0
+
+  roles:
+    - repositories
+    - server
+    - vm
+    - install-r
+    - jupyterhub
+    - r_pkgs
+    - python_pkgs
+</code></pre></div>
+<p>Ansible allows tasks to be organised in a directory structure called a <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html" target="_blank">Role</a>. In this configuration, playbooks invoke roles, which themselves define a set of tasks, so you can always group tasks together and reuse roles in other playbooks. Roles also allow you to collect templates, static files and variables along with your tasks in a structured format. </p>
+<p>Each role, and then each task within roles, is interpreted sequentially. Thus the following roles are defined:</p>
+<ul>
+<li><em>repositories</em><ul>
+<li>configures the repositories for binary packages (systems, R, python, tools, ...), </li>
+</ul>
+</li>
+<li><em>server</em><ul>
+<li>configure the timezone </li>
+</ul>
+</li>
+<li><em>vm</em><ul>
+<li>configure the hostname</li>
+</ul>
+</li>
+<li><em>install-r</em><ul>
+<li>installs the R application with basic packages</li>
+</ul>
+</li>
+<li><em>jupyterhub</em><ul>
+<li>installs and configures the jupyterhub application</li>
+</ul>
+</li>
+<li><em>r_pkgs</em><ul>
+<li>install a set of R packages</li>
+</ul>
+</li>
+<li><em>python_pkgs</em><ul>
+<li>install a set of Python packages</li>
+</ul>
+</li>
+</ul>
+<p>Each role is defined by a set of tasks, themselves defined by files in YAML format.</p>
+<p>For example, the role '<em>repositories</em>' is defined by the following <em>roles/repositories/tasks/main.yml</em> file:</p>
+<div class="highlight"><pre><span></span><code>---
+
+- name: Add an apt key by id from a keyserver
+  apt_key:
+    keyserver: &quot;{{repository.keyserver}}&quot;
+    id: &quot;{{repository.id}}&quot;
+
+- name: Add repositories
+  apt_repository:
+    repo: &quot;{{item}}&quot;
+  with_items: &quot;{{repository.repos}}&quot;
+</code></pre></div>
+<p>Two tasks are thus defined and described by their name field. Then the actual task is defined using a name referring to a <a href="https://docs.ansible.com/ansible/latest/user_guide/modules_intro.html" target="_blank">module</a>. <a href="https://docs.ansible.com/ansible/2.8/modules/list_of_all_modules.html" target="_blank">Hundreds of modules</a> are available in Ansible. Here two modules are invoked:</p>
+<ul>
+<li><a href="https://docs.ansible.com/ansible/2.8/modules/apt_key_module.html" target="_blank">apt_key</a>: add or remove an apt key</li>
+<li><a href="https://docs.ansible.com/ansible/2.8/modules/apt_repository_module.html" target="_blank">apt_repository</a>: add or remove a binary package repository. The <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html" target="_blank">variables</a> correspond to those defined in the }  defined by the double braces {{ }<em>vars/all.yml</em> file itself declared in the playbook. Thus the following lines can be found in this file:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>repository:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: E298A3A825C0D65DFD57CBB651716619E084DAB9
+    repos:
+      - ppa:c2d4u.team/c2d4u4.0+
+      - ppa:hnakamur/libgit2
+      - deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/
+</code></pre></div>
+<p>So this is how the provisioning task set is defined by Ansible. </p>
+<p>The '<em>jupyterhub</em>' role was built from the instructions provided on the <a href="https://tljh.jupyter.org/en/latest/" target="_blank">TLJH</a> website. The list of Python and R packages needed for a specific use under JupyterHub are to be defined in the <em>vars/all.yml file</em>, whose installation is taken care of by the '<em>python_pkgs</em>' and '<em>r_pkgs</em>' roles respectively.</p>
+<h4 id="finalvm-shell-script-provisioning">Shell script provisioning<a class="headerlink" href="#finalvm-shell-script-provisioning" title="Permanent link">&para;</a></h4>
+<p>Once the provisioning by Ansible is finished, we proceed to a VM cleanup, i.e. uninstall Ansible, clean the temporary files and clean the hard disk. We use a Shell script (<em>scripts/cleanup.sh</em>) for this.</p>
+<h4 id="finalvm-creating-the-final-vm">Creating the final VM<a class="headerlink" href="#finalvm-creating-the-final-vm" title="Permanent link">&para;</a></h4>
+<p>Once the configuration is established, you just have to execute the following commands:</p>
+<div class="highlight"><pre><span></span><code>$&gt; vagrant up
+$&gt; vagrant package --output ubuntu-box.tar.gz
+</code></pre></div>
+<p>All the messages produced can be consulted on the <a href="https://github.com/inrae/jupyterhub-vm/blob/master/logs/vagrant.log" target="_blank">github repository</a></p>
+<p><br><br><br></p></section><section class="print-page" id="os-cloud" heading-number="4"><h1 id="os-cloud-openstack-cloud">Openstack Cloud<a class="headerlink" href="#os-cloud-openstack-cloud" title="Permanent link">&para;</a></h1>
+<style>.md-typeset h1 {display: none;} .md-nav__item {font-size: medium}</style>
+
+<p><a href="https://www.genouest.org/" target="_blank">GenOuest</a> is a national bioinformatics platform federated by the <a href="https://www.france-bioinformatique.fr/" target="_blank">French Institute of Bioinformatics</a> (IFB). This platform offers cloud services for the French public research community. Any researcher from this community can make a request to Genouest or any other IFB platform to have access to the proposed services.</p>
+<p>GenOuest offers on its datacenter infrastructure a service of providing computing resources in the form of virtual machines. The infrastructure is managed using <a href="https://www.openstack.org/" target="_blank">Openstack</a>, which is a set of open source software that allows the deployment of cloud computing infrastructures (Infrastructure as a Service, IaS). It is therefore necessary to have a valid account on this infrastructure (see the <a href="https://help.genouest.org/" target="_blank">online help</a>).</p>
+<p>It is then assumed that you have installed Python (≥2.7) as well as the <a href="https://docs.openstack.org/newton/user-guide/common/cli-install-openstack-command-line-clients.html" target="_blank">package python-openstackclient</a> . </p>
+<p><br></p>
+<h4 id="os-cloud-retrieving-its-connection-settings-from-genouest-openstack">Retrieving its connection settings from GenOuest Openstack<a class="headerlink" href="#os-cloud-retrieving-its-connection-settings-from-genouest-openstack" title="Permanent link">&para;</a></h4>
+<p>To set the required environment variables for openstack command line clients, you must download the environment file called openrc.sh from the <a href="https://www.youtube.com/embed/XcQYz--CNiM?ab_channel=UKCloudLtd" target="_blank">GenOuest openStack dashboard</a> as a user. This project-specific environment file contains the credentials that all openstack services use.</p>
+<p><br></p>
+<center>
+<a href="../images/image3.png" data-lightbox="image3"><img src="../images/image3.png" width="600px"></a>
+</center>
+<p><br><br></p>
+<p><strong>Note</strong>: All the scripts and other configuration files mentioned in this description can be found in free access under the <a href="https://github.com/inrae/jupyterhub-vm/tree/master/openstack" target="_blank">GiHub INRAE repository</a>.</p>
+<p><br></p>
+<p>You need to get the <em>openrc.sh</em> script as well as the <em>cloud.yml</em> configuration file. The latter is to be put in the <em>&lt;home directory&gt;/.config/openstack</em> directory.</p>
+<p>Then run the <em>openrc.sh</em> script in the current shell (i.e invoking using a dot); you will be asked for your password.</p>
+<div class="highlight"><pre><span></span><code>$&gt;<span class="w"> </span>.<span class="w"> </span>./openrc.sh
+Please<span class="w"> </span>enter<span class="w"> </span>your<span class="w"> </span>OpenStack<span class="w"> </span>Password<span class="w"> </span><span class="k">for</span><span class="w"> </span>project<span class="w"> </span>&lt;Project&gt;<span class="w"> </span>as<span class="w"> </span>user<span class="w"> </span>&lt;Users&gt;:
+</code></pre></div>
+<ul>
+<li><em>&lt;Project&gt;</em> and <em>&lt;User&gt;</em> corresponding to your configuration.</li>
+</ul>
+<p>This script will define the following variables: OS_AUTH_URL, OS_PROJECT_DOMAIN_ID, OS_REGION_NAME, OS_PROJECT_NAME, OS_USER_DOMAIN_NAME, OS_IDENTITY_API_VERSION, OS_INTERFACE, OS_USERNAME, OS_PROJECT_ID, OS_PASSWORD</p>
+<p>In addition, in order to simplify the written of commands, we will define some aliases.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">OS_SCRIPTS</span><span class="o">=</span>&lt;path<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>python-openstackclient<span class="w"> </span>scripts&gt;
+
+<span class="nb">alias</span><span class="w"> </span><span class="nv">ostack</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$OS_SCRIPTS</span><span class="s2">/openstack --os-cloud=openstack --os-password </span><span class="nv">$OS_PASSWORD</span><span class="s2">&quot;</span>
+<span class="nb">alias</span><span class="w"> </span><span class="nv">onova</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$OS_SCRIPTS</span><span class="s2">/nova --os-password </span><span class="nv">$OS_PASSWORD</span><span class="s2">&quot;</span>
+</code></pre></div>
+<p><br></p>
+<p>If everything is configured correctly, the following command should provide you with a list of available flavors. Flavours define the hardware configuration available for a server. It defines the size of a virtual server that can be started.</p>
+<p><div class="highlight"><pre><span></span><code>$&gt;<span class="w"> </span>ostack<span class="w"> </span>flavor<span class="w"> </span>list
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>+------------+-------+------+-------+-----------+
+ | Name       |   RAM | Disk | VCPUs | Is Public |
+ +------------+-------+------+-------+-----------+
+ | m2.xlarge  | 16384 |   20 |     4 | True      |
+ | m1.small   |  2048 |   20 |     1 | True      |
+ | m2.large   |  8192 |   20 |     2 | True      |
+ | m1.medium  |  4096 |   20 |     2 | True      |
+ | m2.4xlarge | 65536 |   20 |     8 | True      |
+ | m2.medium  |  4096 |   20 |     1 | True      |
+ | m1.2xlarge | 32768 |   20 |     8 | True      |
+ | m1.large   |  8192 |   20 |     4 | True      |
+ | m1.xlarge  | 16384 |   20 |     8 | True      |
+ | m2.2xlarge | 32768 |   20 |     4 | True      |
+ +------------+-------+------+-------+-----------+
+</code></pre></div></p>
+<p><br></p>
+<p>We will then proceed in two steps:</p>
+<ol>
+<li>create a VM image within the library</li>
+<li>create an instance of this image</li>
+</ol>
+<p><br></p>
+<center>
+<a href="../images/image4.png" data-lightbox="image4"><img src="../images/image4.png" width="600px"></a>
+</center>
+<p><br><br></p>
+<h4 id="os-cloud-creating-the-image-on-the-openstack-infrastructure">Creating the image on the openstack infrastructure<a class="headerlink" href="#os-cloud-creating-the-image-on-the-openstack-infrastructure" title="Permanent link">&para;</a></h4>
+<p>It is first necessary to extract the VM file in VMDK format from the archive generated in the previous step.</p>
+<p><div class="highlight"><pre><span></span><code>$&gt;<span class="w"> </span>tar<span class="w"> </span>xvzf<span class="w"> </span>&lt;path<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>archive<span class="w"> </span>file&gt;/ubuntu-box.tar.gz<span class="w"> </span>box-disk001.vmdk
+</code></pre></div>
+This is the file that will be used to create the image. You must also specify a name for the image. </p>
+<p>Then the command below will create the image from the VM file. This command can take several minutes to be achieved.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">IMAGE_NAME</span><span class="o">=</span>jupyterhub-image
+
+ostack<span class="w"> </span>image<span class="w"> </span>create<span class="w"> </span>--disk-format<span class="w"> </span>vmdk<span class="w"> </span>--file<span class="w"> </span>box-disk001.vmdk<span class="w"> </span><span class="nv">$IMAGE_NAME</span>
+
+ostack<span class="w"> </span>image<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--property<span class="w"> </span><span class="nv">description</span><span class="o">=</span><span class="s1">&#39;JupyterHub with R and Python&#39;</span><span class="w"> </span><span class="nv">$IMAGE_NAME</span>
+
+ostack<span class="w"> </span>image<span class="w"> </span>show<span class="w"> </span><span class="nv">$IMAGE_NAME</span>
+</code></pre></div>
+<p>As a result you should obtained something like below:
+<div class="highlight"><pre><span></span><code>+------------------+----------------------------------------------------------+
+| Field            | Value                                                    |
++------------------+----------------------------------------------------------+
+| checksum         | 2a8e9789322009839401be1c25b3d977                         |
+| container_format | bare                                                     |
+| created_at       | 2021-09-09T06:49:14Z                                     |
+| disk_format      | vmdk                                                     |
+| file             | /v2/images/d88e2d16-9c67-4f07-a5dd-20d68f80ba0f/file     |
+| id               | d88e2d16-9c67-4f07-a5dd-20d68f80ba0f                     |
+| min_disk         | 0                                                        |
+| min_ram          | 0                                                        |
+| name             | jupyterhub-img                                           |
+| owner            | xxxxxxxxxxxxxxxxxxxxxxxxxx                               |
+| properties       | description=&#39;JupyterHub with R and Python&#39;               |
+| protected        | False                                                    |
+| schema           | /v2/schemas/image                                        |
+| size             | 3666548736                                               |
+| status           | active                                                   |
+| tags             |                                                          |
+| updated_at       | 2021-09-09T07:02:16Z                                     |
+| visibility       | shared                                                   |
++------------------+----------------------------------------------------------+
+</code></pre></div></p>
+<p><br></p>
+<h4 id="os-cloud-creating-an-instance-from-the-created-image">Creating an instance from the created image<a class="headerlink" href="#os-cloud-creating-an-instance-from-the-created-image" title="Permanent link">&para;</a></h4>
+<p>From the created image, it is now possible to create an instance. You have to specify the name of the instance, its flavor (see above) and the SSH key associated to this VM. The SSH key (keypair) must first have been created from the openstack dashboard.</p>
+<ul>
+<li>
+<p>You can list the SSH keys with the command:
+<div class="highlight"><pre><span></span><code>ostack<span class="w"> </span>keypair<span class="w"> </span>list
+</code></pre></div></p>
+</li>
+<li>
+<p>An SSH key has been created with the name <em>genostack</em> in the openstack dashboard. This <a href="http://www.genouest.org/outils/genostack/ssh-config.html" target="_blank">SSH key</a> must be a valid key on your (linux) openstack.genouest.org account(file <em>~/.ssh/authorized_keys</em>).</p>
+</li>
+<li>
+<p>For flavor we choose in our example the one corresponding to 8 CPUs, 16GB of RAM and 20GB of disk.</p>
+</li>
+<li>
+<p>You can also specify the file containing the commands to be executed after the first boot. Here this file is necessary (<em><a href="https://github.com/inrae/jupyterhub-vm/blob/master/openstack/user-data-jupystack.txt" target="_blank">user-data-jupystack.txt</a></em>) because we must overwrite the file <em>/usr/local/bin/get-hostname</em> giving the complete name of the instance on openstack in order to build the root URL of the jupyterhub application (cf <em><a href="https://github.com/inrae/jupyterhub-vm/blob/master/ansible/roles/jupyterhub/files/bin/jupyterhub.pre" target="_blank">jupyterhub.pre</a></em> and <em><a href="https://github.com/inrae/jupyterhub-vm/blob/master/ansible/roles/jupyterhub/files/systemd/jupyterhub.service" target="_blank">jupyterhub.service</a></em>).</p>
+</li>
+</ul>
+<p><br></p>
+<p>Now, we are ready to launch the command to create the VM isntance.</p>
+<div class="highlight"><pre><span></span><code><span class="nv">IMAGE_NAME</span><span class="o">=</span>jupyterhub-image
+<span class="nv">SERVER_NAME</span><span class="o">=</span>jupystack
+<span class="nv">KEYPAIR</span><span class="o">=</span>genostack
+<span class="nv">FLAVOR_NAME</span><span class="o">=</span>m1.xlarge
+
+<span class="nv">IMAGEID</span><span class="o">=</span><span class="k">$(</span>ostack<span class="w"> </span>image<span class="w"> </span>show<span class="w"> </span><span class="nv">$IMAGE_NAME</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">           </span>grep<span class="w"> </span><span class="s2">&quot;| id &quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;|&#39;</span><span class="w"> </span>-f3<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\ </span>
+<span class="w">           </span>sed<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;s/ //g&quot;</span><span class="k">)</span>
+<span class="nv">FLAVORID</span><span class="o">=</span><span class="k">$(</span>ostack<span class="w"> </span>flavor<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">           </span>grep<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FLAVOR_NAME</span><span class="s2">&quot;</span><span class="w">  </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;|&#39;</span><span class="w"> </span>-f2<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+<span class="w">           </span>sed<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;s/ //g&quot;</span><span class="k">)</span>
+
+onova<span class="w"> </span>boot<span class="w"> </span>--flavor<span class="w"> </span><span class="nv">$FLAVORID</span><span class="w"> </span>--image<span class="w"> </span><span class="nv">$IMAGEID</span><span class="w"> </span>--security-groups<span class="w"> </span>default<span class="w"> </span><span class="se">\</span>
+<span class="w">           </span>--user-data<span class="w"> </span>./user-data-jupystack.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">           </span>--key-name<span class="w"> </span><span class="nv">$KEYPAIR</span><span class="w">  </span><span class="nv">$SERVER_NAME</span>
+</code></pre></div>
+<p>Once launched, the construction of the VM instance is underway, and its status is "building". So you have to wait until the VM status is "Running" (~ one minute or more).</p>
+<p>To see the status, launch the command below :</p>
+<div class="highlight"><pre><span></span><code>ostack<span class="w"> </span>server<span class="w"> </span>show<span class="w"> </span><span class="nv">$SERVER_NAME</span>
+</code></pre></div>
+<p>You should probably rereun this last command</p>
+<p>Finally you should obtained something like below:</p>
+<div class="highlight"><pre><span></span><code>+-----------------------------+---------------------------------------------------------+
+| Field                       | Value                                                   |
++-----------------------------+---------------------------------------------------------+
+| OS-DCF:diskConfig           | MANUAL                                                  |
+| OS-EXT-AZ:availability_zone | nova                                                    |
+| OS-EXT-STS:power_state      | Running                                                 |
+| OS-EXT-STS:task_state       | None                                                    |
+| OS-EXT-STS:vm_state         | active                                                  |
+| OS-SRV-USG:launched_at      | 2021-09-09T07:09:49.000000                              |
+| OS-SRV-USG:terminated_at    | None                                                    |
+| accessIPv4                  |                                                         |
+| accessIPv6                  |                                                         |
+| addresses                   | genouest-ext=192.168.101.79                             |
+| config_drive                | True                                                    |
+| created                     | 2021-09-09T07:08:05Z                                    |
+| flavor                      | m1.xlarge (c781b97e-f891-4ddf-9a6b-0e5ae4ef3eb1)        |
+| hostId                      | 126a5d6324eb3765547b4d2e3c5743509afde064a7d90ff1db2fb58a|
+| id                          | 0146be96-0c4f-413b-b3a5-bde37cdabb26                    |
+| image                       | jupyterhub-image (d88e2d16-9c67-4f07-a5dd-20d68f80ba0f) |
+| key_name                    | genostack                                               |
+| name                        | jupystack                                               |
+| progress                    | 0                                                       |
+| project_id                  | xxxxxxxxxxxxxxxxxxxxxxxxx                               |
+| properties                  |                                                         |
+| security_groups             | name=&#39;default&#39;                                          |
+| status                      | ACTIVE                                                  |
+| updated                     | 2021-09-09T07:09:49Z                                    |
+| user_id                     | xxxxxxxxxxxxxxxxxxxxxxxxx                               |
+| volumes_attached            |                                                         |
++-----------------------------+---------------------------------------------------------+
+</code></pre></div>
+<p><br></p>
+<p>The last command is also used to obtain the IP number of the VM thus created. The IP addresse is given by the field 'addresses'. Let's suppose that this IP number is <em>192.168.101.79</em>.  You can then access the application from your web browser at the URL: <em><a href="https://app-192-168-101-79.vm.openstack.genouest.org/hub/login">https://app-192-168-101-79.vm.openstack.genouest.org/hub/login</a></em></p>
+<p><br></p>
+<center>
+<a href="../images/image5.png" data-lightbox="image5"><img src="../images/image5.png" width="600px"></a>
+</center>
+<p><br><br></p>
+<h3 id="os-cloud-acknowledgements">Acknowledgements<a class="headerlink" href="#os-cloud-acknowledgements" title="Permanent link">&para;</a></h3>
+<p>We would like to thank the <a href="https://www.genouest.org/2017/03/02/cluster/" target="_blank">IFB GenOuest bioinformatics</a> for providing storage and computing resources on its national life science Cloud.</p>
+<hr />
+<ul>
+<li><a href="../gcpimg/PuTTY_WinSCP.pdf" target="_blank">Additional document</a>: Slides that show, step by step, how to copy data, scripts and notebooks to the shared folder of the Jupyterhub server, in a secure way (SCP) using PuTTY and WinSCP.</li>
+</ul>
+<hr />
+<p><br><br><br></p></section><section class="print-page" id="google-cloud" heading-number="5"><h1 id="google-cloud-google-cloud">Google Cloud<a class="headerlink" href="#google-cloud-google-cloud" title="Permanent link">&para;</a></h1>
+<style>.md-typeset h1 {display: none;} .md-nav__item {font-size: medium}</style>
+
+<h3 id="google-cloud-using-google-cloud-sdk">Using Google Cloud SDK<a class="headerlink" href="#google-cloud-using-google-cloud-sdk" title="Permanent link">&para;</a></h3>
+<p><br></p>
+<h4 id="google-cloud-before-you-begin">Before you begin<a class="headerlink" href="#google-cloud-before-you-begin" title="Permanent link">&para;</a></h4>
+<p>In order to use the final VM on GCP, you first need to go through the following steps:</p>
+<ul>
+<li>Assuming <a href="https://cloud.google.com/resource-manager/docs/creating-managing-projects" target="_blank">your project is created</a> (GCP), </li>
+<li>Assuming your <a href="https://cloud.google.com/compute/docs/instances/adding-removing-ssh-keys" target="_blank">SSH Keys defined at the level project</a> (GCP)</li>
+<li>Assuming your SSH keys are available (added with <a href="https://www.ssh.com/academy/ssh/add" target="_blank">ssh-add</a>, a ssh-agent  running),</li>
+<li>Assuming the Google Cloud SDK installed on your machine (See <a href="https://cloud.google.com/sdk/docs/install" target="_blank">How to install Google Cloud SDK</a>)</li>
+</ul>
+<p><br></p>
+<h4 id="google-cloud-quick-overview">Quick overview<a class="headerlink" href="#google-cloud-quick-overview" title="Permanent link">&para;</a></h4>
+<p>We start from the VM final box and will then proceed in two steps:</p>
+<ol>
+<li>Upload the final box VM file (vmdk) to Cloud Storage and convert it to an image</li>
+<li>Create an instance of this image</li>
+</ol>
+<p><br></p>
+<center>
+<a href="../gcpimg/img0.png" data-lightbox="image0"><img src="../gcpimg/img0.png" width="600px"></a>
+</center>
+<p><br><br></p>
+<h3 id="google-cloud-create-an-image-from-the-vm-final-box">Create an image from the VM final box<a class="headerlink" href="#google-cloud-create-an-image-from-the-vm-final-box" title="Permanent link">&para;</a></h3>
+<h4 id="google-cloud-preparation">Preparation<a class="headerlink" href="#google-cloud-preparation" title="Permanent link">&para;</a></h4>
+<p>A number of variables need to be defined in order to set up the process correctly. The values indicated correspond to the test performed. Some of them must therefore be adapted to your context (OS, resources).</p>
+<p><br></p>
+<ul>
+<li>Define the full path to the google-cloud utility to simplify further commands. </li>
+</ul>
+<p><div class="highlight"><pre><span></span><code><span class="nv">GCLOUD</span><span class="o">=</span>/cygdrive/c/_Tools/gcloud/google-cloud-sdk/bin/gcloud
+</code></pre></div>
+<br></p>
+<ul>
+<li>Initialization of variables concerning the project. You must adapt these values based on your own project</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nv">PROJECT</span><span class="o">=</span>test-gaev-20210906
+<span class="nv">ZONE</span><span class="o">=</span>europe-west1-b
+</code></pre></div>
+<p><br></p>
+<ul>
+<li>Initialization of variables concerning the VM. The path (VDISK_DIR) and the name of the vmdk file (VMDK_FILE) must be changed according to your case. The type of virtual machines (VM_MACHINE) can also be adapted according to your needs (see <a href="https://cloud.google.com/compute/docs/machine-types" target="_blank">machine families</a>)</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nv">IMAGE</span><span class="o">=</span>jupyterhub-img
+<span class="nv">VM</span><span class="o">=</span>jupyterhub-vm
+<span class="nv">VDISK_DIR</span><span class="o">=</span>/cygdrive/c/VirtualMach/Vagrant/jupyterhub/builds/vm
+<span class="nv">VMDK_FILE</span><span class="o">=</span>box-disk001.vmdk
+<span class="nv">VM_OS</span><span class="o">=</span>ubuntu-1804
+<span class="nv">VM_MACHINE</span><span class="o">=</span>c2-standard-4
+</code></pre></div>
+<p><br></p>
+<ul>
+<li>Set the project by default</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">CLOUDSDK_CORE_PROJECT</span><span class="o">=</span><span class="nv">$PROJECT</span>
+</code></pre></div>
+<p><br></p>
+<ul>
+<li>Get the project number</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nv">PROJECT_NUMBER</span><span class="o">=</span><span class="k">$(</span>GCLOUD<span class="w"> </span>iam<span class="w"> </span>service-accounts<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>EMAIL<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;:&#39;</span><span class="w"> </span>-f2<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;-&#39;</span><span class="w"> </span>-f1<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;s/ //g&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;[\n\r]&quot;</span><span class="k">)</span>
+</code></pre></div>
+<p><br></p>
+<ul>
+<li>Set the  Identity and Access Management (<a href="https://cloud.google.com/storage/docs/access-control/iam" target="_blank">IAM</a>) permissions. (See <a href="https://cloud.google.com/compute/docs/access" target="_blank">Access control overview</a> and <a href="https://cloud.google.com/iam/docs/service-accounts" target="_blank">Service accounts</a> for more details)</li>
+</ul>
+<p><div class="highlight"><pre><span></span><code><span class="nv">$GCLOUD</span><span class="w"> </span>services<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>cloudbuild.googleapis.com
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nv">$GCLOUD</span><span class="w"> </span>projects<span class="w"> </span>add-iam-policy-binding<span class="w"> </span><span class="nv">$PROJECT</span><span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--member<span class="w"> </span>serviceAccount:<span class="nv">$PROJECT_NUMBER</span>@cloudbuild.gserviceaccount.com<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--role<span class="w"> </span>roles/compute.admin
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nv">$GCLOUD</span><span class="w"> </span>projects<span class="w"> </span>add-iam-policy-binding<span class="w"> </span><span class="nv">$PROJECT</span><span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--member<span class="w"> </span>serviceAccount:<span class="nv">$PROJECT_NUMBER</span>@cloudbuild.gserviceaccount.com<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--role<span class="w"> </span>roles/iam.serviceAccountUser
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nv">$GCLOUD</span><span class="w"> </span>projects<span class="w"> </span>add-iam-policy-binding<span class="w"> </span><span class="nv">$PROJECT</span><span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--member<span class="w"> </span>serviceAccount:<span class="nv">$PROJECT_NUMBER</span>@cloudbuild.gserviceaccount.com<span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--role<span class="w"> </span>roles/iam.serviceAccountTokenCreator
+</code></pre></div></p>
+<p><br></p>
+<h4 id="google-cloud-import-the-vmdk-file">Import the VMDK File<a class="headerlink" href="#google-cloud-import-the-vmdk-file" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Uses batch Windows command instead of cygwin bash. Indeed Python been an <a href="https://www.anaconda.com/products/individual-d" target="_blank">Anaconda</a> tool for Windows, 
+it does not correctly deal with files based on cygwin pathways, even if the pathway is simply the 
+file name. Very strange! With this tip, it works. Perhaps we should have used the module for Anaconda instead (see <a href="https://anaconda.org/conda-forge/google-cloud-sdk" target="_blank">google-cloud-sdk for Anaconda</a>).</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>
+<span class="nb">cd</span><span class="w"> </span><span class="nv">$VDISK_DIR</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;@ECHO OFF</span>
+<span class="s2">CLS</span>
+<span class="s2">SET PATH=C:\_Tools\gcloud\google-cloud-sdk\bin;%PATH%;</span>
+<span class="s2">gcloud compute images import </span><span class="nv">$IMAGE</span><span class="s2"> --zone </span><span class="nv">$ZONE</span><span class="s2"> --no-guest-environment --source-file </span><span class="nv">$VMDK_FILE</span><span class="s2"> --os </span><span class="nv">$VM_OS</span><span class="s2"> </span>
+<span class="s2">exit /b 0</span>
+<span class="s2">&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/tmp/cmd.bat
+chmod<span class="w"> </span>+x<span class="w"> </span>/tmp/cmd.bat
+/tmp/cmd.bat
+<span class="o">)</span>
+</code></pre></div>
+<ul>
+<li>Output generated
+<div class="highlight"><pre><span></span><code>Copying [box-disk001.vmdk] to [gs://test-gaev-20210906-daisy-bkt/tmpimage/5044ee90-6a16-43dd-9eff-789bf333c82c-box-disk001.vmdk]...
+..............................................................................................done.
+WARNING: Importing image. This may take up to 2 hours.
+Created [https://cloudbuild.googleapis.com/v1/projects/test-gaev-20210906/builds/c1a34fc5-d8d7-4804-be22-58508bef1f82].
+Logs are available at [https://console.cloud.google.com/cloud-build/builds/c1a34fc5-d8d7-4804-be22-58508bef1f82?project=188926165780].
+starting build &quot;c1a34fc5-d8d7-4804-be22-58508bef1f82&quot;
+[import-image]: 2021-09-07T14:30:25Z Creating Google Compute Engine disk from gs://test-gaev-20210906-daisy-bkt/tmpimage/5044ee90-6a16-43dd-9eff-789bf333c82c-box-disk001.vmdk
+[import-image]: 2021-09-07T14:38:23Z Finished creating Google Compute Engine disk
+[import-image]: 2021-09-07T14:38:23Z Inspecting disk for OS and bootloader
+[import-image]: 2021-09-07T14:40:17Z Inspection result=os_release:{cli_formatted:&quot;ubuntu-1804&quot; distro:&quot;ubuntu&quot; major_version:&quot;18&quot; minor_version:&quot;04&quot; architecture:X64 distro_id:UBUNTU} elapsed_time_ms:114577 os_count:1
+[import-image]: 2021-09-07T14:40:17Z Cloud Build ID:
+[import-image]: 2021-09-07T14:40:35Z Making disk bootable on Google Compute Engine
+</code></pre></div></li>
+</ul>
+<p><br></p>
+<center>
+<a href="../gcpimg/img1.png" data-lightbox="image1"><img src="../gcpimg/img1.png" width="600px"></a>
+</center>
+<center><font size="-1">Checking in the GCP console</font></center>
+<p><br><br></p>
+<ul>
+<li>List the images linked to the project</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nv">$GCLOUD</span><span class="w"> </span>compute<span class="w"> </span>images<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-B1<span class="w"> </span>-A3<span class="w"> </span><span class="nv">$PROJECT</span>
+</code></pre></div>
+<ul>
+<li>Output generated
+<div class="highlight"><pre><span></span><code>NAME: jupyterhub-img
+PROJECT: test-gaev-20210906
+FAMILY:
+DEPRECATED:
+STATUS: READY
+</code></pre></div></li>
+</ul>
+<p><br></p>
+<center>
+<a href="../gcpimg/img2.png" data-lightbox="image2"><img src="../gcpimg/img2.png" width="600px"></a>
+</center>
+<center><font size="-1">Checking in the GCP console</font></center>
+<p><br><br></p>
+<h3 id="google-cloud-create-an-instance-based-on-an-imported-image">Create an instance based on an imported image<a class="headerlink" href="#google-cloud-create-an-instance-based-on-an-imported-image" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Launch the VM instance creation.  The type of virtual machines (VM_MACHINE) can be adapted according to your needs (see <a href="https://cloud.google.com/compute/docs/machine-types" target="_blank">machine families</a>)</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nv">$GCLOUD</span><span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>create<span class="w"> </span><span class="nv">$VM</span><span class="w"> </span>--image-project<span class="w"> </span><span class="nv">$PROJECT</span><span class="w"> </span>--image<span class="w"> </span><span class="nv">$IMAGE</span><span class="w"> </span><span class="se">\</span>
+<span class="w">       </span>--tags<span class="o">=</span>http-server,https-server<span class="w"> </span>--zone<span class="o">=</span><span class="nv">$ZONE</span><span class="w"> </span>--machine-type<span class="w"> </span><span class="nv">$VM_MACHINE</span>
+</code></pre></div>
+<ul>
+<li>Output generated
+<div class="highlight"><pre><span></span><code>Created [https://www.googleapis.com/compute/v1/projects/test-gaev-20210906/zones/europe-west1-b/instances/jupyterhub-vm].
+NAME: jupyterhub-vm
+ZONE: europe-west1-b
+MACHINE_TYPE: c2-standard-4
+PREEMPTIBLE:
+INTERNAL_IP: 10.132.0.25
+EXTERNAL_IP: 35.187.120.148
+STATUS: RUNNING
+</code></pre></div></li>
+</ul>
+<p><br></p>
+<center>
+<a href="../gcpimg/img3.png" data-lightbox="image3"><img src="../gcpimg/img3.png" width="600px"></a>
+</center>
+<center><font size="-1">Checking in the GCP console</font></center>
+<p><br><br></p>
+<ul>
+<li>Get the IP address of the instance</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nv">IP</span><span class="o">=</span><span class="k">$(</span><span class="nv">$GCLOUD</span><span class="w"> </span>compute<span class="w"> </span>instances<span class="w"> </span>describe<span class="w"> </span><span class="nv">$VM</span><span class="w"> </span><span class="se">\</span>
+<span class="w">   </span>--format<span class="o">=</span><span class="s1">&#39;get(networkInterfaces[0].accessConfigs[0].natIP)&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;\n&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;\r&quot;</span><span class="k">)</span>
+</code></pre></div>
+<p><br></p>
+<ul>
+<li>Remove previous ssh keys for this IP in the known_hosts file</li>
+</ul>
+<p><div class="highlight"><pre><span></span><code>grep<span class="w"> </span>-E<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;^</span><span class="nv">$IP</span><span class="s2">&quot;</span><span class="w"> </span>~/.ssh/known_hosts<span class="w"> </span>&gt;<span class="w"> </span>~/.ssh/known_hosts.tmp
+cat<span class="w"> </span>~/.ssh/known_hosts.tmp<span class="w"> </span>&gt;<span class="w"> </span>~/.ssh/known_hosts
+ssh<span class="w"> </span>-o<span class="w"> </span><span class="s1">&#39;StrictHostKeyChecking no&#39;</span><span class="w"> </span>root@<span class="nv">$IP</span><span class="w"> </span><span class="s2">&quot;hostname&quot;</span>
+</code></pre></div>
+* Output generated
+<div class="highlight"><pre><span></span><code>Warning: Permanently added &#39;35.187.120.148&#39; (ED25519) to the list of known hosts.
+jupyterhub-vm
+</code></pre></div></p>
+<p><br></p>
+<ul>
+<li>Customization : Fixe the issue concerning the external IP address </li>
+</ul>
+<p>Because the IP address found by default is the internal one we need the external IP address. So we have to modify the get-hostname script for that.</p>
+<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>root@<span class="nv">$IP</span><span class="w"> </span><span class="s2">&quot;echo \&quot;echo </span><span class="nv">$IP</span><span class="s2">\&quot; &gt; /usr/local/bin/get-hostname&quot;</span>
+</code></pre></div>
+<ul>
+<li>Then reboot the VM</li>
+</ul>
+<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>root@<span class="nv">$IP</span><span class="w"> </span><span class="s2">&quot;reboot&quot;</span>
+</code></pre></div>
+<p><br></p>
+<ul>
+<li>Launch Jupyterhub in your web browser</li>
+</ul>
+<p><br></p>
+<center>
+<a href="../gcpimg/img4.png" data-lightbox="image4"><img src="../gcpimg/img4.png" width="600px"></a>
+</center>
+<p><br><br></p>
+<hr />
+<ul>
+<li><a href="../gcpimg/google-cloud-GAEV-en.pdf" target="_blank">Additional document</a>: Slides that show, step by step, how to proceed from Google Cloud Console.</li>
+</ul>
+<hr />
+<p><br></p></section></div><style>.print-site-enumerate-headings #index > h1:before { content: '1 ' }
+
+                .print-site-enumerate-headings #index h2:before { content: '1.' counter(counter-index-2) ' ' }
+                .print-site-enumerate-headings #index h2 {  counter-reset: counter-index-3 ;  counter-increment: counter-index-2 }
+            
+                .print-site-enumerate-headings #index h3:before { content: '1.' counter(counter-index-2) '.' counter(counter-index-3) ' ' }
+                .print-site-enumerate-headings #index h3 {  counter-increment: counter-index-3 }
+            
+.print-site-enumerate-headings #basebox > h1:before { content: '2 ' }
+
+                .print-site-enumerate-headings #basebox h2:before { content: '2.' counter(counter-basebox-2) ' ' }
+                .print-site-enumerate-headings #basebox h2 {  counter-reset: counter-basebox-3 ;  counter-increment: counter-basebox-2 }
+            
+                .print-site-enumerate-headings #basebox h3:before { content: '2.' counter(counter-basebox-2) '.' counter(counter-basebox-3) ' ' }
+                .print-site-enumerate-headings #basebox h3 {  counter-increment: counter-basebox-3 }
+            
+.print-site-enumerate-headings #finalvm > h1:before { content: '3 ' }
+
+                .print-site-enumerate-headings #finalvm h2:before { content: '3.' counter(counter-finalvm-2) ' ' }
+                .print-site-enumerate-headings #finalvm h2 {  counter-reset: counter-finalvm-3 ;  counter-increment: counter-finalvm-2 }
+            
+                .print-site-enumerate-headings #finalvm h3:before { content: '3.' counter(counter-finalvm-2) '.' counter(counter-finalvm-3) ' ' }
+                .print-site-enumerate-headings #finalvm h3 {  counter-increment: counter-finalvm-3 }
+            
+.print-site-enumerate-headings #os-cloud > h1:before { content: '4 ' }
+
+                .print-site-enumerate-headings #os-cloud h2:before { content: '4.' counter(counter-os-cloud-2) ' ' }
+                .print-site-enumerate-headings #os-cloud h2 {  counter-reset: counter-os-cloud-3 ;  counter-increment: counter-os-cloud-2 }
+            
+                .print-site-enumerate-headings #os-cloud h3:before { content: '4.' counter(counter-os-cloud-2) '.' counter(counter-os-cloud-3) ' ' }
+                .print-site-enumerate-headings #os-cloud h3 {  counter-increment: counter-os-cloud-3 }
+            
+.print-site-enumerate-headings #google-cloud > h1:before { content: '5 ' }
+
+                .print-site-enumerate-headings #google-cloud h2:before { content: '5.' counter(counter-google-cloud-2) ' ' }
+                .print-site-enumerate-headings #google-cloud h2 {  counter-reset: counter-google-cloud-3 ;  counter-increment: counter-google-cloud-2 }
+            
+                .print-site-enumerate-headings #google-cloud h3:before { content: '5.' counter(counter-google-cloud-2) '.' counter(counter-google-cloud-3) ' ' }
+                .print-site-enumerate-headings #google-cloud h3 {  counter-increment: counter-google-cloud-3 }
+            </style>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Daniel Jacob, INRAE, 2021
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "/", "features": ["toc.integrate", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../js/print-site.js"></script>
+      
+        <script src="../js/jquery-2.1.1.min.js"></script>
+      
+        <script src="../js/lightbox.min.js"></script>
+      
+        <script src="../js/mermaid.min.js"></script>
+      
+        <script src="../js/extra.js"></script>
+      
+    
+  </body>
+</html>

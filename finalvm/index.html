@@ -1,0 +1,731 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Building automation of a virtual machine (VM) from a server install image of ubuntu (ISO file)">
+      
+      
+        <meta name="author" content="Daniel Jacob">
+      
+      
+      
+        <link rel="prev" href="../basebox/">
+      
+      
+        <link rel="next" href="../os-cloud/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+    
+    
+      
+        <title>Final VM - Using JupyterHub within a VM and on the Cloud</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/print-site.css">
+    
+      <link rel="stylesheet" href="../css/print-site-material.css">
+    
+      <link rel="stylesheet" href="../css/extra.css">
+    
+      <link rel="stylesheet" href="../css/pdfextra.css">
+    
+      <link rel="stylesheet" href="../css/lightbox.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#final-vm" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Using JupyterHub within a VM and on the Cloud" class="md-header__button md-logo" aria-label="Using JupyterHub within a VM and on the Cloud" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Using JupyterHub within a VM and on the Cloud
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Final VM
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Using JupyterHub within a VM and on the Cloud" class="md-nav__button md-logo" aria-label="Using JupyterHub within a VM and on the Cloud" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Using JupyterHub within a VM and on the Cloud
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basebox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building the Base VM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building the Final VM
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building the Final VM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#starting-from-an-existing-base-vm-base-box" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Starting from an existing base VM (Base box)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-the-final-vm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building the final VM
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provisioning-using-the-ansible-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provisioning using the Ansible tool
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shell-script-provisioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shell script provisioning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-the-final-vm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating the final VM
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../os-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using the Final VM on an Openstack cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../google-cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using the Final VM on Google Cloud Platform
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="final-vm">Final VM<a class="headerlink" href="#final-vm" title="Permanent link">&para;</a></h1>
+<style>.md-typeset h1 {display: none;} .md-nav__item {font-size: medium}</style>
+
+<h4 id="starting-from-an-existing-base-vm-base-box">Starting from an existing base VM (Base box)<a class="headerlink" href="#starting-from-an-existing-base-vm-base-box" title="Permanent link">&para;</a></h4>
+<p>Creating a base VM can be complex for a non-expert. This is why it is easier to start from a base VM when it is available. This is also why the base VM should be as generic as possible so that it can be easily used for many applications.</p>
+<p>The base VM generated and used in this use-case was deposited on <a href="https://app.vagrantup.com/GAEV/boxes/ubuntu1804-dd18Gb" target="_blank">Vagrant Cloud</a>, using its API (see <a href="../basebox/#registering-a-box-on-vagrant-cloud">Registering a box on Vagrant Cloud</a>).</p>
+<h4 id="building-the-final-vm">Building the final VM<a class="headerlink" href="#building-the-final-vm" title="Permanent link">&para;</a></h4>
+<p>We will use the base VM to provision it, i.e. install and configure all the system and application tools (packages) necessary to make the JupyterHub application work properly. To do this, we will use the Ansible tool as illustrated in the figure below:</p>
+<p><br></p>
+<center>
+<a href="../images/image2.png" data-lightbox="image2"><img src="../images/image2.png" width="600px"></a>
+</center>
+<p><br><br></p>
+<p><strong>Note</strong>: All the scripts and other configuration files mentioned in this description can be found in free access under the <a href="https://github.com/inrae/jupyterhub-vm" target="_blank">GiHub INRAE repository</a>.</p>
+<p>The first step is to create a <a href="https://www.vagrantup.com/docs/vagrantfile" target="_blank">Vagrantfile</a> and customise it to suit your needs. This file follows the syntax of the <a href="https://www.ruby-lang.org/fr/about/" target="_blank">Ruby language</a>. A light version is given below:</p>
+<div class="highlight"><pre><span></span><code>  Vagrant.configure(&quot;2&quot;) do |config|
+
+    config.vm.box = file://builds/virtualbox-ubuntu1804.box
+    config.vm.hostname = jupyterhub
+
+    config.vm.network &quot;private_network&quot;, type: &quot;dhcp&quot;
+
+    config.ssh.insert_key = false
+
+    config.vm.synced_folder &quot;.&quot;, &quot;/vagrant&quot;, type: &quot;virtualbox&quot;
+
+    config.vm.provision &quot;ansible_local&quot; do |ansible|
+        ansible.playbook = &quot;ansible/playbook.yml&quot;
+        ansible.install = true
+        ansible.limit = &#39;all&#39;
+    end
+
+    config.vm.provision &quot;shell&quot;, path: &quot;scripts/cleanup.sh&quot;
+
+  end
+</code></pre></div>
+<ul>
+<li><em>config.vm.box</em><ul>
+<li>sets the base box as input</li>
+</ul>
+</li>
+<li><em>config.vm.hostname</em><ul>
+<li>defines the hostname of the machine</li>
+</ul>
+</li>
+<li><em>config.vm.network</em><ul>
+<li>defines the network configuration in DHCP mode</li>
+</ul>
+</li>
+<li><em>config.ssh.insert_key</em><ul>
+<li>defines the SSH key. By default, it will be the one defined in the base box.</li>
+</ul>
+</li>
+<li><em>config.vm.synced_folder</em><ul>
+<li>defines a local directory as shared with the VM. At least, the "." directory must be defined in order to configure the VM. These shared directories will only be active during the creation and then test stage before export.</li>
+</ul>
+</li>
+<li><em>config.vm.provision</em><ul>
+<li>defines the process by which the VM will be provisioned. Here, two processes are invoked. i) 'ansible_local': indicates that the ansible tool will first be installed on the VM and then use the playbook defined in ansible/playbook; ii) 'shell': indicates that a shell script defined by its relative path will be used.</li>
+</ul>
+</li>
+</ul>
+<h4 id="provisioning-using-the-ansible-tool">Provisioning using the Ansible tool<a class="headerlink" href="#provisioning-using-the-ansible-tool" title="Permanent link">&para;</a></h4>
+<p>The choice was made not to install Ansible on the host machine used to create the VM, but rather it will be installed on the VM itself, this is to simplify the process.</p>
+<p>The provisioning is defined from a <a href="https://en.wikipedia.org/wiki/YAML" target="_blank">YAML</a> file called <a href="https://docs.ansible.com/ansible/2.4/playbooks_intro.html" target="_blank">playbook.yml</a></p>
+<div class="highlight"><pre><span></span><code>  ---
+- hosts: all
+  become: true
+  become_user: root
+  #gather_facts: no
+
+  vars_files:
+    - vars/all.yml
+
+  environment:
+    PYTHONHTTPSVERIFY: 0
+
+  roles:
+    - repositories
+    - server
+    - vm
+    - install-r
+    - jupyterhub
+    - r_pkgs
+    - python_pkgs
+</code></pre></div>
+<p>Ansible allows tasks to be organised in a directory structure called a <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html" target="_blank">Role</a>. In this configuration, playbooks invoke roles, which themselves define a set of tasks, so you can always group tasks together and reuse roles in other playbooks. Roles also allow you to collect templates, static files and variables along with your tasks in a structured format. </p>
+<p>Each role, and then each task within roles, is interpreted sequentially. Thus the following roles are defined:</p>
+<ul>
+<li><em>repositories</em><ul>
+<li>configures the repositories for binary packages (systems, R, python, tools, ...), </li>
+</ul>
+</li>
+<li><em>server</em><ul>
+<li>configure the timezone </li>
+</ul>
+</li>
+<li><em>vm</em><ul>
+<li>configure the hostname</li>
+</ul>
+</li>
+<li><em>install-r</em><ul>
+<li>installs the R application with basic packages</li>
+</ul>
+</li>
+<li><em>jupyterhub</em><ul>
+<li>installs and configures the jupyterhub application</li>
+</ul>
+</li>
+<li><em>r_pkgs</em><ul>
+<li>install a set of R packages</li>
+</ul>
+</li>
+<li><em>python_pkgs</em><ul>
+<li>install a set of Python packages</li>
+</ul>
+</li>
+</ul>
+<p>Each role is defined by a set of tasks, themselves defined by files in YAML format.</p>
+<p>For example, the role '<em>repositories</em>' is defined by the following <em>roles/repositories/tasks/main.yml</em> file:</p>
+<div class="highlight"><pre><span></span><code>---
+
+- name: Add an apt key by id from a keyserver
+  apt_key:
+    keyserver: &quot;{{repository.keyserver}}&quot;
+    id: &quot;{{repository.id}}&quot;
+
+- name: Add repositories
+  apt_repository:
+    repo: &quot;{{item}}&quot;
+  with_items: &quot;{{repository.repos}}&quot;
+</code></pre></div>
+<p>Two tasks are thus defined and described by their name field. Then the actual task is defined using a name referring to a <a href="https://docs.ansible.com/ansible/latest/user_guide/modules_intro.html" target="_blank">module</a>. <a href="https://docs.ansible.com/ansible/2.8/modules/list_of_all_modules.html" target="_blank">Hundreds of modules</a> are available in Ansible. Here two modules are invoked:</p>
+<ul>
+<li><a href="https://docs.ansible.com/ansible/2.8/modules/apt_key_module.html" target="_blank">apt_key</a>: add or remove an apt key</li>
+<li><a href="https://docs.ansible.com/ansible/2.8/modules/apt_repository_module.html" target="_blank">apt_repository</a>: add or remove a binary package repository. The <a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html" target="_blank">variables</a> correspond to those defined in the }  defined by the double braces {{ }<em>vars/all.yml</em> file itself declared in the playbook. Thus the following lines can be found in this file:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>repository:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: E298A3A825C0D65DFD57CBB651716619E084DAB9
+    repos:
+      - ppa:c2d4u.team/c2d4u4.0+
+      - ppa:hnakamur/libgit2
+      - deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/
+</code></pre></div>
+<p>So this is how the provisioning task set is defined by Ansible. </p>
+<p>The '<em>jupyterhub</em>' role was built from the instructions provided on the <a href="https://tljh.jupyter.org/en/latest/" target="_blank">TLJH</a> website. The list of Python and R packages needed for a specific use under JupyterHub are to be defined in the <em>vars/all.yml file</em>, whose installation is taken care of by the '<em>python_pkgs</em>' and '<em>r_pkgs</em>' roles respectively.</p>
+<h4 id="shell-script-provisioning">Shell script provisioning<a class="headerlink" href="#shell-script-provisioning" title="Permanent link">&para;</a></h4>
+<p>Once the provisioning by Ansible is finished, we proceed to a VM cleanup, i.e. uninstall Ansible, clean the temporary files and clean the hard disk. We use a Shell script (<em>scripts/cleanup.sh</em>) for this.</p>
+<h4 id="creating-the-final-vm">Creating the final VM<a class="headerlink" href="#creating-the-final-vm" title="Permanent link">&para;</a></h4>
+<p>Once the configuration is established, you just have to execute the following commands:</p>
+<div class="highlight"><pre><span></span><code>$&gt; vagrant up
+$&gt; vagrant package --output ubuntu-box.tar.gz
+</code></pre></div>
+<p>All the messages produced can be consulted on the <a href="https://github.com/inrae/jupyterhub-vm/blob/master/logs/vagrant.log" target="_blank">github repository</a></p>
+<p><br><br><br></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Daniel Jacob, INRAE, 2021
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["toc.integrate", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../js/print-site.js"></script>
+      
+        <script src="../js/jquery-2.1.1.min.js"></script>
+      
+        <script src="../js/lightbox.min.js"></script>
+      
+        <script src="../js/mermaid.min.js"></script>
+      
+        <script src="../js/extra.js"></script>
+      
+    
+  </body>
+</html>
