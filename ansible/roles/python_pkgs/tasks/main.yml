@@ -1,6 +1,0 @@
----
-
-- name: Install each of python module in the list
-  shell: "/opt/tljh/user/bin/python3 -m pip install {{item}}"
-  with_items: "{{python_pkgs}}"
-

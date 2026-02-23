@@ -1,7 +1,0 @@
----
-- name: Configure the timezone
-  ansible.builtin.timezone:
-    name: "{{ server.timezone }}"
-
-- name: Set default system language pack
-  shell: localectl set-locale LANG={{server.locale}}

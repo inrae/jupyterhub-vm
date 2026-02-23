@@ -1,7 +1,0 @@
-#!/bin/bash
-
-IPADDR=$(/usr/local/bin/get-ip-address)
-IPSTR=$(echo $IPADDR | sed -e "s/\./-/g")
-#echo "app-${IPSTR}.vm.openstack.genouest.org"
-echo $IPADDR
-

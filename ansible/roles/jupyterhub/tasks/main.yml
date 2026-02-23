@@ -1,8 +1,0 @@
----
-
-# tasks to run after the main provision
-
- - include_tasks: install.yml
- - include_tasks: ir-kernel.yml
- - include_tasks: config.yml
- - include_tasks: disk-share.yml
