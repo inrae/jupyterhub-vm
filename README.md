@@ -28,6 +28,8 @@ The entire process is summarized below in diagram form:
 * **Input**:  an ISO file corresponding to the chosen operating system, downloaded from the Internet
 * **Output**:  an instance of the operational virtual machine on an OpenStack Cloud (e.g. [Genouest OpenStack cloud](https://www.genouest.org/2017/03/02/cluster/)); in the upper part, all the configuration files used for the automatic generation of the virtual machine.
 
+<br>
+
 **Implementation** : The workflow implementation was carried out with _Packer v1.15.0_, _Vagrant 2.4.9_ and _VirtualBox 7.2.6_ under _Windows 11 25H2 64-bit_ with _Cygwin 3.4.10_.
 
 <br>
@@ -53,11 +55,13 @@ CHECKSUM : sha256:9bc6028870aef3f74f4e16b900008179e78b130e6b0b9a140635434a46aa98
     * [http/user-data](http/user-data) : Cloud-Init Configuration
 
 ```
-cd  ./ubuntu2204
+cd  ./jupyterhub-vm
 time packer build box-config.json | tee ./logs/packer.log
 ```
 
-* You can now delete the ISO file as it will no longer be needed in the following steps.
+* The **base box** should now be located in the -./builds- directory and be named -virtualbox-ubuntu2204.box_.
+
+* You can now delete the **ISO file** as it will no longer be needed in the following steps.
 
 
 ### 3 - Store Base Box in Vagrant Cloud
@@ -136,6 +140,7 @@ Please enter your OpenStack password, then [shift][Enter] :
 
 
 ### 7 - Do the housework on your local disk
+
 
 * Stop the VM if not yet done
 

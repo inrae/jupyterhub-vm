@@ -70,6 +70,40 @@ For more details on the whole process, see https://inrae.github.io/jupyterhub-vm
 
 <br>
 
+* Once the tools are installed and the configuration is complete, the entire workflow, from the Base Box to a functional instance on the OpenStack cloud, can be described as follows:
+
+```
+cd  ./jupyterhub-vm
+time (
+  CLOUD=genostack
+  IMAGE_NAME=jupyterhub-img_2026
+  SERVER_NAME=jupystack_2026
+  OS_PASSWORD=<password>
+
+  # Removes the previous image and instance on the cloud
+  alias ostack="openstack --os-cloud=$CLOUD --os-password $OS_PASSWORD"
+  ostack server delete $SERVER_NAME
+  ostack image delete $IMAGE_NAME
+
+  # Removes the previous vmdk file
+  [ -f ./builds/ubuntu2204-disk001.vmdk ] && rm -f ./builds/ubuntu2204-disk001.vmdk
+
+  # Builds the final VM, exports it, then destroys the VirtualBox virtual machine.
+  time vagrant up | tee logs/vagrant.log
+  time vagrant package --output ./builds/ubuntu2204-box.tar.gz | tee -a ./logs/vagrant.log
+  vagrant halt -f; vagrant destroy -f ; rm -rf .vagrant/
+
+  # Extracts the VM images (vmdk file) from the TAR archive, then removes the archive
+  [ -f ./builds/ubuntu2204-box.tar.gz ] && (cd ./builds; tar xvzf ubuntu2204-box.tar.gz ./ubuntu2204-disk001.vmdk)
+  [ -f ./builds/ubuntu2204-disk001.vmdk ] && rm -f ./builds/ubuntu2204-box.tar.gz
+
+  # Push the VM image on the OpenStack cloud then create a running instance
+  time sh ./openstack/push_cloud.sh -c $CLOUD -i $IMAGE_NAME -p $OS_PASSWORD | tee ./logs/${CLOUD}.log
+  sh ./openstack/instance_to_cloud.sh -c $CLOUD -i $IMAGE_NAME -s $SERVER_NAME -p $OS_PASSWORD | tee -a ./logs/${CLOUD}.log
+)
+
+```
+
 #### Using JupyterHub
 
 The first time you log in to JupyterHub via the web interface, you must enter the administrator's login and password. The administrator's login is _admin_ (configured in the file _ansible/roles/jupyterhub/tasks/install.yml_).

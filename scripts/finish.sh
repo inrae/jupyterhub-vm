@@ -18,9 +18,6 @@ find /var/log -type f -exec truncate -s 0 {} \;
 rm -f /root/.bash_history
 rm -f /home/*/.bash_history || true
 
-# Removing SSH host keys
-rm -f /etc/ssh/ssh_host_*
-
 # Cleaning /tmp
 rm -rf /tmp/*
 rm -rf /var/tmp/*

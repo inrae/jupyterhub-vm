@@ -3,9 +3,7 @@
 MARKER="/var/lib/startup-script.done"
 METADATA_URL="http://169.254.169.254/latest/user-data"
 
-if [ -f "$MARKER" ]; then
-    exit 0
-fi
+[ -f "$MARKER" ] && exit 0
 
 curl --silent --max-time 3 "$METADATA_URL" -o /tmp/script.sh
 
