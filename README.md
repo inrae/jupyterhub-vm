@@ -28,7 +28,7 @@ The entire process is summarized below in diagram form:
 * **Input**:  an ISO file corresponding to the chosen operating system, downloaded from the Internet
 * **Output**:  an instance of the operational virtual machine on an OpenStack Cloud (e.g. [Genouest OpenStack cloud](https://www.genouest.org/2017/03/02/cluster/)); in the upper part, all the configuration files used for the automatic generation of the virtual machine.
 
-The workflow implementation was carried out with Packer v1.15.0, Vagrant 2.4.9 and VirtualBox 7.2.6.
+**Implementation** : The workflow implementation was carried out with _Packer v1.15.0_, _Vagrant 2.4.9_ and _VirtualBox 7.2.6_ under _Windows 11 25H2 64-bit_ with _Cygwin 3.4.10_.
 
 <br>
 

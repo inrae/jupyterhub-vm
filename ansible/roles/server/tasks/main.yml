@@ -5,11 +5,3 @@
 
 - name: Set default system language pack
   shell: localectl set-locale LANG={{server.locale}}
-
-- name: Copy cloud-init config file for OpenStack
-  ansible.builtin.copy:
-    src: "{{vm.ansible_dir}}/roles/server/files/90_openstack.cfg"
-    dest: /etc/cloud/cloud.cfg.d/90_openstack.cfg
-    owner: root
-    group: root
-    mode: '0644'

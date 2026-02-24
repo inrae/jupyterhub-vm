@@ -14,17 +14,6 @@ rm -rf /var/lib/apt/lists/*
 # Cleaning logs
 find /var/log -type f -exec truncate -s 0 {} \;
 
-# Cleaning cloud-init state
-cloud-init clean --logs
-rm -rf /var/lib/cloud/*
-#echo 'datasource_list: [ OpenStack, ConfigDrive, NoCloud ]' > /etc/cloud/cloud.cfg.d/90_dpkg.cfg
-echo 'datasource_list: [ OpenStack, openstack ]' > /etc/cloud/cloud.cfg.d/90_dpkg.cfg
-
-# Resetting machine-id
-truncate -s 0 /etc/machine-id
-ln -s /etc/machine-id /var/lib/dbus/machine-id
-rm -f /var/lib/dbus/machine-id
-
 # Removing shell history
 rm -f /root/.bash_history
 rm -f /home/*/.bash_history || true
@@ -57,6 +46,8 @@ rm -f /home/vagrant/*.sh
 cat /dev/null > ~/.bash_history && history -c
 
 # Zeroing the empty space
+fallocate -l $(df --output=avail -k / | tail -1)K /EMPTY || true
+rm -f /EMPTY
 dd if=/dev/zero of=/EMPTY bs=1M || true
 rm -f /EMPTY
 
