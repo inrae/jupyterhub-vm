@@ -31,7 +31,7 @@ You need to retrieve the **_clouds.yaml_** file from the **OpenStack dashboard**
 
 The scripts provided here only serve to illustrate an example of VM creation on the OpenStack infrastructure of [IFB GenOuest bioinformatics](https://www.genouest.org/2017/03/02/cluster/). This of course requires access to this infrastructure, as any other infrastructure for that matter.
 
-The tested versions are python-openstackclient==6.6.0 and python-novaclient==18.11.0 under Windows 11 25H2 - 64-bit,  x64 processor, with Anaconda3 integrating Python 3.10.
+The tested versions are _python-openstackclient v6.6.0_ and _python-novaclient v18.11.0_ under _Windows 11 25H2 64-bit_,  x64 processor, with _Anaconda3_ integrating _Python 3.10_.
 
 <br>
 

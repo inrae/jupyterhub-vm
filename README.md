@@ -26,9 +26,9 @@ The entire process is summarized below in diagram form:
 
 ![Overview](images/overview.png)
 * **Input**:  an ISO file corresponding to the chosen operating system, downloaded from the Internet
-* **Output**:  an instance of the operational virtual machine on the [Genouest OpenStack cloud](https://www.genouest.org/2017/03/02/cluster/); in the upper part, all the configuration files used for the automatic generation of the virtual machine.
+* **Output**:  an instance of the operational virtual machine on an OpenStack Cloud (e.g. [Genouest OpenStack cloud](https://www.genouest.org/2017/03/02/cluster/)); in the upper part, all the configuration files used for the automatic generation of the virtual machine.
 
-The tested versions are Packer v1.15.0 && Vagrant 2.4.9
+The workflow implementation was carried out with Packer v1.15.0, Vagrant 2.4.9 and VirtualBox 7.2.6.
 
 <br>
 
@@ -119,7 +119,7 @@ time vagrant package --output ./builds/ubuntu2204-box.tar.gz | tee -a ./logs/vag
     * [clouds.yaml](openstack/clouds.yaml) : definition file of the openstack cloud (e.g. [GenOuest](https://www.genouest.org/2017/03/02/cluster/))
     * [openstack/push_cloud.sh](openstack/README.md) : shell script that does the job
 
-* Note : Depending on your network connection, this may take a long time (>30min).
+* Note : Depending on your network connection, this may take a long time (from 2 min. up to 30 min.).
 
 ```
 time sh ./openstack/push_cloud.sh -c genostack | tee ./logs/genostack.log
@@ -131,7 +131,7 @@ time sh ./openstack/push_cloud.sh -c genostack | tee ./logs/genostack.log
 Please enter your OpenStack password, then [shift][Enter] :
 ```
 
-* **Note** : Once the VM image has been placed in the cloud space and an instance created, you will need to edit the _/usr/local/bin/get-hostname_ file to indicate either the full name of the instance or the IP address depending on what is needed to access it on the Internet. By default, the IP address is provided. However, this may not work if the VM is behind a proxy.
+* **Note** : Once the VM image has been placed in the cloud space and an instance created, you will need to edit the _/usr/local/bin/get-hostname_ file to indicate either the full name of the instance or the IP address depending on what is needed to access it on the Internet. By default, the local IP address is provided. However, this may not work if the VM is behind a proxy.
 
 
 
