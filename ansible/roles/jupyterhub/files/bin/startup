@@ -1,7 +1,18 @@
 #!/bin/bash
 
-# Run the script provided by the cloud-init user data if applicable
-curl --max-time 3 http://169.254.169.254/latest/user-data > /tmp/script.sh
-[ -s /tmp/script.sh ] && sh /tmp/script.sh
+MARKER="/var/lib/startup-script.done"
+METADATA_URL="http://169.254.169.254/latest/user-data"
+
+if [ -f "$MARKER" ]; then
+    exit 0
+fi
+
+curl --silent --max-time 3 "$METADATA_URL" -o /tmp/script.sh
+
+if [ -s /tmp/script.sh ]; then
+    chmod +x /tmp/script.sh
+    bash /tmp/script.sh
+    touch "$MARKER"
+fi
 
 exit 0
