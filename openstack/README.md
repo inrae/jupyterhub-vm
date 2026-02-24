@@ -31,7 +31,10 @@ You need to retrieve the **_clouds.yaml_** file from the **OpenStack dashboard**
 
 The scripts provided here are used to send an image and then create an instance on an OpenStack infrastructure (e.g. [Genouest OpenStack cloud](https://www.genouest.org/2017/03/02/cluster/)) from a virtual image on your disk space. This of course requires access to this infrastructure, as any other infrastructure for that matter.
 
-The tested versions of the Python packages : _python-openstackclient v6.6.0_ and _python-novaclient v18.11.0_ under _Windows 11 25H2 64-bit_,  x64 processor, with _Anaconda3_ integrating _Python 3.10_.
+
+**Requirements** : (_Python packages_ ) _python-openstackclient v6.6.0_ and _python-novaclient v18.11.0_ tested under _Windows 11 25H2 64-bit_,  x64 processor, with [_Miniconda_](https://www.anaconda.com/docs/getting-started/miniconda/main) integrating _Python 3.10_.
+
+**Note** : On Windows, you will need to uninstall the _python-zunclient_ package if installed to remove certain unwanted messages about the '_fnct_' module (e.g., "_Could not load 'appcontainer_action_list': No module named 'fcntl'_").
 
 <br>
 
@@ -70,15 +73,18 @@ For more details on the whole process, see https://inrae.github.io/jupyterhub-vm
 
 <br>
 
-* Once the tools are installed and the configuration is complete, the entire workflow, from the Base Box to a functional instance on the OpenStack cloud, can be described as follows:
+**Full script** : Once the tools are installed and the configuration is complete, the entire **workflow from the Base Box to a functional instance on the OpenStack cloud**, can be written as follows:
 
 ```
 cd  ./jupyterhub-vm
 time (
+  # Openstack cloud - defined in ~/.config/openstack/clouds.yaml
   CLOUD=genostack
+  OS_PASSWORD=<password>
+
+  # Image and instance names
   IMAGE_NAME=jupyterhub-img_2026
   SERVER_NAME=jupystack_2026
-  OS_PASSWORD=<password>
 
   # Removes the previous image and instance on the cloud
   alias ostack="openstack --os-cloud=$CLOUD --os-password $OS_PASSWORD"

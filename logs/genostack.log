@@ -94,55 +94,8 @@ OK
 | updated                              | 2026-02-23T14:32:51Z                                             |
 | user_id                              | dc8e832181f47fb1208871074b20d25c2d1fa327400d93dc57287a90860df6a7 |
 +--------------------------------------+------------------------------------------------------------------+
-+-------------------------------------+---------------------------------------------------------------------------+
-| Field                               | Value                                                                     |
-+-------------------------------------+---------------------------------------------------------------------------+
-| OS-DCF:diskConfig                   | MANUAL                                                                    |
-| OS-EXT-AZ:availability_zone         | nova                                                                      |
-| OS-EXT-SRV-ATTR:host                | None                                                                      |
-| OS-EXT-SRV-ATTR:hostname            | None                                                                      |
-| OS-EXT-SRV-ATTR:hypervisor_hostname | None                                                                      |
-| OS-EXT-SRV-ATTR:instance_name       | None                                                                      |
-| OS-EXT-SRV-ATTR:kernel_id           | None                                                                      |
-| OS-EXT-SRV-ATTR:launch_index        | None                                                                      |
-| OS-EXT-SRV-ATTR:ramdisk_id          | None                                                                      |
-| OS-EXT-SRV-ATTR:reservation_id      | None                                                                      |
-| OS-EXT-SRV-ATTR:root_device_name    | None                                                                      |
-| OS-EXT-SRV-ATTR:user_data           | None                                                                      |
-| OS-EXT-STS:power_state              | NOSTATE                                                                   |
-| OS-EXT-STS:task_state               | spawning                                                                  |
-| OS-EXT-STS:vm_state                 | building                                                                  |
-| OS-SRV-USG:launched_at              | None                                                                      |
-| OS-SRV-USG:terminated_at            | None                                                                      |
-| accessIPv4                          |                                                                           |
-| accessIPv6                          |                                                                           |
-| addresses                           |                                                                           |
-| config_drive                        |                                                                           |
-| created                             | 2026-02-23T14:32:51Z                                                      |
-| description                         | jupystack_2026_bis                                                        |
-| flavor                              | description=, disk='20', ephemeral='0', , id='m1.xlarge', is_disabled=,   |
-|                                     | is_public='True', location=, name='m1.xlarge', original_name='m1.xlarge', |
-|                                     | ram='16384', rxtx_factor=, swap='0', vcpus='8'                            |
-| host                                | None                                                                      |
-| hostId                              | 35e4f4e71be22b9169001d01236d2d9e3582c4a336790c0341781f65                  |
-| host_status                         | None                                                                      |
-| id                                  | 3899b342-80f5-470e-b869-08e05e26c8bd                                      |
-| image                               | jupyterhub-img_2026 (c5dcb9a9-a88c-4116-99a7-ebe84e4a0dee)                |
-| key_name                            | genostack                                                                 |
-| locked                              | False                                                                     |
-| locked_reason                       | None                                                                      |
-| name                                | jupystack_2026_bis                                                        |
-| personality                         | None                                                                      |
-| pinned_availability_zone            | None                                                                      |
-| progress                            | 0                                                                         |
-| project_id                          | xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                          |
-| properties                          |                                                                           |
-| security_groups                     | name='default'                                                            |
-| server_groups                       | []                                                                        |
-| status                              | BUILD                                                                     |
-| tags                                |                                                                           |
-| trusted_image_certificates          | None                                                                      |
-| updated                             | 2026-02-23T14:32:52Z                                                      |
-| user_id                             | dc8e832181f47fb1208871074b20d25c2d1fa327400d93dc57287a90860df6a7          |
-| volumes_attached                    |                                                                           |
-+-------------------------------------+---------------------------------------------------------------------------+
++--------------------------------------+----------------+--------+------------------------------+---------------------+------------+
+| ID                                   | Name           | Status | Networks                     | Image               | Flavor     |
++--------------------------------------+----------------+--------+------------------------------+---------------------+------------+
+| 1ead45db-8623-481a-bd81-a229a52aad8d | jupystack_2026 | BUILD  | genouest-ext=192.168.100.145 | jupyterhub-img_2026 | m1.xlarge  |
++--------------------------------------+----------------+--------+------------------------------+---------------------+------------+

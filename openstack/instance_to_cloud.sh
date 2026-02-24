@@ -123,7 +123,6 @@ FLAVORID=$(ostack flavor list | grep "$FLAVOR_NAME"  | cut -d'|' -f2 | sed -e "s
            --user-data user-data-jupystack.txt \
            --key-name $KEYPAIR  $SERVER_NAME --config-drive true
   [ $? -ne 0 ] && echo "ERROR: The instance creation failed." && exit 1
-
-  ostack server show $SERVER_NAME
+  ostack server list
 )
 

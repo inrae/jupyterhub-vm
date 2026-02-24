@@ -30,7 +30,7 @@ The entire process is summarized below in diagram form:
 
 <br>
 
-**Implementation** : The workflow implementation was carried out with _Packer v1.15.0_, _Vagrant 2.4.9_ and _VirtualBox 7.2.6_ under _Windows 11 25H2 64-bit_ with _Cygwin 3.4.10_.
+**Implementation** : The workflow implementation was carried out with _Packer v1.15.0_, _Vagrant 2.4.9_ and _VirtualBox 7.2.6_.  The environment being tested is under _Windows 11 25H2 64-bit_ with _Cygwin 3.4.10_. However, a recent version of Ubuntu is highly advantageous.
 
 <br>
 
