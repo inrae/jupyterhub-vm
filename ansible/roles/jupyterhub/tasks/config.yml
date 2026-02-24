@@ -53,3 +53,9 @@
     enabled: yes
     state: "restarted"
     daemon_reload: yes
+
+- name: Creates an entry like "@reboot /usr/local/bin/startup"
+  ansible.builtin.cron:
+    name: "a job for reboot"
+    special_time: reboot
+    job: "/usr/local/bin/startup"

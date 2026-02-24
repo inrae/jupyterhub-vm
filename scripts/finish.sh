@@ -17,7 +17,8 @@ find /var/log -type f -exec truncate -s 0 {} \;
 # Cleaning cloud-init state
 cloud-init clean --logs
 rm -rf /var/lib/cloud/*
-echo 'datasource_list: [ OpenStack, ConfigDrive, NoCloud ]' > /etc/cloud/cloud.cfg.d/90_dpkg.cfg
+#echo 'datasource_list: [ OpenStack, ConfigDrive, NoCloud ]' > /etc/cloud/cloud.cfg.d/90_dpkg.cfg
+echo 'datasource_list: [ OpenStack, openstack ]' > /etc/cloud/cloud.cfg.d/90_dpkg.cfg
 
 # Resetting machine-id
 truncate -s 0 /etc/machine-id
@@ -56,7 +57,7 @@ rm -f /home/vagrant/*.sh
 cat /dev/null > ~/.bash_history && history -c
 
 # Zeroing the empty space
-fallocate -l $(df --output=avail -k / | tail -1)K /EMPTY || true
+dd if=/dev/zero of=/EMPTY bs=1M || true
 rm -f /EMPTY
 
 # Add `sync` so Packer doesn't quit too early, before the large file is deleted.

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Run the script provided by the cloud-init user data if applicable
+curl --max-time 3 http://169.254.169.254/latest/user-data > /tmp/script.sh
+[ -s /tmp/script.sh ] && sh /tmp/script.sh
+
+exit 0
