@@ -118,6 +118,9 @@ The first time you log in to JupyterHub via the web interface, you must enter th
 
 The password is to be set by entering it when logging in for the first time. Then, it is registered as a user account of the machine (Linux account). Thus, you will have to enter the same password for subsequent logins. To change it, you will have to connect to the VM via a console and change it with the command _passwd_.
 
+
+* [Additional document](https://inrae.github.io/jupyterhub-vm/gcpimg/PuTTY_WinSCP.pdf): Slides that show, step by step, how to copy data, scripts and notebooks to the shared folder of the Jupyterhub server, in a secure way (SCP) using PuTTY and WinSCP.
+
 <br>
 
 Please refer to the following online documentation:
