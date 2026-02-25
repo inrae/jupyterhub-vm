@@ -43,11 +43,11 @@ The scripts provided here are used to send an image and then create an instance 
 
 ```
 $ sh ./openstack/push_cloud.sh -h
-usage: sh ./push_cloud.sh [-c <cloudname>] [-p <password>] [-d <VM HD path>] [-i <VM IMAGE NAME>] [-t]
+usage: sh ./push_cloud.sh [-c <cloudname>] [-p <password>] [-d <vmdk file>] [-i <image name>] [-t]
      -c <cloudname>     : the entry in the clouds.yaml file (genostack by default)
-     -p <password>      ! password to have access on the cloud
-     -d <VM HD path>    : the full path of the VM disk (./builds/ubuntu2204-disk001.vmdk by default)
-     -i <VM IMAGE NAME> : the image name of the VM once pushed on the cloud (jupyterhub-img_2026 by default)
+     -p <password>      : password to have access on the cloud
+     -d <vmdk file>     : the full path of the VM disk (./builds/ubuntu2204-disk001.vmdk by default)
+     -i <image name>    : the image name of the VM once pushed on the cloud (jupyterhub-img_2026 by default)
      -t                 : flag indicating that it is just for testing cloud connection
 ```
 <br>
@@ -57,12 +57,12 @@ usage: sh ./push_cloud.sh [-c <cloudname>] [-p <password>] [-d <VM HD path>] [-i
 
 ```
 $ sh ./openstack/instance_to_cloud.sh -h
-usage: sh ./instance_to_cloud.sh [-c <cloudname>] [-p <password>] [-i <VM IMAGE NAME>] [-s <instance name>] [-k <keypair>] [-f <flavor>] [-t]
+usage: sh ./instance_to_cloud.sh [-c <cloudname>] [-p <password>] [-i <image name>] [-s <instance name>] [-k <keypair>] [-f <flavor>] [-t]
      -c <cloudname>     : the entry in the clouds.yaml file (genostack by default)
-     -p <password>      ! password to have access on the cloud
+     -p <password>      : password to have access on the cloud
      -k <keypair>       : genostack by default
      -f <flavor>        : m1.xlarge by default
-     -i <VM IMAGE NAME> : the image name of the VM once pushed on the cloud (jupyterhub-img_2026 by default)
+     -i <image name>    : the image name of the VM once pushed on the cloud (jupyterhub-img_2026 by default)
      -s <instance name> : the instance name of the VM (jupystack_2026 by default)
      -t                 : flag indicating that it is just for testing cloud connection
 ```

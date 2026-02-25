@@ -2,25 +2,25 @@
 
 MYDIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
+# Default parameters
 CLOUD=genostack
 CLOUDFILE=~/.config/openstack/clouds.yaml
 IMAGE_NAME=jupyterhub-img_2026
 SERVER_NAME=jupystack_2026
 KEYPAIR=genostack
 FLAVOR_NAME=m1.xlarge
-
+USERDATA=user-data.txt
 OS_SCRIPTS=`dirname $(which openstack)`
-OS_USERNAME=djacob
 OS_PASSWORD=
 TEST=0
 
 PWD=$(pwd)
 
 usage() {
-    echo "usage: sh $0 [-c <cloudname>] [-p <password>] [-i <VM IMAGE NAME>] [-s <instance name>] [-k <keypair>] [-f <flavor>] [-t]
+    echo "usage: sh $0 [-c <cloudname>] [-p <password>] [-i <image name>] [-s <instance name>] [-k <keypair>] [-f <flavor>] [-t]
      -c <cloudname>     : the entry in the clouds.yaml file (genostack by default)
-     -p <password>      ! password to have access on the cloud
-     -i <VM IMAGE NAME> : the image name of the VM once pushed on the cloud (jupyterhub-img_2026 by default)
+     -p <password>      : password to have access on the cloud
+     -i <image name>    : the image name of the VM once pushed on the cloud (jupyterhub-img_2026 by default)
      -s <instance name> : the instance name of the VM (jupystack_2026 by default)
      -k <keypair>       : genostack by default
      -f <flavor>        : m1.xlarge by default
@@ -120,7 +120,7 @@ FLAVORID=$(ostack flavor list | grep "$FLAVOR_NAME"  | cut -d'|' -f2 | sed -e "s
 
   echo "# Create the instance $SERVER_NAME"
   ostack server create --flavor $FLAVORID --image $IMAGEID  \
-           --user-data user-data.txt \
+           --user-data $USERDATA \
            --key-name $KEYPAIR  $SERVER_NAME --config-drive true
   [ $? -ne 0 ] && echo "ERROR: The instance creation failed." && exit 1
   ostack server list

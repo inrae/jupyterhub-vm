@@ -2,6 +2,7 @@
 
 MYDIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
+# Default parameters
 CLOUD=genostack
 IMAGE_NAME=jupyterhub-img_2026
 VMFILE=./builds/ubuntu2204-disk001.vmdk
@@ -12,11 +13,11 @@ TEST=0
 PWD=$(pwd)
 
 usage() {
-    echo "usage: sh $0 [-c <cloudname>] [-p <password>] [-d <VM HD path>] [-i <VM IMAGE NAME>] [-t]
+    echo "usage: sh $0 [-c <cloudname>] [-p <password>] [-d <vmdk file>] [-i <image name>] [-t]
      -c <cloudname>     : the entry in the clouds.yaml file (genostack by default)
-     -p <password>      ! password to have access on the cloud
-     -d <VM HD path>    : the full path of the VM disk (./builds/ubuntu2204-disk001.vmdk by default)
-     -i <VM IMAGE NAME> : the image name of the VM once pushed on the cloud (jupyterhub-img_2026 by default)
+     -p <password>      : password to have access on the cloud
+     -d <vmdk file>     : the full path of the VM disk (./builds/ubuntu2204-disk001.vmdk by default)
+     -i <image name>    : the image name of the VM once pushed on the cloud (jupyterhub-img_2026 by default)
      -t                 : flag indicating that it is just for testing cloud connection
 "
     exit 1;
