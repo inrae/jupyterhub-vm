@@ -115,7 +115,7 @@ time (
 
 ### Using JupyterHub
 
-The first time you log in to JupyterHub via the web interface, you must enter the administrator's login and password. The administrator's login is _admin_ (configured in the file _ansible/roles/jupyterhub/tasks/install.yml_).
+The first time you log in to JupyterHub via the web interface, you must enter the administrator's login and password. The administrator's login is _admin_ (configured in the file [_ansible/roles/jupyterhub/tasks/install.yml_](../ansible/roles/jupyterhub/tasks/install.yml)).
 
 ![Login](../images/jupyterhub_login.png)
 
