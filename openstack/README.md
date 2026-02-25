@@ -32,13 +32,13 @@ You need to retrieve the **_clouds.yaml_** file from the **OpenStack dashboard**
 The scripts provided here are used to send an image and then create an instance on an OpenStack infrastructure (e.g. [Genouest OpenStack cloud](https://www.genouest.org/2017/03/02/cluster/)) from a virtual image on your disk space. This of course requires access to this infrastructure, as any other infrastructure for that matter.
 
 
-**Requirements** : (_Python packages_ ) _python-openstackclient v6.6.0_ and _python-novaclient v18.11.0_ tested under _Windows 11 25H2 64-bit_,  x64 processor, with [_Miniconda_](https://www.anaconda.com/docs/getting-started/miniconda/main) integrating _Python 3.10_.
+**Requirements** : [_python-openstackclient_](https://pypi.org/project/python-openstackclient/6.6.0/) _v6.6.0_ and [_python-novaclient_](https://pypi.org/project/python-novaclient/18.11.0/) _v18.11.0_ tested under _Windows 11 25H2 64-bit_,  x64 processor, with [_Miniconda_](https://www.anaconda.com/docs/getting-started/miniconda/main) integrating _Python 3.10_.
 
-**Note** : On Windows, you will need to uninstall the _python-zunclient_ package if installed to remove certain unwanted messages about the '_fnct_' module (e.g., "_Could not load 'appcontainer_action_list': No module named 'fcntl'_").
+**Note** : On Windows, you will need to uninstall the optional [_python-zunclient_](https://pypi.org/project/python-zunclient/) package if installed to remove certain unwanted messages about the '_fnct_' module (e.g., "_Could not load 'appcontainer_action_list': No module named 'fcntl'_").
 
 <br>
 
-* **push_cloud.sh** : This script allows you to upload a virtual disk to an OpenStack-type cloud service.
+* **push_cloud.sh** : Uploads a virtual disk to an OpenStack-type cloud service.
 
 ```
 $ sh ./openstack/push_cloud.sh -h
@@ -51,7 +51,7 @@ usage: sh ./push_cloud.sh [-c <cloudname>] [-p <password>] [-d <VM HD path>] [-i
 ```
 <br>
 
-* **instance_to_cloud.sh** : This script allows you to create an instance from a previously uploaded image. You must choose the keypair and flavor. This information is provided by specifying the _t_ option.
+* **instance_to_cloud.sh** : Creates an instance from a previously uploaded image. You must choose the keypair and flavor. This information is provided by specifying the _t_ option.
 
 ```
 $ sh ./openstack/instance_to_cloud.sh -h
