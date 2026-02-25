@@ -14,10 +14,10 @@ R_PKGS_BIN="rjson doparallel plotly tidyverse ade4 amap cairo car reshape dendex
 R_PKGS_BIOC="ropls mixOmics MassSpecWavelet pcaMethods xcms CAMERA MSnbase ASICS"
 
 # R packages from r-cran repositories (source format)
-R_PKGS_SRC="signal ptw speaq ppcor hyperSpec moments data.tree feather"
+R_PKGS_SRC="signal ptw speaq ppcor hyperSpec moments data.tree feather batman"
 
 # R packages from Github (source format)
-R_PKGS_GIT="inrae/Rodam inra/Rnmr1D djacob65/RnmrQuant1D"
+R_PKGS_GIT="inrae/Rodam inra/Rnmr1D djacob65/RnmrQuant1D f-puig/R.ComDim"
 
 
 # ----
