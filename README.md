@@ -45,6 +45,8 @@ ISO : https://releases.ubuntu.com/22.04/ubuntu-22.04.5-live-server-amd64.iso
 CHECKSUM : sha256:9bc6028870aef3f74f4e16b900008179e78b130e6b0b9a140635434a46aa98b0
 ```
 
+<br>
+
 ### 2 - Create the Base Box
 
 * The tested version is _Packer v1.15.0_
@@ -63,6 +65,7 @@ time packer build box-config.json | tee ./logs/packer.log
 
 * You can now delete the **ISO file** as it will no longer be needed in the following steps.
 
+<br>
 
 ### 3 - Store Base Box in Vagrant Cloud
 
@@ -70,6 +73,7 @@ time packer build box-config.json | tee ./logs/packer.log
 
 * Here we have created the base boxe referenced as [djreg/small-ubuntu2204](https://portal.cloud.hashicorp.com/vagrant/discover/djreg/small-ubuntu2204/versions/1.1)
 
+<br>
 
 ### 4 - Create Final VM
 
@@ -106,6 +110,7 @@ ssh -p 2222 vagrant@127.0.0.1
 
 * **Note 2** : A shell script ([_/usr/local/bin/install_R_pkgs_](ansible/roles/r_pkgs/files/install_R_pkgs)) has been created to install a set of R packages from various sources (CRAN, bioconductor, github, ...). This script can be edited either before building the VM or afterward within the VM itself. However, in both cases, it must be executed from within the VM. This allows for a more generic and smaller VM, and enables the creation of multiple instances from the same image for different uses, i.e., for different application domains.
 
+<br>
 
 ### 5 - Export Final VM
 
@@ -115,14 +120,15 @@ ssh -p 2222 vagrant@127.0.0.1
 time vagrant package --output ./builds/ubuntu2204-box.tar.gz | tee -a ./logs/vagrant.log
 
 ```
+<br>
 
 ### 6 - Upload Final VM on an OpenStack cloud
 
 * First you must extract the VMDK VM file (_ubuntu2204-disk001.vmdk_) from the TAR archive. Put it under the same directory (i.e. _./builds_)
 
 * Upload the final VM on a OpenStack cloud, based on :
-    * [OpenStackClient](https://docs.openstack.org/python-openstackclient/latest/) (OSC) which must be installed - See [more details](openstack/README.md)
-    * [clouds.yaml](openstack/clouds.yaml) : definition file of the openstack cloud (e.g. [GenOuest](https://www.genouest.org/2017/03/02/cluster/))
+    * [OpenStackClient](https://docs.openstack.org/python-openstackclient/latest/) (OSC) which must be installed
+    * [clouds.yaml](openstack/README.md) : definition file of the openstack cloud (e.g. [GenOuest](https://www.genouest.org/2017/03/02/cluster/))
     * [openstack/push_cloud.sh](openstack/README.md) : shell script that does the job
 
 * Note : Depending on your network connection, this may take a long time (from 2 min. up to 30 min.).
@@ -137,9 +143,11 @@ time sh ./openstack/push_cloud.sh -c genostack | tee ./logs/genostack.log
 Please enter your OpenStack password, then [shift][Enter] :
 ```
 
-* **Note** : Once the VM image has been placed in the cloud space and an instance created, you will need to edit the _/usr/local/bin/get-hostname_ file to indicate either the full name of the instance or the IP address depending on what is needed to access it on the Internet. By default, the local IP address is provided. However, this may not work if the VM is behind a proxy.
+* **Note 1** : Once the VM image has been placed in the cloud space and an instance created, you will need to edit the _/usr/local/bin/get-hostname_ file to indicate either the full name of the instance or the IP address depending on what is needed to access it on the Internet. By default, the local IP address is provided. However, this may not work if the VM is behind a proxy.
 
+* **Note 2** : You can go further and automate the creation of a functional instance on the cloud. See [more details](openstack/README.md)
 
+<br>
 
 ### 7 - Do the housework on your local disk
 
