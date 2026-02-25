@@ -120,7 +120,7 @@ FLAVORID=$(ostack flavor list | grep "$FLAVOR_NAME"  | cut -d'|' -f2 | sed -e "s
 
   echo "# Create the instance $SERVER_NAME"
   ostack server create --flavor $FLAVORID --image $IMAGEID  \
-           --user-data user-data-jupystack.txt \
+           --user-data user-data.txt \
            --key-name $KEYPAIR  $SERVER_NAME --config-drive true
   [ $? -ne 0 ] && echo "ERROR: The instance creation failed." && exit 1
   ostack server list

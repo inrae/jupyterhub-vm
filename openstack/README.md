@@ -52,6 +52,7 @@ usage: sh ./push_cloud.sh [-c <cloudname>] [-p <password>] [-d <VM HD path>] [-i
 <br>
 
 * **instance_to_cloud.sh** : Creates an instance from a previously uploaded image. You must choose the keypair and flavor. This information is provided by specifying the _t_ option.
+    * **Note** : You need to adapt the [user-data.txt](user-data.txt) file so that _/usr/local/bin/get-hostname_ script returns either the full instance name or the IP address, depending on the chosen openstack cloud and what is needed to access it on the Internet.
 
 ```
 $ sh ./openstack/instance_to_cloud.sh -h
