@@ -106,9 +106,16 @@ ssh -p 2222 vagrant@127.0.0.1
 
 * You can also access the JupyterHub web interface at http://192.168.99.1/ (or another IP address depending on the one specified in the [Vagrantfile](Vagrantfile) and [ansible/vars/all.yml](ansible/vars/all.yml) files).
 
-* **Note 1** : If you wish, you can add one or more SSH keys to the _scripts/ssh_keys_ file, which will then be associated with the root account. This will allow you to log in directly as root. Very practical in development mode but to be avoided in production mode, given that the _vagrant_ account already has full rights with the sudo mechanism.
+* **Note 1** : The vagrant password can be changed in the [_http/user-data_](http/user-data) help with the _mkpasswd_ command. See [more details](https://stackoverflow.com/questions/61591885/how-do-i-set-a-custom-password-with-cloud-init-on-ubuntu-20-04).
 
-* **Note 2** : A shell script ([_/usr/local/bin/install_R_pkgs_](ansible/roles/r_pkgs/files/install_R_pkgs)) has been created to install a set of R packages from various sources (CRAN, bioconductor, github, ...). This script can be edited either before building the VM or afterward within the VM itself. However, in both cases, it must be executed from within the VM. This allows for a more generic and smaller VM, and enables the creation of multiple instances from the same image for different uses, i.e., for different application domains.
+* **Note 2** : If you wish, you can add one or more SSH keys to the _scripts/ssh_keys_ file, which will then be associated with the root account. This will allow you to log in directly as root. Very practical in development mode but to be avoided in production mode, given that the _vagrant_ account already has full rights with the sudo mechanism.
+
+* **Note 3** : A shell script ([_/usr/local/bin/install_R_pkgs_](ansible/roles/r_pkgs/files/install_R_pkgs)) has been created to install a set of R packages from various sources (CRAN, bioconductor, github, ...). This script can be edited either before building the VM or afterward within the VM itself. However, in both cases, it must be executed from within the VM. This allows for a more generic and smaller VM, and enables the creation of multiple instances from the same image for different uses, i.e., for different application domains. Once connected to the virtual machine, you can run the following command to install all R packages :
+
+     ```
+     time sudo install_R_pkgs | tee /var/log/install_R_pkgs.log
+     ```
+
 
 <br>
 
@@ -124,7 +131,7 @@ time vagrant package --output ./builds/ubuntu2204-box.tar.gz | tee -a ./logs/vag
 
 ### 6 - Upload Final VM on an OpenStack cloud
 
-* First you must extract the VMDK VM file (_ubuntu2204-disk001.vmdk_) from the TAR archive. Put it under the same directory (i.e. _./builds_)
+* First you must extract the VMDK file of the virtual machine (_ubuntu2204-disk001.vmdk_) from the TAR archive. Put it under the same directory (i.e. _./builds_)
 
 * Upload the final VM on a OpenStack cloud, based on :
     * [OpenStackClient](https://docs.openstack.org/python-openstackclient/latest/) (OSC) which must be installed

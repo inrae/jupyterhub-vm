@@ -9,9 +9,9 @@ apt -y remove --purge ansible
 # Cleaning apt cache
 apt-get clean
 apt-get autoremove -y
-rm -rf /var/lib/apt/lists/*
 
 # Cleaning logs
+rm -f /var/log/*.gz
 find /var/log -type f -exec truncate -s 0 {} \;
 
 # Removing shell history
@@ -22,15 +22,11 @@ rm -f /home/*/.bash_history || true
 rm -rf /tmp/*
 rm -rf /var/tmp/*
 
-
 # Cleaning journalctl
 journalctl --vacuum-time=1s
 
-# Cleaning some other thins ...
+# Cleaning pip cache
 rm -rf /root/.cache/pip/*
-rm -rf /var/lib/apt/lists/*
-rm -f /var/lib/apt/lists/*
-rm -f /var/log/*.gz
 
 dpkg -l 'linux-image-*' | awk '/^ii/{ print $2}' | \
     grep -v "$(uname -r | cut -d- -f1,2)" | \
@@ -38,9 +34,6 @@ dpkg -l 'linux-image-*' | awk '/^ii/{ print $2}' | \
 
 # Delete unneeded files.
 rm -f /home/vagrant/*.sh
-
-# clear the Bash History
-cat /dev/null > ~/.bash_history && history -c
 
 # Zeroing the empty space
 fallocate -l $(df --output=avail -k / | tail -1)K /EMPTY || true
