@@ -199,8 +199,8 @@ We would like to thank the [IFB GenOuest bioinformatics](https://www.genouest.or
 
 ### Funded by:
 
-* INRAE UR BIA-BIBS, Biopolymères Interactions Assemblages
-* INRAE, UR BIA, plate-forme BIBS
+* 2020 : GAEV project via​ a SAPI INRAE call for project - See [INRAE ​​Forge](https://forge.inrae.fr/gaev/gaev)
+* 2026 : INRAE UR BIA-BIBS, Biopolymères Interactions Assemblage, plate-forme BIBS
 
 <br>
 
