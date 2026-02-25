@@ -26,6 +26,7 @@ You need to retrieve the **_clouds.yaml_** file from the **OpenStack dashboard**
 
 ![get_auth](../images/openstack_authfiles.png)
 
+<br>
 
 ### About the scripts
 
@@ -110,6 +111,7 @@ time (
 )
 
 ```
+<br>
 
 ### Using JupyterHub
 
@@ -125,6 +127,8 @@ The password is to be set by entering it when logging in for the first time. The
 <br>
 
 Please refer to the following online documentation:
+
+<br>
 
 ### OpenStack Client
 
