@@ -1,4 +1,5 @@
 ---
+
 - name: Update apt cache
   ansible.builtin.apt:
     update_cache: yes
@@ -7,6 +8,22 @@
   ansible.builtin.apt:
     name: libgit2-dev
     state: latest
+
+- name: Install build dependencies for graphics
+  ansible.builtin.apt:
+    name:
+      - libcairo2-dev
+      - libxt-dev
+      - libpng-dev
+      - libjpeg-dev
+      - libtiff5-dev
+      - libgif-dev
+      - libx11-dev
+      - libharfbuzz-dev
+      - libfribidi-dev
+      - libfreetype6-dev
+      - pkg-config
+    state: present
 
 - set_fact:
     r_install:

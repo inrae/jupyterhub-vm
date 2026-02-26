@@ -108,9 +108,32 @@ time (
   # Push the VM image on the OpenStack cloud then create a running instance
   time sh ./openstack/push_cloud.sh -c $CLOUD -i $IMAGE_NAME -p $OS_PASSWORD | tee ./logs/${CLOUD}.log
   sh ./openstack/instance_to_cloud.sh -c $CLOUD -i $IMAGE_NAME -s $SERVER_NAME -p $OS_PASSWORD | tee -a ./logs/${CLOUD}.log
+
+  echo "Wait until the virtual machine is running..."
+  STATUS=$(ostack server list | grep $SERVER_NAME | cut -d'|' -f4 | tr -d ' ')
+  until [ $STATUS == 'ACTIVE' ]; do  STATUS=$(ostack server list | grep $SERVER_NAME | cut -d'|' -f4 | tr -d ' '); done
+  IP=$(ostack server list | grep $SERVER_NAME | cut -d'|' -f5 | tr -d ' ' | cut -d'=' -f2)
+  echo "OK : IP = $IP"
 )
 
 ```
+
+Finally, you could attach a volume without using the web interface.
+
+```
+CLOUD=genostack
+OS_PASSWORD=<password>
+SERVER_NAME=jupystack_2026
+VOLUME_NAME= jupystack_vol
+
+alias ostack="openstack --os-cloud=$CLOUD --os-password $OS_PASSWORD"
+
+VOLID=$(ostack volume list | grep jupystack_vol2 | cut -d'|' -f2)
+SERVID=$(ostack server list | grep $SERVER_NAME | cut -d'|' -f2)
+ostack server add volume $SERVID $VOLID --device /dev/vdb
+```
+
+
 <br>
 
 ### Using JupyterHub
