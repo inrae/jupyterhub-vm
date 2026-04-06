@@ -25,12 +25,27 @@ Requires [VirtualBox](https://www.virtualbox.org/), [Packer](https://www.packer.
 The entire process is summarized below in diagram form: 
 
 ![Overview](images/overview.png)
-* **Input**:  an ISO file corresponding to the chosen operating system, downloaded from the Internet
-* **Output**:  an instance of the operational virtual machine on an OpenStack Cloud (e.g. [Genouest OpenStack cloud](https://www.genouest.org/2017/03/02/cluster/)); in the upper part, all the configuration files used for the automatic generation of the virtual machine.
 
 <br>
 
-**Implementation** : The workflow implementation was carried out with _Packer v1.15.0_, _Vagrant 2.4.9_ and _VirtualBox 7.2.6_.  The environment being tested is under _Windows 11 25H2 64-bit_ with _Cygwin 3.4.10_. However, a recent version of Ubuntu is highly advantageous.
+* **Configuration** : The set of configuration files and scripts included in this repository, used for the automatic generation of the virtual machine.
+* **Creation** : The set of applications to install on your local machine (see above).
+* **Storage** and **Instantiation** : External infrastructure dedicated to hosting images and/or instances.
+* **Input**:  an ISO file corresponding to the chosen operating system, downloaded from the Internet
+* **Output**:  an instance of the operational virtual machine on an OpenStack Cloud (e.g. [Genouest OpenStack cloud](https://www.genouest.org/2017/03/02/cluster/)).
+
+<br>
+
+* Before proceeding with each of the steps described below, you must first retrieve all configuration files and scripts.
+
+```
+git clone https://github.com/inrae/jupyterhub-vm.git
+```
+
+<br>
+
+**Implementation** : The workflow implementation described below was carried out with _Packer v1.15.0_, _Vagrant 2.4.9_ and _VirtualBox 7.2.6_.  The environment being tested is under _Windows 11 25H2 64-bit_ with _Cygwin 3.4.10_. However, using a recent version of Ubuntu would be highly advantageous.
+
 
 <br>
 

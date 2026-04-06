@@ -14,7 +14,7 @@ R_PKGS_BIN="rjson doparallel plotly tidyverse ade4 amap cairo car reshape dendex
 R_PKGS_BIOC="ropls mixOmics MassSpecWavelet pcaMethods xcms CAMERA MSnbase ASICS MsBackendMgf"
 
 # R packages from r-cran repositories (source format)
-R_PKGS_SRC="signal ptw speaq ppcor hyperSpec moments data.tree feather batman"
+R_PKGS_SRC="signal ptw speaq ppcor hyperSpec moments data.tree feather batman JADE"
 
 # R packages from Github (source format)
 R_PKGS_GIT="inrae/Rodam inra/Rnmr1D djacob65/RnmrQuant1D f-puig/R.ComDim"
@@ -37,8 +37,8 @@ apt-get -q install -y $R_PKGS_CRAN
 # Removal of R packages if newer version exists in /usr/local
 # first round
 for p in $(ls /usr/lib/R/site-library/); do
-  r=r-cran-$(echo "$p" | tr '[:upper:]' '[:lower:]')
-  [ -d "/usr/local/lib/R/site-library/$p" ] && echo "$p ok" && apt-get -q remove -y $r
+   r=r-cran-$(echo "$p" | tr '[:upper:]' '[:lower:]')
+   [ -d "/usr/local/lib/R/site-library/$p" ] && echo "$p ok" && apt-get -q remove -y $r
 done
 # second round
 apt-get -qq remove -y r-cran-spatial
@@ -51,5 +51,6 @@ apt-get -qq remove -y r-cran-spatial
 
 # Installing R packages from Github
 /usr/lib/R/site-library/littler/examples/installGithub.r $R_PKGS_GIT
+
 
 exit 0

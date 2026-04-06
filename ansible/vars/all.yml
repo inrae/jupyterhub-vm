@@ -23,7 +23,15 @@ repos:
   keyfile: /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
 
 python_pkgs:
-  - pandas
+  - gdown
   - numpy
+  - pandas
   - matplotlib
+  - seaborn
+  - plotly
+  - streamlit
   - scikit-learn
+  - lightgbm
+  - statsmodels
+  - pycaret
+

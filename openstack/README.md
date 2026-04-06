@@ -71,7 +71,7 @@ usage: sh ./instance_to_cloud.sh [-c <cloudname>] [-p <password>] [-i <image nam
 
 ![dashboard](../images/openstack_dashboard.png)
 
-For more details on the whole process, see https://inrae.github.io/jupyterhub-vm/cloud/
+For more details on the whole process, see https://inrae.github.io/jupyterhub-vm/os-cloud/
 
 <br>
 
@@ -121,6 +121,7 @@ time (
 Finally, you could attach a volume without using the web interface.
 
 ```
+# Settings
 CLOUD=genostack
 OS_PASSWORD=<password>
 SERVER_NAME=jupystack_2026
@@ -128,6 +129,10 @@ VOLUME_NAME= jupystack_vol
 
 alias ostack="openstack --os-cloud=$CLOUD --os-password $OS_PASSWORD"
 
+# Show volume list before
+ostack volume list
+
+# if present, attach the volume
 VOLID=$(ostack volume list | grep jupystack_vol2 | cut -d'|' -f2)
 SERVID=$(ostack server list | grep $SERVER_NAME | cut -d'|' -f2)
 ostack server add volume $SERVID $VOLID --device /dev/vdb
@@ -149,11 +154,8 @@ The password is to be set by entering it when logging in for the first time. The
 
 <br>
 
-Please refer to the following online documentation:
 
-<br>
-
-### OpenStack Client
+### OpenStack Client - online documentation
 
 * OpenStackClient
   https://docs.openstack.org/python-openstackclient/latest/
