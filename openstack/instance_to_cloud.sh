@@ -18,12 +18,12 @@ PWD=$(pwd)
 
 usage() {
     echo "usage: sh $0 [-c <cloudname>] [-p <password>] [-i <image name>] [-s <instance name>] [-k <keypair>] [-f <flavor>] [-t]
-     -c <cloudname>     : the entry in the clouds.yaml file (genostack by default)
+     -c <cloudname>     : the entry in the clouds.yaml file ($CLOUD by default)
      -p <password>      : password to have access on the cloud
-     -i <image name>    : the image name of the VM once pushed on the cloud (jupyterhub-img_2026 by default)
-     -s <instance name> : the instance name of the VM (jupystack_2026 by default)
-     -k <keypair>       : genostack by default
-     -f <flavor>        : m1.xlarge by default
+     -i <image name>    : the image name of the VM once pushed on the cloud ($IMAGE_NAME by default)
+     -s <instance name> : the instance name of the VM ($SERVER_NAME by default)
+     -k <keypair>       : $KEYPAIR by default
+     -f <flavor>        : $FLAVOR_NAME by default
      -t                 : flag indicating that it is just for testing cloud connection
 "
     exit 1;
@@ -77,7 +77,7 @@ if [ $TEST -eq 1 ]; then
    echo
    echo "Flavor list:";   ostack flavor list
    echo
-   echo "Kaypair list:";  ostack keypair list
+   echo "Keypair list:";  ostack keypair list
    echo
    exit 0
 fi
