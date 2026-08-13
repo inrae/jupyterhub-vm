@@ -392,7 +392,7 @@ After the download, both S3 and Google Drive therefore provide the same local fi
 ```
 
 
-#### iv) Vagrantfile
+#### iii) Vagrantfile
 
 Once the .box file has been downloaded locally, Vagrant can use it directly through a file:// URL.
 
