@@ -202,6 +202,8 @@ The box can now be installed from the private S3 storage. The AWS configuration 
 
     ```
     $ vagrant box remove djreg/small-ubuntu2204
+    ```
+    ```
     Removing box 'djreg/small-ubuntu2204' (v0) with provider 'virtualbox'...
     ```
 
