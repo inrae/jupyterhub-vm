@@ -76,7 +76,7 @@ cd  ./jupyterhub-vm
 time packer build box-config.json | tee ./logs/packer.log
 ```
 
-* The **base box** should now be located in the _./builds_ directory and be named _virtualbox-ubuntu2204.box_.
+* The **base box** should now be located in the _./builds_ directory and be named _small-ubuntu2204.box_.
 
 * You can now delete the **ISO file** as it will no longer be needed in the following steps.
 

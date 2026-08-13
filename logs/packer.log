@@ -164,4 +164,4 @@ Build 'virtualbox-iso' finished after 9 minutes 47 seconds.
 ==> Wait completed after 9 minutes 47 seconds
 
 ==> Builds finished. The artifacts of successful builds are:
---> virtualbox-iso: 'virtualbox' provider box: builds/virtualbox-ubuntu2204.box
+--> virtualbox-iso: 'virtualbox' provider box: builds/small-ubuntu2204.box

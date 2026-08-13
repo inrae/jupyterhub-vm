@@ -48,7 +48,7 @@
     [
       {
         "type": "vagrant",
-        "output": "builds/{{.Provider}}-ubuntu2204.box"
+        "output": "builds/small-ubuntu2204.box"
       }
     ]
   ]
