@@ -15,7 +15,7 @@ The following example shows how to use an S3-compatible object storage as a priv
 
 <br>
 
-### 1 - Installation of the fixed vagrant-box-s3 Vagrant plugin
+### 1 - Installation of the fixed `vagrant-box-s3` plugin
 
 This project uses a patched version of the [`vagrant-box-s3`](https://github.com/djacob65/vagrant-box-s3) plugin. The patch adds support for S3-compatible storage endpoints (such as NetApp StorageGRID) and handles `metadata.json` correctly.
 
