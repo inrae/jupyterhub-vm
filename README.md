@@ -88,6 +88,8 @@ time packer build box-config.json | tee ./logs/packer.log
 
 * Here we have created the base boxe referenced as [djreg/small-ubuntu2204](https://portal.cloud.hashicorp.com/vagrant/discover/djreg/small-ubuntu2204/versions/1.1)
 
+* Note (August 2026) : As Vagrant Cloud is set to be discontinued (March 2027), we have to choose another remote registry. See ["Using your S3 storage as a Vagrant box registry"](s3/README.md)
+
 <br>
 
 ### 4 - Create Final VM
