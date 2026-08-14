@@ -94,16 +94,14 @@ time packer build box-config.json | tee ./logs/packer.log
 
 ### 4 - Create Final VM
 
-* The tested version is _Vagrant 2.4.9_
-
 * Based on :
    * [Base Box](https://portal.cloud.hashicorp.com/vagrant/discover/djreg/small-ubuntu2204/versions/1.1) : the base box stored in the Vagrant Cloud (see previous step)
    * [Vagrantfile](Vagrantfile) : describes the type of the machine and how to configure and provision it. 
    * [ansible](ansible/playbook.yml) : configures the installation of the VM and the packages, modules, etc.
 
-* You must first install the plugin corresponding to the provider (_VirtualBox_) if not yet done
-
 * You have also to create a new [_VirtualBox Host-Only Ethernet Adapter_](images/vbox_network.png)
+
+* You must first install the plugin corresponding to the provider (_VirtualBox_) if not yet done
 
 ```
 vagrant plugin install virtualbox
