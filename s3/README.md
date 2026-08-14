@@ -25,6 +25,13 @@ In particular, the plugin:
 - generates pre-signed S3 URLs for private objects;
 - handles Vagrant's `HEAD` request for `metadata.json` by performing a signed `GET` request instead. This is required because the StorageGRID endpoint used in this example returns `403 Forbidden` for pre-signed `HEAD` requests.
 
+* On Windows/Cygwin, you must first create two symbolic links to compile the Ruby code :
+
+    ```
+    ln -s /cygdrive/c/Program\ Files/Vagrant/embedded/mingw64/bin/gem.cmd /usr/local/bin/gem
+    ln -s /cygdrive/c/Program\ Files/Vagrant/embedded/mingw64/bin/ruby.exe /usr/local/bin/ruby.exe
+    ```
+
 * Clone the patched plugin repository and build the Ruby gem:
 
     ```
