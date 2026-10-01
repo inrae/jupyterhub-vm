@@ -116,7 +116,7 @@ time vagrant up | tee logs/vagrant.log
 * At this stage, you can use the final VM given that it is running on the provider (_VirtualBox_). So you can connect on it using ssh command (login=_vagrant_, password=_vagrant_):
 
 ```
-ssh -p 2222 vagrant@127.0.0.1
+ssh -o StrictHostKeyChecking=no -p 2222 vagrant@127.0.0.1
 ```
 
 * You can also access the JupyterHub web interface at http://192.168.99.1/ (or another IP address depending on the one specified in the [Vagrantfile](Vagrantfile) and [ansible/vars/all.yml](ansible/vars/all.yml) files).
