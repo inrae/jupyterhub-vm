@@ -270,11 +270,13 @@ You can also configure the Vagrantfile to fetch the box into the local registry 
 
     ```    
     ENV['AWS_PROFILE'] = 'default'
-    
+    ENV['AWS_ENDPOINT_URL']='https://s3-data.meso.umontpellier.fr'
+    BOX_NAME = "djreg/small-ubuntu2204"
+
     Vagrant.configure("2") do |config|
     
       config.vm.box = "djreg/small-ubuntu2204"
-      config.vm.box_url = "https://s3-data.meso.umontpellier.fr/bibs6/djacob/boxes/djreg/small-ubuntu2204/metadata.json"
+      config.vm.box_url = "#{ENV['AWS_ENDPOINT_URL']}/bibs6/djacob/boxes/#{BOX_NAME}/metadata.json"
     
     end
     ```
