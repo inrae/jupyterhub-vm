@@ -369,7 +369,7 @@ The box can be downloaded from the S3 storage using the AWS CLI.
     ```
     aws s3 cp 
        "s3://bibs6/djacob/boxes/dhreg/small-ubuntu2204/1.1/virtualbox.box" \
-       ./builds/$NAME.box
+       ./builds/small-ubuntu2204.box
     ```
 
     The AWS CLI uses the credentials and S3 endpoint configured in the standard AWS configuration. For a private S3-compatible storage such as StorageGRID, the endpoint can be specified explicitly if it is not already defined in the AWS configuration:
