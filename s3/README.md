@@ -387,11 +387,11 @@ The same approach can be used with other storage services. For example, the box 
 
 * Using **gdown**
 
-    install the Google tool  — written in _Python_ — as follows, if not yet installed :
+    install the Google tool  — written in _Python_ — as follows, if it is not already installed:
     ```
     pip3 install gdown
     ```
-    then :
+    then:
     ```
     gdown -O ./builds/small-ubuntu2204.box 1QM-BXuCwH_YFc20jgtNXMYVH4hsqs1DE
     ```

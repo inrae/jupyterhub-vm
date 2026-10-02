@@ -2,11 +2,23 @@
 # -*- encoding: utf-8 -*-
 # vi: set ft=ruby :
 
-## Variables
 
-BOX_NAME = "djreg/small-ubuntu2204"
-BOX_VERSION = "1.1"
+## You must get the small-ubuntu2204.box before
 
+# 1- Using the S3 storage
+#ENV['AWS_PROFILE']='default'
+#ENV['AWS_ENDPOINT_URL']='https://s3-data.meso.umontpellier.fr'
+#BOX_PATH = "bibs6/djacob/boxes"
+#BOX_NAME = "djreg/small-ubuntu2204"
+#BOX_URL = "#{ENV['AWS_ENDPOINT_URL']}/#{BOX_PATH}/#{BOX_NAME}/metadata.json"
+
+# 2- Using the Google Drive
+BOX_NAME = "small-ubuntu2204"
+BOX_URL = "file://#{File.expand_path("builds/#{BOX_NAME}.box", __dir__)}"
+GOOGLEID = "1QM-BXuCwH_YFc20jgtNXMYVH4hsqs1DE"
+system("gdown -O ./builds/#{BOX_NAME}.box #{GOOGLEID}") unless File.exist?("./builds/#{BOX_NAME}.box")
+
+## Others Variables
 APP_NAME="ubuntu"
 VM_NAME="ubuntu2204"
 MY_IP="192.168.99.1"
@@ -23,7 +35,7 @@ end
 Vagrant.configure("2") do |config|
 
   config.vm.box = BOX_NAME
-  config.vm.box_version = BOX_VERSION
+  config.vm.box_url = BOX_URL
   config.vm.hostname = APP_NAME
 
   config.vm.network "private_network", ip: MY_IP
