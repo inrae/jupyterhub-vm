@@ -60,7 +60,7 @@ In particular, the plugin:
     pip3 install aws
     ```
 
-* Put the keys in **_$HOME/.aws/credentials_** (_/cygdrive/c/Users/\<user>_ on Windows/Cygwin) :
+* Put the keys in **_$HOME/.aws/credentials_** (_/cygdrive/c/Users/\<user>/credentials_ on Windows/Cygwin) :
 
     ```
     [default]
@@ -68,7 +68,7 @@ In particular, the plugin:
     aws_secret_access_key = ...
     ```
 
-* Put **_endpoint_** and **_region_** in **_$HOME/.aws/config_** (_/cygdrive/c/Users/\<user>_ on Windows/Cygwin) :
+* Put **_endpoint_** and **_region_** in **_$HOME/.aws/config_** (_/cygdrive/c/Users/\<user>/config_ on Windows/Cygwin) :
 
     ```
     [default]
@@ -387,8 +387,13 @@ The same approach can be used with other storage services. For example, the box 
 
 * Using **gdown**
 
+    install the Google tool  — written in _Python_ — as follows, if not yet installed :
     ```
-    gdown -O ./builds/small-ubuntu2204.box  1QM-BXuCwH_YFc20jgtNXMYVH4hsqs1DE
+    pip3 install gdown
+    ```
+    then :
+    ```
+    gdown -O ./builds/small-ubuntu2204.box 1QM-BXuCwH_YFc20jgtNXMYVH4hsqs1DE
     ```
 
     The -O option specifies the local destination of the downloaded .box file.
